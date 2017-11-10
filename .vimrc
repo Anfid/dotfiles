@@ -33,5 +33,4 @@ let g:ycm_autoclose_preview_window_after_completion=1
 map <C-Q> :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let python_highlight_all=1
 syntax on
-colorscheme zenburn
 map <C-T> :NERDTreeToggle<CR>
