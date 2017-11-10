@@ -19,6 +19,8 @@ filetype plugin indent on
 set ruler
 set showcmd
 set number
+noremap J <C-E>
+noremap K <C-Y>
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
