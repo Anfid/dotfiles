@@ -1,0 +1,8 @@
+set ruler
+set autoindent
+set showcmd
+filetype plugin indent on
+map \p i(<Esc>ea)<Esc>
+map \v i{{<Esc>ea}}<Esc>
+map \c i{% <Esc>ea %}<Esc>
+map <Tab> :set rnu!<Enter>
