@@ -6,3 +6,5 @@ map \p i(<Esc>ea)<Esc>
 map \v i{{<Esc>ea}}<Esc>
 map \c i{% <Esc>ea %}<Esc>
 map <Tab> :set rnu!<Enter>
+noremap J <C-E>
+noremap K <C-Y>
