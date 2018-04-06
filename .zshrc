@@ -1,13 +1,19 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
-  export ZSH=/home/anfid/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="clean" # clean edvardm theunraveler wezm
+
+# Set list of themes to load
+# Setting this variable when ZSH_THEME=random
+# cause zsh load theme from this variable instead of
+# looking in ~/.oh-my-zsh/themes/
+# An empty array have no effect
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -53,9 +59,11 @@ ZSH_THEME="clean" # clean edvardm theunraveler wezm
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
+source ~/.zshrclocal.sh
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+export TERM=xterm-256color
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -79,11 +87,9 @@ source $ZSH/oh-my-zsh.sh
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
 
-alias android-studio="/opt/android-studio/bin/studio.sh"
-alias clion="~/Programs/clion-2017.3.1/bin/clion.sh"
-alias tiled="~/Programs/tiled/AppRun &"
+# Aliases
+alias sd="shutdown"
+
+alias vimf="~/scripts/vimfind.sh"
+alias vimfind=vimf
