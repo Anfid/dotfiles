@@ -12,3 +12,4 @@ ln -s $DOTFILES_DIR/.zshrc $HOME/.zshrc
 if [[ -e $DOTFILES_DIR/.zshrclocal.sh ]]; then ln -s $DOTFILES_DIR/.zshrclocal.sh $HOME/.zshrclocal.sh; fi
 ln -s $DOTFILES_DIR/.vimrc $HOME/.vimrc
 ln -s $DOTFILES_DIR/.ideavimrc $HOME/.ideavimrc
+ln -s $DOTFILES_DIR/.scripts $HOME/.scripts

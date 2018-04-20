@@ -1,3 +1,3 @@
 #!/bin/bash
 
-vim `find . -type f -iname "$1" -print -quit`
+vim `find . -type f -iname "$*" -print -quit`
