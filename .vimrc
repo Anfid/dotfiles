@@ -1,5 +1,4 @@
 set nocompatible
-filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin('~/.vim/plugins/')
@@ -19,10 +18,14 @@ Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
 Plugin 'Raimondi/delimitMate'
 Plugin 'vimwiki/vimwiki'
-Plugin 'jnurmine/Zenburn'
 Plugin 'itchyny/lightline.vim'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'yggdroot/indentline'
+" colorschemes
+Plugin 'ajmwagar/vim-deus'         " deus
+Plugin 'isobit/vim-darcula-colors' " darcula
+Plugin 'jnurmine/Zenburn'          " zenburn
+Plugin 'fcpg/vim-farout'           " farout
 
 call vundle#end()
 filetype plugin indent on
@@ -31,18 +34,22 @@ if !has('gui_running')
     set t_Co=256
 endif
 
+set number
+colorscheme deus
+
+set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+
+set incsearch
+set autoread
+set virtualedit=block
+
 " Unbind keys
 "leader
 map <S-h> <Nop>
 "free
 map <S-l> <Nop>
 
-set number
-
-set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-
-set incsearch
-set autoread
+let mapleader = "H"
 
 " Scroll
 noremap J <C-E>
@@ -53,8 +60,6 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-
-let mapleader = "H"
 
 " Next and previous maps
 function! s:map(mode, lhs, rhs, ...) abort
@@ -145,6 +150,21 @@ nmap <silent> <Space> :TagbarOpenAutoClose<CR>
 " lightline
 set laststatus=2
 set noshowmode
+let g:lightline = {
+\   'colorscheme': 'deus',
+\   'active': {
+\     'right': [ [ 'time' ],
+\                [ 'lineinfo' ],
+\                [ 'percent' ],
+\                [ 'fileencoding', 'filetype' ] ]
+\   },
+\   'component_function': {
+\     'time': 'Time'
+\   }
+\ }
+function! Time()
+  return strftime('%l:%M%p')
+endfunction
 " cpp-highlight
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
