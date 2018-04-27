@@ -135,12 +135,14 @@ let g:ycm_key_list_stop_completion = ['<Enter>']
 syntax on
 " fuzzy
 let $FZF_DEFAULT_COMMAND = 'find . ""'
+command! -bang -nargs=* GrepFiles call fzf#vim#grep('grep -rnT --line-number --exclude-dir=.git/ --exclude=\\.tags '.shellescape(<q-args>), 0, <bang>0)
 nnoremap <silent> <C-f> :GFiles<CR>
+nnoremap <C-g> :GrepFiles<CR>
 " NERD Tree toggle
 map <silent> <C-T> :NERDTreeToggle<CR>
 " Jump to definition, return
-nnoremap <C-G> g<C-]>
-nnoremap <silent> <C-B> :pop<CR>
+nnoremap <C-j> g<C-]>
+nnoremap <silent> <C-k> :pop<CR>
 " fugitive
 " return on Backspace
 autocmd User fugitive
