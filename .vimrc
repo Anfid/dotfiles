@@ -1,16 +1,20 @@
 set nocompatible
 
 set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.fzf
 call vundle#begin('~/.vim/plugins/')
 
 " Plugins here
 Plugin 'gmarik/Vundle.vim'
 Bundle 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
+Plugin 'junegunn/fzf.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'xuyuanp/nerdtree-git-plugin'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fugitive'
+Plugin 'wellle/targets.vim'
+Plugin 'tommcdo/vim-exchange'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'pseewald/vim-anyfold'
 Plugin 'xolox/vim-misc'
@@ -19,8 +23,12 @@ Plugin 'majutsushi/tagbar'
 Plugin 'Raimondi/delimitMate'
 Plugin 'vimwiki/vimwiki'
 Plugin 'itchyny/lightline.vim'
+Plugin 'gcavallanti/vim-noscrollbar'
 Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'airblade/vim-gitgutter'
 Plugin 'yggdroot/indentline'
+Plugin 'haya14busa/vim-signjk-motion'
+
 " colorschemes
 Plugin 'ajmwagar/vim-deus'         " deus
 Plugin 'isobit/vim-darcula-colors' " darcula
@@ -29,6 +37,9 @@ Plugin 'fcpg/vim-farout'           " farout
 
 call vundle#end()
 filetype plugin indent on
+
+set exrc
+set secure
 
 if !has('gui_running')
     set t_Co=256
@@ -122,6 +133,10 @@ let g:ycm_autoclose_preview_window_after_completion=1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_key_list_stop_completion = ['<Enter>']
 syntax on
+" fuzzy
+let $FZF_DEFAULT_COMMAND = 'find . ""'
+nnoremap <silent> <C-f> :GFiles<CR>
+" NERD Tree toggle
 map <silent> <C-T> :NERDTreeToggle<CR>
 " Jump to definition, return
 nnoremap <C-G> g<C-]>
@@ -133,13 +148,9 @@ autocmd User fugitive
  \   nnoremap <buffer> <BS> :edit %:h<CR> |
  \ endif
 " easytags
-"set tags=./tags;
-"TODO: this is SO MUCH temp solution, fix asap
-set tags=./.tags;,../../SoftTNA-master/src/.tags
-let g:easytags_auto_update = 0
+set tags=./tags;
 let g:easytags_dynamic_files = 1
 let g:easytags_include_members = 1
-let g:easytags_auto_highlight = 0
 " anyfold
 let anyfold_activate=1
 set foldlevel=10
@@ -155,22 +166,32 @@ let g:lightline = {
 \   'active': {
 \     'right': [ [ 'time' ],
 \                [ 'lineinfo' ],
-\                [ 'percent' ],
-\                [ 'fileencoding', 'filetype' ] ]
+\                [ 'noscrollbar' ],
+\                [ 'filetype'] ]
 \   },
 \   'component_function': {
-\     'time': 'Time'
+\     'time': 'Time',
+\     'noscrollbar': 'Noscrollbar'
 \   }
 \ }
 function! Time()
   return strftime('%l:%M%p')
+endfunction
+function! Noscrollbar()
+  return noscrollbar#statusline(40, '-', '#')
 endfunction
 " cpp-highlight
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
 let g:cpp_experimental_simple_template_highlight = 1
+" gitgutter
+nnoremap <Leader>gh :GitGutterLineHighlightsToggle<CR>
 " indentline
 let g:indentLine_fileType = ['h', 'hh', 'hpp', 'c', 'cc', 'cpp']
 let g:indentLine_setColors=0
 let g:indentLine_char='¦'
+
+" jk-motion
+map <Leader>j <Plug>(signjk-j)
+map <Leader>k <Plug>(signjk-k)

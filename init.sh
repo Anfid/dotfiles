@@ -13,3 +13,6 @@ if [[ -e $DOTFILES_DIR/.zshrclocal.sh ]]; then ln -s $DOTFILES_DIR/.zshrclocal.s
 ln -s $DOTFILES_DIR/.vimrc $HOME/.vimrc
 ln -s $DOTFILES_DIR/.ideavimrc $HOME/.ideavimrc
 ln -s $DOTFILES_DIR/.scripts $HOME/.scripts
+
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
