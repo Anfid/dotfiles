@@ -13,6 +13,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'xuyuanp/nerdtree-git-plugin'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fugitive'
+Plugin 'gregsexton/gitv'
 Plugin 'wellle/targets.vim'
 Plugin 'tommcdo/vim-exchange'
 Plugin 'scrooloose/nerdcommenter'
@@ -22,12 +23,15 @@ Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
 Plugin 'Raimondi/delimitMate'
 Plugin 'vimwiki/vimwiki'
+Plugin 'mhinz/vim-startify'
 Plugin 'itchyny/lightline.vim'
 Plugin 'gcavallanti/vim-noscrollbar'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'yggdroot/indentline'
 Plugin 'haya14busa/vim-signjk-motion'
+Plugin 'artnez/vim-wipeout'
+Plugin 'bogado/file-line'
 
 " colorschemes
 Plugin 'ajmwagar/vim-deus'         " deus
@@ -67,8 +71,6 @@ noremap J <C-E>
 noremap K <C-Y>
 
 " Cross-tab navigation
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
@@ -144,6 +146,9 @@ map <silent> <C-T> :NERDTreeToggle<CR>
 nnoremap <C-j> g<C-]>
 nnoremap <silent> <C-k> :pop<CR>
 " fugitive
+nnoremap <silent> <Leader>gb :Gblame<CR>
+nnoremap <silent> <Leader>gs :Gstatus<CR>
+nnoremap <silent> <Leader>gd :Gdiff<CR>
 " return on Backspace
 autocmd User fugitive
  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
@@ -160,6 +165,10 @@ set foldlevel=10
 let g:tagbar_zoomwidth = 0
 let g:tagbar_sort = 0
 nmap <silent> <Space> :TagbarOpenAutoClose<CR>
+" startify
+let g:startify_change_to_dir = 0
+nmap <Leader>ss :SSave 
+nmap <Leader>sd :SDelete 
 " lightline
 set laststatus=2
 set noshowmode
