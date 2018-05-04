@@ -29,12 +29,13 @@ Plugin 'gcavallanti/vim-noscrollbar'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'yggdroot/indentline'
-Plugin 'haya14busa/vim-signjk-motion'
 Plugin 'artnez/vim-wipeout'
 Plugin 'bogado/file-line'
 
 " colorschemes
 Plugin 'ajmwagar/vim-deus'         " deus
+Plugin 'morhetz/gruvbox'
+Plugin 'romainl/flattened'
 Plugin 'isobit/vim-darcula-colors' " darcula
 Plugin 'jnurmine/Zenburn'          " zenburn
 Plugin 'fcpg/vim-farout'           " farout
@@ -45,12 +46,13 @@ filetype plugin indent on
 set exrc
 set secure
 
-if !has('gui_running')
-    set t_Co=256
+if !has('nvim')
+    if !has('gui_running')
+        set t_Co=256
+    endif
 endif
 
 set number
-colorscheme deus
 
 set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 
@@ -71,8 +73,10 @@ noremap J <C-E>
 noremap K <C-Y>
 
 " Cross-tab navigation
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+nnoremap <A-h> <C-W>h
+nnoremap <A-j> <C-W>j
+nnoremap <A-k> <C-W>k
+nnoremap <A-l> <C-W>l
 
 " Next and previous maps
 function! s:map(mode, lhs, rhs, ...) abort
@@ -141,7 +145,7 @@ command! -bang -nargs=* GrepFiles call fzf#vim#grep('grep -rnT --line-number --e
 nnoremap <silent> <C-f> :GFiles<CR>
 nnoremap <C-g> :GrepFiles<CR>
 " NERD Tree toggle
-map <silent> <C-T> :NERDTreeToggle<CR>
+nnoremap <silent> <C-T> :NERDTreeToggle<CR>
 " Jump to definition, return
 nnoremap <C-j> g<C-]>
 nnoremap <silent> <C-k> :pop<CR>
@@ -168,12 +172,13 @@ nmap <silent> <Space> :TagbarOpenAutoClose<CR>
 " startify
 let g:startify_change_to_dir = 0
 nmap <Leader>ss :SSave 
+nmap <Leader>sl :SLoad<CR>
 nmap <Leader>sd :SDelete 
 " lightline
 set laststatus=2
 set noshowmode
 let g:lightline = {
-\   'colorscheme': 'deus',
+\   'colorscheme': 'gruvbox',
 \   'active': {
 \     'right': [ [ 'time' ],
 \                [ 'lineinfo' ],
@@ -203,6 +208,8 @@ let g:indentLine_fileType = ['h', 'hh', 'hpp', 'c', 'cc', 'cpp']
 let g:indentLine_setColors=0
 let g:indentLine_char='¦'
 
-" jk-motion
-map <Leader>j <Plug>(signjk-j)
-map <Leader>k <Plug>(signjk-k)
+" colorscheme
+colorscheme gruvbox
+set background=dark
+call gruvbox#hls_hide()
+nnoremap <silent> <Leader>hs :call gruvbox#hls_toggle()<CR>
