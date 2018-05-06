@@ -94,3 +94,5 @@ alias sd="shutdown"
 alias vimf="~/.scripts/vimfind.sh"
 alias vimfind=vimf
 alias showlines="~/.scripts/showLines.sh" # Usage: showlines <file> <line> [line delta = 10]
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
