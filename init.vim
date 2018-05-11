@@ -29,14 +29,11 @@ Plugin 'gcavallanti/vim-noscrollbar'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'yggdroot/indentline'
-Plugin 'artnez/vim-wipeout'
 Plugin 'bogado/file-line'
 
 " colorschemes
 Plugin 'ajmwagar/vim-deus'         " deus
 Plugin 'morhetz/gruvbox'           " gruvbox
-Plugin 'romainl/flattened'         " flattened
-Plugin 'isobit/vim-darcula-colors' " darcula
 Plugin 'jnurmine/Zenburn'          " zenburn
 Plugin 'fcpg/vim-farout'           " farout
 
@@ -59,6 +56,9 @@ set hidden
 
 set guicursor=
 set termguicolors
+
+set splitright
+set splitbelow
 
 
 
@@ -144,12 +144,13 @@ nnoremap \a bi<<Esc>Ea><Esc>
 
 nnoremap <silent> <Tab> :set relativenumber!<Enter>
 
+nnoremap <silent> <C-t> :split<CR>:terminal<CR>:resize 10<CR>
 
 
 " ------------------ Plugin setups ------------------
 
 " CtrlSpace
-nnoremap <silent> <C-Space> :CtrlSpace<CR>
+nnoremap <silent> <Space> :CtrlSpace<CR>
 let g:CtrlSpaceGlobCommand = 'ag -l --hidden --nocolor -g ""'
 
 " YCM
@@ -166,7 +167,7 @@ nnoremap <silent> <C-f> :GFiles<CR>
 nnoremap <C-g> :GrepFiles<CR>
 
 " NERD Tree
-nnoremap <silent> <C-T> :NERDTreeToggle<CR>
+nnoremap <silent> <Leader>t :NERDTreeToggle<CR>
 
 " Tags
 nnoremap <C-j> g<C-]>
@@ -194,22 +195,16 @@ set foldlevel=10
 " Tagbar
 let g:tagbar_zoomwidth = 0
 let g:tagbar_sort = 0
-nmap <silent> <Space> :TagbarOpenAutoClose<CR>
-
-" startify
-let g:startify_change_to_dir = 0
-nmap <Leader>ss :SSave 
-nmap <Leader>sl :SLoad<CR>
-nmap <Leader>sd :SDelete 
+nmap <silent> <Leader><Space> :TagbarOpenAutoClose<CR>
 
 " airline
 let g:airline_powerline_fonts = 1
 let g:airline_exclude_preview = 1
 function! Noscrollbar(...)
-  let w:airline_section_z = '%{noscrollbar#statusline(40, "-", "#")}'
+  let w:airline_section_y = '%{noscrollbar#statusline(40, "-", "#")}'
 endfunction
 function! Time(...)
-  let w:airline_section_y = '%{strftime("%l:%M%p")}'
+  let w:airline_section_z = '%{strftime("%l:%M%p")}'
 endfunction
 call airline#add_statusline_func('Noscrollbar')
 call airline#add_statusline_func('Time')

@@ -7,7 +7,7 @@ DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 cd $DOTFILES_DIR && git pull
 sed -i '/*\/local\/*/d' ./.git/info/exclude
-echo "*/local/*" >> .git/info/exclude
+echo "*local/*" >> .git/info/exclude
 git update-index --skip-worktree .zshrclocal.sh
 
 ln -s $DOTFILES_DIR/.zshrc $HOME/.zshrc
@@ -22,6 +22,8 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.config/nvim/bundle/Vund
 
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
+
+sudo apt-get install -y silversearcher-ag
 
 sudo apt-get install -y software-properties-common python-dev python-pip python3-dev python3-pip
 sudo add-apt-repository -y ppa:neovim-ppa/stable
