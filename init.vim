@@ -58,8 +58,7 @@ set guicursor=
 set termguicolors
 
 set splitright
-set splitbelow
-
+set nosplitbelow
 
 
 " ------------------ Key remaps ------------------
@@ -75,7 +74,7 @@ let mapleader = "H"
 noremap J <C-E>
 noremap K <C-Y>
 
-" Cross-tab navigation
+" Window navigation
 nnoremap <A-h> <C-W>h
 nnoremap <A-j> <C-W>j
 nnoremap <A-k> <C-W>k
@@ -88,6 +87,8 @@ inoremap <A-h> <C-\><C-N><C-w>h
 inoremap <A-j> <C-\><C-N><C-w>j
 inoremap <A-k> <C-\><C-N><C-w>k
 inoremap <A-l> <C-\><C-N><C-w>l
+
+nnoremap <silent> <C-w>r :resize<CR>
 
 " Next and previous maps (see unimpaired.vim)
 function! s:map(mode, lhs, rhs, ...) abort
@@ -144,7 +145,7 @@ nnoremap \a bi<<Esc>Ea><Esc>
 
 nnoremap <silent> <Tab> :set relativenumber!<Enter>
 
-nnoremap <silent> <C-t> :split<CR>:terminal<CR>:resize 10<CR>
+nnoremap <silent> <C-t> :below 10split +term<CR>
 
 
 " ------------------ Plugin setups ------------------
