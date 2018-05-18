@@ -57,6 +57,9 @@ set hidden
 set guicursor=
 set termguicolors
 
+set conceallevel=2
+set concealcursor=n
+
 set splitright
 set nosplitbelow
 
@@ -89,6 +92,9 @@ inoremap <A-k> <C-\><C-N><C-w>k
 inoremap <A-l> <C-\><C-N><C-w>l
 
 nnoremap <silent> <C-w>r :resize<CR>
+tnoremap <silent> <C-w>r <C-\><C-n>:resize<CR>a
+
+nnoremap <silent> <C-t> :below 10split +term<CR>a
 
 " Next and previous maps (see unimpaired.vim)
 function! s:map(mode, lhs, rhs, ...) abort
@@ -145,8 +151,6 @@ nnoremap \a bi<<Esc>Ea><Esc>
 
 nnoremap <silent> <Tab> :set relativenumber!<Enter>
 
-nnoremap <silent> <C-t> :below 10split +term<CR>
-
 
 " ------------------ Plugin setups ------------------
 
@@ -155,16 +159,15 @@ nnoremap <silent> <Space> :CtrlSpace<CR>
 let g:CtrlSpaceGlobCommand = 'ag -l --hidden --nocolor -g ""'
 
 " YCM
-let g:ycm_log_level = 'error'
 let g:ycm_autoclose_preview_window_after_completion=1
-let g:ycm_collect_identifiers_from_tags_files = 1
+"let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_key_list_stop_completion = ['<Enter>']
 syntax on
 
 " fuzzy
-let $FZF_DEFAULT_COMMAND = 'find . ""'
-command! -bang -nargs=* GrepFiles call fzf#vim#grep('grep -rnT --line-number --exclude-dir=.git/ --exclude=\\.tags '.shellescape(<q-args>), 0, <bang>0)
-nnoremap <silent> <C-f> :GFiles<CR>
+let $FZF_DEFAULT_COMMAND = 'find -L . ""'
+command! -bang -nargs=* GrepFiles call fzf#vim#grep('grep -RnT --line-number --exclude-dir=.git/ --exclude=\\.tags '.shellescape(<q-args>), 0, <bang>0)
+nnoremap <silent> <C-f> :Files<CR>
 nnoremap <C-g> :GrepFiles<CR>
 
 " NERD Tree
@@ -185,9 +188,13 @@ autocmd User fugitive
  \ endif
 
 " easytags
-set tags=./tags;
+set tags=./.tags;
+let g:easytags_file = './.tags'
 let g:easytags_dynamic_files = 1
 let g:easytags_include_members = 1
+let g:easytags_auto_highlight = 0
+let g:easytags_resolve_links = 1
+let g:easytags_async=1
 
 " anyfold
 let anyfold_activate=1

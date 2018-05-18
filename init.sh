@@ -7,7 +7,7 @@ DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 cd $DOTFILES_DIR && git pull
 sed -i '/*\/local\/*/d' ./.git/info/exclude
-echo "*local/*" >> .git/info/exclude
+echo "*/local/*" >> .git/info/exclude
 git update-index --skip-worktree .zshrclocal.sh
 
 ln -s $DOTFILES_DIR/.zshrc $HOME/.zshrc
