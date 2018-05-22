@@ -56,7 +56,6 @@ set mouse=a
 set number
 
 set tabstop=4 softtabstop=4 shiftwidth=4 expandtab nowrap
-autocmd FileType vimwiki setlocal tabstop=3 softtabstop=3 shiftwidth=3 expandtab wrap
 
 set incsearch
 set autoread
@@ -251,6 +250,12 @@ nnoremap <Leader>gh :GitGutterLineHighlightsToggle<CR>
 let g:indentLine_fileType = ['h', 'hh', 'hpp', 'c', 'cc', 'cpp']
 let g:indentLine_setColors=0
 let g:indentLine_char='¦'
+
+" vimwiki
+autocmd FileType vimwiki setlocal tabstop=3 softtabstop=3 shiftwidth=3 expandtab wrap
+autocmd FileType vimwiki nmap <buffer> <2-LeftMouse> <CR>
+autocmd FileType vimwiki nmap <buffer> <RightMouse> <BS>
+autocmd FileType vimwiki nmap <buffer> <MiddleMouse> <LeftMouse><C-Space>
 
 " colorscheme
 colorscheme gruvbox
