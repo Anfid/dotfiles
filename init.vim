@@ -15,6 +15,7 @@ Plugin 'xuyuanp/nerdtree-git-plugin'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fugitive'
 Plugin 'gregsexton/gitv'
+Plugin 'sjl/gundo.vim'
 Plugin 'wellle/targets.vim'
 Plugin 'tommcdo/vim-exchange'
 Plugin 'scrooloose/nerdcommenter'
@@ -45,9 +46,12 @@ filetype plugin indent on
 set exrc
 set secure
 
+set mouse=a
+
 set number
 
-set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+set tabstop=4 softtabstop=4 shiftwidth=4 expandtab nowrap
+autocmd FileType vimwiki setlocal tabstop=3 softtabstop=3 shiftwidth=3 expandtab wrap
 
 set incsearch
 set autoread
@@ -76,6 +80,8 @@ let mapleader = "H"
 " Scroll
 noremap J <C-E>
 noremap K <C-Y>
+map <ScrollWheelUp> 2<C-Y>
+map <ScrollWheelDown> 2<C-E>
 
 " Window navigation
 nnoremap <A-h> <C-W>h
@@ -175,6 +181,7 @@ nnoremap <silent> <Leader>t :NERDTreeToggle<CR>
 
 " Tags
 nnoremap <C-j> g<C-]>
+nnoremap <2-LeftMouse> g<C-]>
 nnoremap <silent> <C-k> :pop<CR>
 
 " fugitive
@@ -186,6 +193,14 @@ autocmd User fugitive
  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
  \   nnoremap <buffer> <BS> :edit %:h<CR> |
  \ endif
+
+" Gundo
+nnoremap <silent> <Leader>u :GundoToggle<CR>
+let g:gundo_width=25
+let g:gundo_preview_bottom=1
+let g:gundo_preview_height=10
+let g:gundo_help=0
+let g:gundo_close_on_revert=1
 
 " easytags
 set tags=./.tags;
