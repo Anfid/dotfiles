@@ -7,7 +7,6 @@ call vundle#begin('~/.config/nvim/plugins/')
 " Plugins
 Plugin 'gmarik/Vundle.vim'
 Plugin 'vim-ctrlspace/vim-ctrlspace'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
 Plugin 'junegunn/fzf.vim'
 Plugin 'scrooloose/nerdtree'
@@ -31,6 +30,12 @@ Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'yggdroot/indentline'
 Plugin 'bogado/file-line'
+
+Plugin 'roxma/nvim-completion-manager'
+Plugin 'rust-lang/rust.vim'
+Plugin 'racer-rust/vim-racer'
+Plugin 'roxma/nvim-cm-racer'
+Plugin 'roxma/ncm-clang'
 
 " colorschemes
 Plugin 'ajmwagar/vim-deus'         " deus
@@ -66,6 +71,8 @@ set concealcursor=n
 
 set splitright
 set nosplitbelow
+
+syntax on
 
 
 " ------------------ Key remaps ------------------
@@ -164,11 +171,10 @@ nnoremap <silent> <Tab> :set relativenumber!<Enter>
 nnoremap <silent> <Space> :CtrlSpace<CR>
 let g:CtrlSpaceGlobCommand = 'ag -l --hidden --nocolor -g ""'
 
-" YCM
-let g:ycm_autoclose_preview_window_after_completion=1
-"let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_key_list_stop_completion = ['<Enter>']
-syntax on
+" nvim-completion-manager
+let g:racer_experimental_completer = 1
+inoremap <expr> <Tab> pumvisible()? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-tab> pumvisible()? "\<C-p>" : "\<S-Tab>"
 
 " fuzzy
 let $FZF_DEFAULT_COMMAND = 'find -L . ""'
