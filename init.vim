@@ -9,11 +9,8 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'vim-ctrlspace/vim-ctrlspace'
 Plugin 'scrooloose/syntastic'
 Plugin 'junegunn/fzf.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'xuyuanp/nerdtree-git-plugin'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fugitive'
-Plugin 'gregsexton/gitv'
 Plugin 'sjl/gundo.vim'
 Plugin 'wellle/targets.vim'
 Plugin 'tommcdo/vim-exchange'
@@ -103,10 +100,10 @@ inoremap <A-j> <C-\><C-N><C-w>j
 inoremap <A-k> <C-\><C-N><C-w>k
 inoremap <A-l> <C-\><C-N><C-w>l
 
-nnoremap <silent> <C-w>r :resize<CR>
+nnoremap <silent> <C-w>r :resize <Bar> vertical resize<CR>
 tnoremap <silent> <C-w>r <C-\><C-n>:resize<CR>a
 
-nnoremap <silent> <C-t> :below 10split +term<CR>a
+nnoremap <silent> <C-t> :below 10split term://zsh<CR>a
 
 " Next and previous maps (see unimpaired.vim)
 function! s:map(mode, lhs, rhs, ...) abort
@@ -177,22 +174,21 @@ inoremap <expr> <S-tab> pumvisible()? "\<C-p>" : "\<S-Tab>"
 
 " fuzzy
 let $FZF_DEFAULT_COMMAND = 'find -L . ""'
-command! -bang -nargs=* GrepFiles call fzf#vim#grep('grep -RnT --line-number --exclude-dir=.git/ --exclude=\\.tags '.shellescape(<q-args>), 0, <bang>0)
+command! -bang -nargs=* GrepFiles call fzf#vim#grep('grep -RnT --color=always --line-number --exclude-dir=.git/ --exclude=\\.tags '.shellescape(<q-args>), 0, <bang>0)
 nnoremap <silent> <C-f> :Files<CR>
-nnoremap <C-g> :GrepFiles<CR>
-
-" NERD Tree
-nnoremap <silent> <Leader>t :NERDTreeToggle<CR>
+nnoremap <silent> <C-g> :GrepFiles<CR>
 
 " Tags
 nnoremap <C-j> g<C-]>
 nnoremap <2-LeftMouse> g<C-]>
 nnoremap <silent> <C-k> :pop<CR>
 
-" fugitive
+" git
 nnoremap <silent> <Leader>gb :Gblame<CR>
 nnoremap <silent> <Leader>gs :Gstatus<CR>
 nnoremap <silent> <Leader>gd :Gdiff<CR>
+nnoremap <silent> <Leader>gc :Commits<CR>
+nnoremap <silent> <Leader>gf :BCommits<CR>
 " return on Backspace
 autocmd User fugitive
  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
