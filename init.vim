@@ -51,6 +51,7 @@ set secure
 set mouse=a
 
 set number
+set noshowmode
 
 set tabstop=4 softtabstop=4 shiftwidth=4 expandtab nowrap
 
@@ -75,9 +76,9 @@ syntax on
 
 " Free keys
 map <S-l> <Nop>
+map <S-h> <Nop>
 
 " leader
-map <S-h> <Nop>
 let mapleader = "H"
 
 " Scroll
@@ -99,6 +100,11 @@ inoremap <A-h> <C-\><C-N><C-w>h
 inoremap <A-j> <C-\><C-N><C-w>j
 inoremap <A-k> <C-\><C-N><C-w>k
 inoremap <A-l> <C-\><C-N><C-w>l
+
+nnoremap <A-i> Bi
+nnoremap <A-a> Ea
+
+inoremap {<CR> {<CR>}<Esc>O
 
 nnoremap <silent> <C-w>r :resize <Bar> vertical resize<CR>
 tnoremap <silent> <C-w>r <C-\><C-n>:resize<CR>a
@@ -165,7 +171,9 @@ nnoremap <silent> <Tab> :set relativenumber!<Enter>
 
 " CtrlSpace
 nnoremap <silent> <Space> :CtrlSpace<CR>
-let g:CtrlSpaceGlobCommand = 'ag -l --hidden --nocolor -g ""'
+let g:CtrlSpaceUseMouseAndArrowsInTerm = 1
+let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
+let g:CtrlSpaceGlobCommand = 'ag -l -f --hidden --nocolor -g ""'
 
 " nvim-completion-manager
 let g:racer_experimental_completer = 1
@@ -177,6 +185,27 @@ let $FZF_DEFAULT_COMMAND = 'find -L . ""'
 command! -bang -nargs=* GrepFiles call fzf#vim#grep('grep -RnT --color=always --line-number --exclude-dir=.git/ --exclude=\\.tags '.shellescape(<q-args>), 0, <bang>0)
 nnoremap <silent> <C-f> :Files<CR>
 nnoremap <silent> <C-g> :GrepFiles<CR>
+
+let g:fzf_buffers_jump = 1
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0
+  \| autocmd BufLeave <buffer> set laststatus=2
+
 
 " Tags
 nnoremap <C-j> g<C-]>
@@ -213,7 +242,7 @@ let g:easytags_resolve_links = 1
 let g:easytags_async=1
 
 " anyfold
-let anyfold_activate=1
+let g:anyfold_activate=1
 set foldlevel=10
 
 " Tagbar
