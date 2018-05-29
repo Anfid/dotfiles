@@ -7,7 +7,7 @@ call vundle#begin('~/.config/nvim/plugins/')
 " Plugins
 Plugin 'gmarik/Vundle.vim'
 Plugin 'vim-ctrlspace/vim-ctrlspace'
-Plugin 'scrooloose/syntastic'
+Plugin 'w0rp/ale'
 Plugin 'junegunn/fzf.vim'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fugitive'
@@ -60,6 +60,9 @@ set autoread
 set virtualedit=block
 set hidden
 
+set wildmenu
+set wildmode=list:longest,full
+
 set guicursor=
 set termguicolors
 
@@ -103,8 +106,6 @@ inoremap <A-l> <C-\><C-N><C-w>l
 
 nnoremap <A-i> Bi
 nnoremap <A-a> Ea
-
-inoremap {<CR> {<CR>}<Esc>O
 
 nnoremap <silent> <C-w>r :resize <Bar> vertical resize<CR>
 tnoremap <silent> <C-w>r <C-\><C-n>:resize<CR>a
@@ -175,12 +176,22 @@ let g:CtrlSpaceUseMouseAndArrowsInTerm = 1
 let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
 let g:CtrlSpaceGlobCommand = 'ag -l -f --hidden --nocolor -g ""'
 
+" ALE
+let g:ale_linters = {'cpp': ['clang', 'cppcheck']}
+let g:ale_sign_error = "✗"
+let g:ale_sign_warning = "⚠"
+let g:ale_sign_info = "ℹ"
+let g:ale_sign_style_error = "✗"
+let g:ale_sign_style_warning = "⚠"
+
 " nvim-completion-manager
 let g:racer_experimental_completer = 1
 inoremap <expr> <Tab> pumvisible()? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-tab> pumvisible()? "\<C-p>" : "\<S-Tab>"
 
 " fuzzy
+"'rg -L --hidden -n -p -S -e ""'
+"''
 let $FZF_DEFAULT_COMMAND = 'find -L . ""'
 command! -bang -nargs=* GrepFiles call fzf#vim#grep('grep -RnT --color=always --line-number --exclude-dir=.git/ --exclude=\\.tags '.shellescape(<q-args>), 0, <bang>0)
 nnoremap <silent> <C-f> :Files<CR>
@@ -213,6 +224,7 @@ nnoremap <2-LeftMouse> g<C-]>
 nnoremap <silent> <C-k> :pop<CR>
 
 " git
+set diffopt+=vertical
 nnoremap <silent> <Leader>gb :Gblame<CR>
 nnoremap <silent> <Leader>gs :Gstatus<CR>
 nnoremap <silent> <Leader>gd :Gdiff<CR>
@@ -250,11 +262,18 @@ let g:tagbar_zoomwidth = 0
 let g:tagbar_sort = 0
 nmap <silent> <Leader><Space> :TagbarOpenAutoClose<CR>
 
+" delimitMate
+let delimitMate_expand_cr = 2
+let delimitMate_expand_space = 1
+let delimitMate_jump_expansion = 1
+let delimitMate_balance_matchpairs = 1
+let delimitMate_excluded_regions = "String"
+
 " airline
 let g:airline_powerline_fonts = 1
 let g:airline_exclude_preview = 1
 function! Noscrollbar(...)
-  let w:airline_section_y = '%{noscrollbar#statusline(40, "-", "#")}'
+  let w:airline_section_y = "%{noscrollbar#statusline(20,' ','█',['▐'],['▌'])}"
 endfunction
 function! Time(...)
   let w:airline_section_z = '%{strftime("%l:%M%p")}'
@@ -281,6 +300,8 @@ autocmd FileType vimwiki setlocal tabstop=3 softtabstop=3 shiftwidth=3 expandtab
 autocmd FileType vimwiki nmap <buffer> <2-LeftMouse> <CR>
 autocmd FileType vimwiki nmap <buffer> <RightMouse> <BS>
 autocmd FileType vimwiki nmap <buffer> <MiddleMouse> <LeftMouse><C-Space>
+autocmd FileType vimwiki let b:delimitMate_quotes = "\" ' ` ="
+autocmd FileType vimwiki let b:delimitMate_nesting_quotes = ['=']
 
 " colorscheme
 colorscheme gruvbox
