@@ -308,3 +308,18 @@ colorscheme gruvbox
 set background=dark
 call gruvbox#hls_hide()
 nnoremap <silent> <Leader>hs :call gruvbox#hls_toggle()<CR>
+
+" ------------------ Project-specific reminder ------------------
+" ------------- cpp -------------
+" Following options may need to be changed from default on some projects.
+" Add them to project's root directory
+"
+" Set include path with -I flag. Eg:
+"let g:ale_cpp_clang_options = '-std=c++14 -Wall -I /home/anfid/Documents/dotfiles/'
+" Assigning value with += seems to break something.
+"
+" Prooved useful setting abs path to tags instead of relative
+"set tags=/abs/path/to/.tags
+"
+" Set proper ALE linters. Defaults:
+"let g:ale_linters = {'cpp': ['clang', 'cppcheck']}
