@@ -322,4 +322,16 @@ nnoremap <silent> <Leader>hs :call gruvbox#hls_toggle()<CR>
 "set tags=/abs/path/to/.tags
 "
 " Set proper ALE linters. Defaults:
-"let g:ale_linters = {'cpp': ['clang', 'cppcheck']}
+"let g:ale_linters = {'cpp': ['clang', 'cppcheck']} (See help for options)
+"
+" Cppcheck setup:
+"let g:ale_cpp_cppcheck_options = '<>'
+"    -j2 (use 2 jobs, balance performance and resources)
+"    --enable='<>,<>' (enable following messages)
+"        error (on by default)
+"        performance,portability,warning,style (self explanatory)
+"        unusedFunction (do not use in libraries)
+"    --inconclusive (More warnings. May result in false warnings)
+"    --project=<compile_commands.json | *.vsxproj | *.sln>
+"    ( Use the following flag with cmake to generate compile_commands.json
+"      -DCMAKE_EXPORT_COMPILE_COMMANDS=ON )
