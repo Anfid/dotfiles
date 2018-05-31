@@ -56,14 +56,16 @@ set noshowmode
 set tabstop=4 softtabstop=4 shiftwidth=4 expandtab nowrap
 
 set incsearch
+set ignorecase
+set smartcase
+
 set autoread
 set virtualedit=block
 set hidden
 
 set wildmenu
-set wildmode=list:longest,full
+set wildmode=longest,list:full
 
-set guicursor=
 set termguicolors
 
 set conceallevel=2
@@ -73,6 +75,8 @@ set splitright
 set nosplitbelow
 
 syntax on
+
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=2
 
 
 " ------------------ Key remaps ------------------
@@ -95,17 +99,43 @@ nnoremap <A-h> <C-W>h
 nnoremap <A-j> <C-W>j
 nnoremap <A-k> <C-W>k
 nnoremap <A-l> <C-W>l
-tnoremap <A-h> <C-\><C-N><C-w>h
-tnoremap <A-j> <C-\><C-N><C-w>j
-tnoremap <A-k> <C-\><C-N><C-w>k
-tnoremap <A-l> <C-\><C-N><C-w>l
 inoremap <A-h> <C-\><C-N><C-w>h
 inoremap <A-j> <C-\><C-N><C-w>j
 inoremap <A-k> <C-\><C-N><C-w>k
 inoremap <A-l> <C-\><C-N><C-w>l
+tnoremap <A-h> <C-\><C-N><C-w>h
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+tnoremap <A-l> <C-\><C-N><C-w>l
 
-nnoremap <A-i> Bi
-nnoremap <A-a> Ea
+vnoremap > >gv
+vnoremap < <gv
+
+" Normal mode navigation
+nnoremap <C-h> ^
+nnoremap <C-l> $
+
+" Insert mode navigation
+inoremap <C-n> <Esc>o
+inoremap <C-p> <Esc>O
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+inoremap <C-d> <Del>
+inoremap <C-b> <Backspace>
+
+" Command mode navigation
+cnoremap <C-j> <Down>
+cnoremap <C-k> <Up>
+cnoremap <C-h> <Left>
+cnoremap <C-l> <Right>
+cnoremap <C-d> <Del>
+cnoremap <C-b> <Backspace>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+
+nnoremap Y y$
 
 nnoremap <silent> <C-w>r :resize <Bar> vertical resize<CR>
 tnoremap <silent> <C-w>r <C-\><C-n>:resize<CR>a
@@ -334,4 +364,6 @@ nnoremap <silent> <Leader>hs :call gruvbox#hls_toggle()<CR>
 "    --inconclusive (More warnings. May result in false warnings)
 "    --project=<compile_commands.json | *.vsxproj | *.sln>
 "    ( Use the following flag with cmake to generate compile_commands.json
-"      -DCMAKE_EXPORT_COMPILE_COMMANDS=ON )
+"      -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+"      or put next line in CMakeLists.txt
+"      set(CMAKE_EXPORT_COMPILE_COMMANDS ON) )
