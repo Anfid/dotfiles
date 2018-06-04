@@ -23,6 +23,7 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'vimwiki/vimwiki'
 Plugin 'vim-airline/vim-airline'
 Plugin 'gcavallanti/vim-noscrollbar'
+Plugin 'fisadev/FixedTaskList.vim'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'yggdroot/indentline'
@@ -84,9 +85,10 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=2
 " Free keys
 map <S-l> <Nop>
 map <S-h> <Nop>
+map <Space> <Nop>
 
 " leader
-let mapleader = "H"
+let mapleader = " "
 
 " Scroll
 noremap J <C-E>
@@ -112,8 +114,8 @@ vnoremap > >gv
 vnoremap < <gv
 
 " Normal mode navigation
-nnoremap <C-h> ^
-nnoremap <C-l> $
+nnoremap H ^
+nnoremap L $
 
 " Insert mode navigation
 inoremap <C-n> <Esc>o
@@ -201,7 +203,7 @@ nnoremap <silent> <Tab> :set relativenumber!<Enter>
 " ------------------ Plugin setups ------------------
 
 " CtrlSpace
-nnoremap <silent> <Space> :CtrlSpace<CR>
+nnoremap <silent> <Leader><Space> :CtrlSpace<CR>
 let g:CtrlSpaceUseMouseAndArrowsInTerm = 1
 let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
 let g:CtrlSpaceGlobCommand = 'ag -l -f --hidden --nocolor -g ""'
@@ -215,9 +217,11 @@ let g:ale_sign_style_error = "✗"
 let g:ale_sign_style_warning = "⚠"
 
 " nvim-completion-manager
+let g:cm_matcher = {'module': 'cm_matchers.abbrev_matcher', 'case': 'smartcase'}
 let g:racer_experimental_completer = 1
 inoremap <expr> <Tab> pumvisible()? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-tab> pumvisible()? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>" : "\<CR>")
 
 " fuzzy
 "'rg -L --hidden -n -p -S -e ""'
@@ -226,6 +230,10 @@ let $FZF_DEFAULT_COMMAND = 'find -L . ""'
 command! -bang -nargs=* GrepFiles call fzf#vim#grep('grep -RnT --color=always --line-number --exclude-dir=.git/ --exclude=\\.tags '.shellescape(<q-args>), 0, <bang>0)
 nnoremap <silent> <C-f> :Files<CR>
 nnoremap <silent> <C-g> :GrepFiles<CR>
+" NOTE: the following mapping is a veird workaround of vim interpreting <C-/>
+" as <C-_> and vice versa. So, the actual mapping is to <C-/>
+" TODO: check on win
+nnoremap <silent> <C-_> :BLines<CR>
 
 let g:fzf_buffers_jump = 1
 let g:fzf_colors =
@@ -290,7 +298,7 @@ set foldlevel=10
 " Tagbar
 let g:tagbar_zoomwidth = 0
 let g:tagbar_sort = 0
-nmap <silent> <Leader><Space> :TagbarOpenAutoClose<CR>
+nmap <silent> <Leader>b :TagbarOpenAutoClose<CR>
 
 " delimitMate
 let delimitMate_expand_cr = 2
@@ -311,6 +319,9 @@ endfunction
 call airline#add_statusline_func('Noscrollbar')
 call airline#add_statusline_func('Time')
 
+" FixedTaskList
+nnoremap <silent> <Leader>tl :TaskList<CR>
+
 " cpp-highlight
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
@@ -318,7 +329,7 @@ let g:cpp_class_decl_highlight = 1
 let g:cpp_experimental_simple_template_highlight = 1
 
 " gitgutter
-nnoremap <Leader>gh :GitGutterLineHighlightsToggle<CR>
+nnoremap <silent> <Leader>gh :GitGutterLineHighlightsToggle<CR>
 
 " indentline
 let g:indentLine_fileType = ['h', 'hh', 'hpp', 'c', 'cc', 'cpp']
