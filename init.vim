@@ -310,6 +310,9 @@ let delimitMate_excluded_regions = "String"
 " airline
 let g:airline_powerline_fonts = 1
 let g:airline_exclude_preview = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#show_tab_nr = 0 " Disable tab numbers
 function! Noscrollbar(...)
   let w:airline_section_y = "%{noscrollbar#statusline(20,' ','█',['▐'],['▌'])}"
 endfunction
@@ -337,7 +340,9 @@ let g:indentLine_setColors=0
 let g:indentLine_char='¦'
 
 " vimwiki
+let g:vimwiki_folding = 'list'
 autocmd FileType vimwiki setlocal tabstop=3 softtabstop=3 shiftwidth=3 expandtab wrap
+autocmd FileType vimwiki nmap <buffer> <CR> <Plug>VimwikiFollowLink zt
 autocmd FileType vimwiki nmap <buffer> <2-LeftMouse> <CR>
 autocmd FileType vimwiki nmap <buffer> <RightMouse> <BS>
 autocmd FileType vimwiki nmap <buffer> <MiddleMouse> <LeftMouse><C-Space>
