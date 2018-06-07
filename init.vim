@@ -16,6 +16,7 @@ Plugin 'wellle/targets.vim'
 Plugin 'tommcdo/vim-exchange'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'pseewald/vim-anyfold'
+Plugin 'chrisbra/NrrwRgn'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
@@ -48,6 +49,9 @@ filetype plugin indent on
 " Enable external rc files
 set exrc
 set secure
+
+set notimeout
+set ttimeout
 
 set mouse=a
 
@@ -144,6 +148,19 @@ tnoremap <silent> <C-w>r <C-\><C-n>:resize<CR>a
 
 nnoremap <silent> <C-t> :below 10split term://zsh<CR>a
 
+" Function to remove item from qf list
+function! RemoveQFItem()
+  let curqfidx = line('.') - 1
+  let qfall = getqflist()
+  call remove(qfall, curqfidx)
+  call setqflist(qfall, 'r')
+  execute curqfidx + 1 . "cfirst"
+  :copen
+endfunction
+:command! RemoveQFItem :call RemoveQFItem()
+" Map function to dd in qf list buffer
+autocmd FileType qf map <buffer> dd :RemoveQFItem<cr>
+
 " Next and previous maps (see unimpaired.vim)
 function! s:map(mode, lhs, rhs, ...) abort
   let flags = (a:0 ? a:1 : '') . (a:rhs =~# '^<Plug>' ? '' : '<script>')
@@ -191,7 +208,11 @@ call s:MapNextFamily('a','')
 call s:MapNextFamily('b','b')
 call s:MapNextFamily('l','l')
 call s:MapNextFamily('q','c')
-call s:MapNextFamily('t','t')
+call s:MapNextFamily('t','tab')
+
+" Tabs management
+nnoremap <silent> <Leader>tn :tabnew<CR>
+nnoremap <silent> <Leader>tc :tabclose<CR>
 
 " Parenthesize
 nnoremap \p bi(<Esc>Ea)<Esc>
@@ -224,9 +245,7 @@ inoremap <expr> <S-tab> pumvisible()? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <CR> (pumvisible() ? "\<c-y>" : "\<CR>")
 
 " fuzzy
-"'rg -L --hidden -n -p -S -e ""'
-"''
-let $FZF_DEFAULT_COMMAND = 'find -L . ""'
+let $FZF_DEFAULT_COMMAND = 'rg --smart-case --hidden --follow --no-heading --vimgrep --files --glob ""'
 command! -bang -nargs=* GrepFiles call fzf#vim#grep('grep -RnT --color=always --line-number --exclude-dir=.git/ --exclude=\\.tags '.shellescape(<q-args>), 0, <bang>0)
 nnoremap <silent> <C-f> :Files<CR>
 nnoremap <silent> <C-g> :GrepFiles<CR>
@@ -295,6 +314,14 @@ let g:easytags_async=1
 let g:anyfold_activate=1
 set foldlevel=10
 
+" NrrwRgn
+let g:nrrw_rgn_protect = 'n'
+let g:nrrw_rgn_nomap_Nr = 1
+let g:nrrw_rgn_nomap_nr = 1
+xnoremap <silent> <leader>nr :NR!<CR>
+xnoremap <silent> <leader>np :NRP<CR>
+xnoremap <silent> <leader>nm :NRM!<CR>
+
 " Tagbar
 let g:tagbar_zoomwidth = 0
 let g:tagbar_sort = 0
@@ -311,10 +338,22 @@ let delimitMate_excluded_regions = "String"
 let g:airline_powerline_fonts = 1
 let g:airline_exclude_preview = 1
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#tabs_label = 'Tabs'
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#show_tab_nr = 0 " Disable tab numbers
+let g:airline#extensions#quickfix#quickfix_text = 'Quickfix'
+let g:airline#extensions#quickfix#location_text = 'Location'
+let g:airline#extensions#branch#sha1_len = 8
+let g:airline#extensions#default#layout = [
+\   [ 'a', 'b', 'c' ],
+\   [ 'x', 'warning', 'error', 'y', 'z' ]
+\ ]
+let g:airline#extensions#nrrwrgn#enabled = 1
+" let g:airline#extensions#gutentags#enabled = 1
+let g:airline#extensions#ctrlspace#enabled = 1
+let g:CtrlSpaceStatuslineFunction = "airline#extensions#ctrlspace#statusline()"
 function! Noscrollbar(...)
-  let w:airline_section_y = "%{noscrollbar#statusline(20,' ','█',['▐'],['▌'])}"
+let w:airline_section_y = "▐%{noscrollbar#statusline(20,'▄','█',['▟'],['▙'])}▌"
 endfunction
 function! Time(...)
   let w:airline_section_z = '%{strftime("%l:%M%p")}'
