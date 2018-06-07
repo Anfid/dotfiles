@@ -92,7 +92,7 @@ map <S-h> <Nop>
 map <Space> <Nop>
 
 " leader
-let mapleader = " "
+let mapleader = "\<C-h>"
 
 " Scroll
 noremap J <C-E>
@@ -224,10 +224,10 @@ nnoremap <silent> <Tab> :set relativenumber!<Enter>
 " ------------------ Plugin setups ------------------
 
 " CtrlSpace
-nnoremap <silent> <Leader><Space> :CtrlSpace<CR>
+nnoremap <silent> <Space> :CtrlSpace<CR>
 let g:CtrlSpaceUseMouseAndArrowsInTerm = 1
 let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
-let g:CtrlSpaceGlobCommand = 'ag -l -f --hidden --nocolor -g ""'
+let g:CtrlSpaceGlobCommand = 'rg --smart-case --hidden --follow --no-heading --files --glob "!.git/ "'
 
 " ALE
 let g:ale_linters = {'cpp': ['clang', 'cppcheck']}
@@ -245,8 +245,8 @@ inoremap <expr> <S-tab> pumvisible()? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <CR> (pumvisible() ? "\<c-y>" : "\<CR>")
 
 " fuzzy
-let $FZF_DEFAULT_COMMAND = 'rg --smart-case --hidden --follow --no-heading --vimgrep --files --glob ""'
-command! -bang -nargs=* GrepFiles call fzf#vim#grep('grep -RnT --color=always --line-number --exclude-dir=.git/ --exclude=\\.tags '.shellescape(<q-args>), 0, <bang>0)
+let $FZF_DEFAULT_COMMAND = 'rg --smart-case --hidden --follow --no-heading --files --glob "!.git/ "'
+command! -bang -nargs=* GrepFiles call fzf#vim#grep('rg --smart-case --hidden --follow --no-heading --line-number --glob "!.git/ " ""'.shellescape(<q-args>), 0, <bang>0)
 nnoremap <silent> <C-f> :Files<CR>
 nnoremap <silent> <C-g> :GrepFiles<CR>
 " NOTE: the following mapping is a veird workaround of vim interpreting <C-/>
