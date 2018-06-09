@@ -44,6 +44,8 @@ Plugin 'fcpg/vim-farout'           " farout
 
 call vundle#end()
 
+
+" ------------------ Settings ------------------
 filetype plugin indent on
 
 " Enable external rc files
@@ -100,7 +102,7 @@ noremap K <C-Y>
 map <ScrollWheelUp> 2<C-Y>
 map <ScrollWheelDown> 2<C-E>
 
-" Window navigation
+" Window navigation and management
 nnoremap <A-h> <C-W>h
 nnoremap <A-j> <C-W>j
 nnoremap <A-k> <C-W>k
@@ -113,6 +115,9 @@ tnoremap <A-h> <C-\><C-N><C-w>h
 tnoremap <A-j> <C-\><C-N><C-w>j
 tnoremap <A-k> <C-\><C-N><C-w>k
 tnoremap <A-l> <C-\><C-N><C-w>l
+
+nnoremap <silent> <C-w>r :resize <Bar> vertical resize<CR>
+tnoremap <silent> <C-w>r <C-\><C-n>:resize<CR>a
 
 vnoremap > >gv
 vnoremap < <gv
@@ -143,12 +148,10 @@ cnoremap <C-e> <End>
 
 nnoremap Y y$
 
-nnoremap <silent> <C-w>r :resize <Bar> vertical resize<CR>
-tnoremap <silent> <C-w>r <C-\><C-n>:resize<CR>a
-
+" Open terminal
 nnoremap <silent> <C-t> :below 10split term://zsh<CR>a
 
-" Function to remove item from qf list
+" Remove item from qf list
 function! RemoveQFItem()
   let curqfidx = line('.') - 1
   let qfall = getqflist()
@@ -214,11 +217,10 @@ call s:MapNextFamily('t','tab')
 nnoremap <silent> <Leader>tn :tabnew<CR>
 nnoremap <silent> <Leader>tc :tabclose<CR>
 
-" Parenthesize
-nnoremap \p bi(<Esc>Ea)<Esc>
-nnoremap \a bi<<Esc>Ea><Esc>
+nnoremap <silent> <Tab> :set relativenumber!<CR>
 
-nnoremap <silent> <Tab> :set relativenumber!<Enter>
+nnoremap <silent> <Leader>ic :tabedit ~/Documents/dotfiles/init.vim<CR>
+nnoremap <silent> <Leader>ir :source ~/Documents/dotfiles/init.vim<CR>
 
 
 " ------------------ Plugin setups ------------------
@@ -325,7 +327,7 @@ xnoremap <silent> <leader>nm :NRM!<CR>
 " Tagbar
 let g:tagbar_zoomwidth = 0
 let g:tagbar_sort = 0
-nmap <silent> <Leader>b :TagbarOpenAutoClose<CR>
+nmap <silent> <C-l> :TagbarOpenAutoClose<CR>
 
 " delimitMate
 let delimitMate_expand_cr = 2
@@ -337,6 +339,7 @@ let delimitMate_excluded_regions = "String"
 " airline
 let g:airline_powerline_fonts = 1
 let g:airline_exclude_preview = 1
+let g:airline#extensions#tagbar#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#tabs_label = 'Tabs'
 let g:airline#extensions#tabline#show_buffers = 0
@@ -344,21 +347,23 @@ let g:airline#extensions#tabline#show_tab_nr = 0 " Disable tab numbers
 let g:airline#extensions#quickfix#quickfix_text = 'Quickfix'
 let g:airline#extensions#quickfix#location_text = 'Location'
 let g:airline#extensions#branch#sha1_len = 8
-let g:airline#extensions#default#layout = [
-\   [ 'a', 'b', 'c' ],
-\   [ 'x', 'warning', 'error', 'y', 'z' ]
-\ ]
 let g:airline#extensions#nrrwrgn#enabled = 1
-" let g:airline#extensions#gutentags#enabled = 1
 let g:airline#extensions#ctrlspace#enabled = 1
 let g:CtrlSpaceStatuslineFunction = "airline#extensions#ctrlspace#statusline()"
+" sections X and C are swapped as C gets highlighted on file modification
+let g:airline#extensions#default#layout = [
+\   [ 'a', 'b', 'x' ],
+\   [ 'c', 'warning', 'error', 'y', 'z' ]
+\ ]
+let g:airline_section_x = airline#section#create(['tagbar'])
+let g:airline_section_c = airline#section#create_right(['filetype', 'readonly', 'file'])
 function! Noscrollbar(...)
 let w:airline_section_y = "▐%{noscrollbar#statusline(20,'▄','█',['▟'],['▙'])}▌"
 endfunction
-function! Time(...)
-  let w:airline_section_z = '%{strftime("%l:%M%p")}'
-endfunction
 call airline#add_statusline_func('Noscrollbar')
+function! Time(...)
+  let w:airline_section_z = airline#section#create(['xkblayout', '%{strftime("%l:%M%p")}'])
+endfunction
 call airline#add_statusline_func('Time')
 
 " FixedTaskList
@@ -381,7 +386,7 @@ let g:indentLine_char='¦'
 " vimwiki
 let g:vimwiki_folding = 'list'
 autocmd FileType vimwiki setlocal tabstop=3 softtabstop=3 shiftwidth=3 expandtab wrap
-autocmd FileType vimwiki nmap <buffer> <CR> <Plug>VimwikiFollowLink zt
+autocmd FileType vimwiki nmap <buffer> <CR> <Plug>VimwikiFollowLink<Esc>zt
 autocmd FileType vimwiki nmap <buffer> <2-LeftMouse> <CR>
 autocmd FileType vimwiki nmap <buffer> <RightMouse> <BS>
 autocmd FileType vimwiki nmap <buffer> <MiddleMouse> <LeftMouse><C-Space>
