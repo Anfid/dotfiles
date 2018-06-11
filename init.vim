@@ -239,7 +239,7 @@ nnoremap <silent> <Tab> :set relativenumber!<CR>
 nnoremap <silent> <Space> :CtrlSpace<CR>
 let g:CtrlSpaceUseMouseAndArrowsInTerm = 1
 let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
-let g:CtrlSpaceGlobCommand = 'rg --smart-case --hidden --follow --no-heading --files --glob "!.git/ "'
+let g:CtrlSpaceGlobCommand = "rg --smart-case --hidden --follow --no-heading --files"
 
 " ALE
 let g:ale_linters = {'cpp': ['clang', 'cppcheck']}
@@ -257,8 +257,8 @@ inoremap <expr> <S-tab> pumvisible()? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <CR> (pumvisible() ? "\<c-y>" : "\<CR>")
 
 " fuzzy
-let $FZF_DEFAULT_COMMAND = 'rg --smart-case --hidden --follow --no-heading --files --glob "!.git/ "'
-command! -bang -nargs=* GrepFiles call fzf#vim#grep('rg --smart-case --hidden --follow --no-heading --line-number --glob "!.git/ " ""'.shellescape(<q-args>), 0, <bang>0)
+let $FZF_DEFAULT_COMMAND = "rg --smart-case --hidden --follow --no-heading --files"
+command! -bang -nargs=* GrepFiles call fzf#vim#grep('rg --smart-case --hidden --follow --no-heading --line-number ""'.shellescape(<q-args>), 0, <bang>0)
 nnoremap <silent> <C-f> :Files<CR>
 nnoremap <silent> <C-g> :GrepFiles<CR>
 " NOTE: the following mapping is a veird workaround of vim interpreting <C-/>
