@@ -11,7 +11,7 @@ Plugin 'w0rp/ale'
 Plugin 'junegunn/fzf.vim'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fugitive'
-Plugin 'sjl/gundo.vim'
+Plugin 'simnalamburt/vim-mundo'
 Plugin 'wellle/targets.vim'
 Plugin 'tommcdo/vim-exchange'
 Plugin 'scrooloose/nerdcommenter'
@@ -149,7 +149,7 @@ cnoremap <C-e> <End>
 nnoremap Y y$
 
 " Open terminal
-nnoremap <silent> <C-t> :below 10split term://zsh<CR>a
+nnoremap <silent> <C-c> :below 10split term://zsh<CR>a
 
 " Remove item from qf list
 function! RemoveQFItem()
@@ -214,13 +214,19 @@ call s:MapNextFamily('q','c')
 call s:MapNextFamily('t','tab')
 
 " Tabs management
-nnoremap <silent> <Leader>tn :tabnew<CR>
-nnoremap <silent> <Leader>tc :tabclose<CR>
+nnoremap <C-t>e :tabedit<Space>
+nnoremap <silent> <C-t>n :tabnew<CR>
+nnoremap <silent> <C-t>c :tabclose<CR>
+nnoremap <silent> <C-t>o :tabonly<CR>
+nnoremap <silent> <C-t>[ :tabprevious<CR>
+nnoremap <silent> <C-t>] :tabnext<CR>
+nnoremap <silent> <C-t>{ :tabfirst<CR>
+nnoremap <silent> <C-t>} :tablast<CR>
+
+nnoremap <silent> <Leader>ic :tabedit ~/.config/nvim/init.vim<CR>
+nnoremap <silent> <Leader>ir :source ~/.config/nvim/init.vim<CR>
 
 nnoremap <silent> <Tab> :set relativenumber!<CR>
-
-nnoremap <silent> <Leader>ic :tabedit ~/Documents/dotfiles/init.vim<CR>
-nnoremap <silent> <Leader>ir :source ~/Documents/dotfiles/init.vim<CR>
 
 
 " ------------------ Plugin setups ------------------
@@ -236,8 +242,8 @@ let g:ale_linters = {'cpp': ['clang', 'cppcheck']}
 let g:ale_sign_error = "✗"
 let g:ale_sign_warning = "⚠"
 let g:ale_sign_info = "ℹ"
-let g:ale_sign_style_error = "✗"
-let g:ale_sign_style_warning = "⚠"
+let g:ale_sign_style_error = "Ⓢ"
+let g:ale_sign_style_warning = "⧌"
 
 " nvim-completion-manager
 let g:cm_matcher = {'module': 'cm_matchers.abbrev_matcher', 'case': 'smartcase'}
@@ -296,12 +302,12 @@ autocmd User fugitive
  \ endif
 
 " Gundo
-nnoremap <silent> <Leader>u :GundoToggle<CR>
-let g:gundo_width=25
-let g:gundo_preview_bottom=1
-let g:gundo_preview_height=10
-let g:gundo_help=0
-let g:gundo_close_on_revert=1
+nnoremap <silent> <Leader>u :MundoToggle<CR>
+let g:mundo_width=25
+let g:mundo_preview_bottom=1
+let g:mundo_preview_height=10
+let g:mundo_help=0
+let g:mundo_close_on_revert=1
 
 " easytags
 set tags=./.tags;
@@ -390,8 +396,6 @@ autocmd FileType vimwiki nmap <buffer> <CR> <Plug>VimwikiFollowLink<Esc>zt
 autocmd FileType vimwiki nmap <buffer> <2-LeftMouse> <CR>
 autocmd FileType vimwiki nmap <buffer> <RightMouse> <BS>
 autocmd FileType vimwiki nmap <buffer> <MiddleMouse> <LeftMouse><C-Space>
-autocmd FileType vimwiki let b:delimitMate_quotes = "\" ' ` ="
-autocmd FileType vimwiki let b:delimitMate_nesting_quotes = ['=']
 
 " colorscheme
 colorscheme gruvbox
