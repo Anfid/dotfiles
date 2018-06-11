@@ -62,6 +62,7 @@ set noshowmode
 
 set tabstop=4 softtabstop=4 shiftwidth=4 expandtab nowrap
 
+set inccommand=split
 set incsearch
 set ignorecase
 set smartcase
@@ -145,6 +146,9 @@ cnoremap <C-d> <Del>
 cnoremap <C-b> <Backspace>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
+
+" Terminal paste
+tnoremap <expr> <A-r> '<C-\><C-n>"'.nr2char(getchar()).'pa'
 
 nnoremap Y y$
 
