@@ -1,3 +1,5 @@
+" TODO: Sort everything in different files. init.vim now looks messy
+
 set runtimepath+=~/.config/nvim/bundle/Vundle.vim
 set runtimepath+=~/.fzf
 let &packpath = &runtimepath
@@ -217,6 +219,11 @@ call s:MapNextFamily('l','l')
 call s:MapNextFamily('q','c')
 call s:MapNextFamily('t','tab')
 
+function! VimFtConfig()
+  set tabstop=2 softtabstop=2 shiftwidth=2 expandtab nowrap
+endfunction
+autocmd filetype vim call VimFtConfig()
+
 " Tabs management
 nnoremap <C-t>e :tabedit<Space>
 nnoremap <silent> <C-t>n :tabnew<CR>
@@ -395,11 +402,14 @@ let g:indentLine_char='¦'
 
 " vimwiki
 let g:vimwiki_folding = 'list'
-autocmd FileType vimwiki setlocal tabstop=3 softtabstop=3 shiftwidth=3 expandtab wrap
-autocmd FileType vimwiki nmap <buffer> <CR> <Plug>VimwikiFollowLink<Esc>zt
-autocmd FileType vimwiki nmap <buffer> <2-LeftMouse> <CR>
-autocmd FileType vimwiki nmap <buffer> <RightMouse> <BS>
-autocmd FileType vimwiki nmap <buffer> <MiddleMouse> <LeftMouse><C-Space>
+function! VimwikiFtConfig()
+  setlocal tabstop=3 softtabstop=3 shiftwidth=3 expandtab wrap
+  nnoremap <buffer> <CR> <Plug>VimwikiFollowLink<Esc>zt
+  nnoremap <buffer> <2-LeftMouse> <CR>
+  nnoremap <buffer> <RightMouse> <BS>
+  nnoremap <buffer> <MiddleMouse> <LeftMouse><C-Space>
+endfunction
+autocmd FileType vimwiki call VimwikiFtConfig()
 
 " colorscheme
 colorscheme gruvbox
