@@ -404,10 +404,10 @@ let g:indentLine_char='¦'
 let g:vimwiki_folding = 'list'
 function! VimwikiFtConfig()
   setlocal tabstop=3 softtabstop=3 shiftwidth=3 expandtab wrap
-  nnoremap <buffer> <CR> <Plug>VimwikiFollowLink<Esc>zt
-  nnoremap <buffer> <2-LeftMouse> <CR>
-  nnoremap <buffer> <RightMouse> <BS>
-  nnoremap <buffer> <MiddleMouse> <LeftMouse><C-Space>
+  nmap <buffer> <CR> <Plug>VimwikiFollowLink<Esc>zt
+  nmap <buffer> <2-LeftMouse> <Plug>VimwikiFollowLink<Esc>zt
+  nmap <buffer> <RightMouse> <BS>
+  nmap <buffer> <MiddleMouse> <LeftMouse><C-Space>
 endfunction
 autocmd FileType vimwiki call VimwikiFtConfig()
 
