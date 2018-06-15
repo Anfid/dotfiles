@@ -23,6 +23,9 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.config/nvim/bundle/Vund
 mkdir ~/.config/i3
 ln -s $DOTFILES_DIR/.config/i3/config $HOME/.config/i3/config
 
+mkdir ~/.config/rofi
+ln -s $DOTFILES_DIR/.config/rofi/config $HOME/.config/rofi/config
+
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
@@ -37,7 +40,8 @@ sudo apt-get install -y neovim
 sudo apt-get install -y python-neovim python3-neovim
 
 # i3
-sudo apt-get install -y i3 i3status compton feh wal
+sudo apt-get install -y i3 i3status compton feh rofi
+sudo pip3 install pywal
 echo "Yes to all to use neovim instead of vim"
 sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
 sudo update-alternatives --config vi

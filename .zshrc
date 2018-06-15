@@ -8,6 +8,13 @@ export ZSH=~/.oh-my-zsh
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="clean" # clean edvardm theunraveler wezm
 
+# Export wallpaper variable. Set in i3/config
+export WALLPAPER="$(< $HOME/.config/i3/.wallpaper)"
+
+# Use pywal theme
+(cat ~/.cache/wal/sequences &)
+source ~/.cache/wal/colors-tty.sh
+
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
 # cause zsh load theme from this variable instead of
@@ -91,8 +98,27 @@ export TERM=xterm-256color
 # Aliases
 alias sd="shutdown"
 
+alias restyle="~/.scripts/restyle.sh"
 alias vimf="~/.scripts/vimfind.sh"
 alias vimfind=vimf
 alias showlines="~/.scripts/showLines.sh" # Usage: showlines <file> <line> [line delta = 10]
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+function powerline_precmd() {
+    PS1="$(powerline-shell --shell zsh $?)"
+}
+
+function install_powerline_precmd() {
+  for s in "${precmd_functions[@]}"; do
+    if [ "$s" = "powerline_precmd" ]; then
+      return
+    fi
+  done
+  precmd_functions+=(powerline_precmd)
+}
+
+if [ "$TERM" != "linux" ]; then
+    install_powerline_precmd
+fi
+
