@@ -32,16 +32,14 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 sudo apt-get update
 sudo apt-get install -y silversearcher-ag
 
-sudo apt-get install -y software-properties-common python-dev python-pip python3-dev python3-pip
+# dependencies
+sudo apt-get install -y software-properties-common python-dev python-pip python3-dev python3-pip wget ruby-sass sassc libxml2-utils gtk2-engines libimlib2 libimlib2-dev
 
 #neovim
 sudo add-apt-repository -y ppa:neovim-ppa/stable
 sudo apt-get install -y neovim
 sudo apt-get install -y python-neovim python3-neovim
 
-# i3
-sudo apt-get install -y i3 i3status compton feh rofi
-sudo pip3 install pywal
 echo "Yes to all to use neovim instead of vim"
 sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
 sudo update-alternatives --config vi
@@ -49,6 +47,15 @@ sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
 sudo update-alternatives --config vim
 sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
 sudo update-alternatives --config editor
+
+# i3
+sudo apt-get install -y i3 i3status i3lock-fancy compton feh rofi
+#pywal
+sudo pip3 install pywal
+#oomox
+cd /tmp
+wget http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu/pool/main/o/oomox/oomox_1.2.6-1\~webupd8\~2_all.deb
+dpkg -i oomox_1.2.6-1\~webupd8\~2_all.deb
 
 # Reminders. Possibly add to script later
 

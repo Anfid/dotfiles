@@ -10,7 +10,6 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 # Set random wallpaper
-exec if [[ -f $HOME/.config/i3/.wallpaper ]]; then rm -f $HOME/.config/i3/.wallpaper; fi; find $HOME/Pictures/Wallpapers -type f | shuf | head -n1 >> $HOME/.config/i3/.wallpaper
 
 set $mod Mod4
 
@@ -208,9 +207,9 @@ mode "layout" {
 
 bindsym $mod+w mode "layout"
 
+exec_always zsh -c 'if [[ -f $HOME/.config/i3/.wallpaper ]]; then rm -f $HOME/.config/i3/.wallpaper; fi; find $HOME/Pictures/Wallpapers -type f | shuf | head -n1 >> $HOME/.config/i3/.wallpaper; export WALLPAPER="$(< $HOME/.config/i3/.wallpaper)"; wal -g -i $WALLPAPER'
 exec compton -f
 exec "setxkbmap -layout us,ru"
 exec "setxkbmap -option 'grp:alt_shift_toggle'"
-exec wal -g -i $WALLPAPER
 
 #exec_always multiple screen support
