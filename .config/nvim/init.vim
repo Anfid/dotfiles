@@ -41,6 +41,7 @@ Plugin 'roxma/ncm-clang'
 " colorschemes
 Plugin 'ajmwagar/vim-deus'         " deus
 Plugin 'morhetz/gruvbox'           " gruvbox
+Plugin 'dylanaraps/wal.vim'        " TODO: Needs propper function to enable. Requires no termguicolors to work properly
 Plugin 'jnurmine/Zenburn'          " zenburn
 Plugin 'fcpg/vim-farout'           " farout
 
@@ -125,9 +126,11 @@ tnoremap <silent> <C-w>r <C-\><C-n>:resize<CR>a
 vnoremap > >gv
 vnoremap < <gv
 
-" Normal mode navigation
+" General navigation
 nnoremap H ^
 nnoremap L $
+vnoremap H ^
+vnoremap L $
 
 " Insert mode navigation
 inoremap <C-n> <Esc>o

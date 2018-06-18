@@ -33,7 +33,11 @@ sudo apt-get update
 sudo apt-get install -y silversearcher-ag
 
 # dependencies
-sudo apt-get install -y software-properties-common python-dev python-pip python3-dev python3-pip wget ruby-sass sassc libxml2-utils gtk2-engines libimlib2 libimlib2-dev
+sudo apt-get install -y software-properties-common python-dev python-pip python3-dev python3-pip wget ruby-sass sassc \ 
+                        libxml2-utils gtk2-engines libimlib2 libimlib2-dev libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev \
+                        libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev \
+                        libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev \
+                        autoconf libxcb-xrm0 libxcb-xrm-dev automake
 
 #neovim
 sudo add-apt-repository -y ppa:neovim-ppa/stable
@@ -48,8 +52,20 @@ sudo update-alternatives --config vim
 sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
 sudo update-alternatives --config editor
 
-# i3
-sudo apt-get install -y i3 i3status i3lock-fancy compton feh rofi
+# i3-gaps
+# clone to ~/Programs/i3-gaps
+cd ~/Programs
+git clone https://www.github.com/Airblader/i3 i3-gaps
+cd i3-gaps
+# compile & install
+autoreconf --force --install
+rm -rf build/
+mkdir -p build && cd build/
+../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
+make -j5
+sudo checkinstall -y --pkgname=i3-gaps --pkgversion=1
+
+sudo apt-get install -y i3status i3lock compton feh rofi
 #pywal
 sudo pip3 install pywal
 #oomox
