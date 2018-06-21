@@ -14,6 +14,8 @@ set_from_resource $c4 i3wm.color4 #f0f0f0
 set_from_resource $c5 i3wm.color5 #f0f0f0
 set_from_resource $c6 i3wm.color6 #f0f0f0
 set_from_resource $c7 i3wm.color7 #f0f0f0
+set_from_resource $screen-primary screen.primary
+set_from_resource $screen-secondary screen.secondary
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -41,8 +43,8 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+q kill
 
 # start rofi (a program launcher)
-bindsym $mod+r exec rofi -show run
-bindsym $mod+s exec rofi -modi drun -show drun
+bindsym $mod+x exec rofi -show run -location 7
+bindsym $mod+s exec rofi -modi drun -show drun -location 7
 
 # change focus
 bindsym $mod+h focus left
@@ -83,15 +85,16 @@ bindsym $mod+f fullscreen toggle
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1 "
-set $ws2 "2 "
-set $ws3 "3 "
-set $ws4 "4"
+set $ws2 "2 "
+set $ws3 "3 "
+set $ws4 "4 "
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
-set $ws10 "10"
+set $ws0 "0"
+set $wsc "c "
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -103,7 +106,8 @@ bindsym $mod+6 workspace $ws6
 bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
+bindsym $mod+0 workspace $ws0
+bindsym $mod+c workspace $wsc
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -115,10 +119,9 @@ bindsym $mod+Shift+6 move container to workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
+bindsym $mod+Shift+0 move container to workspace $ws0
+bindsym $mod+Shift+c move container to workspace $wsc
 
-# reload the configuration file
-bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
@@ -148,6 +151,7 @@ bar {
         separator #757575
         #                  border background text
         focused_workspace  $c6    $bg        $c6
+        active_workspace   $bg    $bg        $c6
         inactive_workspace $bg    $bg        $fg
         urgent_workspace   $c6    $c6        $bg
     }
@@ -175,7 +179,26 @@ mode "resize" {
     bindsym Up resize shrink height 5 px or 5 ppt
     bindsym Right resize grow width 5 px or 5 ppt
 
-    # back to normal: Enter or Escape or $mod+r
+    # back to normal: Enter,  Escape or q
+    bindsym q mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+mode "move" {
+    bindsym h move left 5px
+    bindsym j move down 5px
+    bindsym k move up 5px
+    bindsym l move right 5px
+
+    # same bindings, but for the arrow keys
+    bindsym Left move left 5px
+    bindsym Down move down 5px
+    bindsym Up move up 5px
+    bindsym Right move right 5px
+
+    # back to normal: Enter,  Escape or q
+    bindsym q mode "default"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
@@ -191,35 +214,39 @@ mode "layout" {
     # resize window
     bindsym r mode "resize"
 
+    # move floating window
+    bindsym m focus floating; mode "move"
+
     # toggle tiling / floating
     bindsym space floating toggle; mode "default"
 
-    # split in horizontal orientation
+    # Set split orientation
     bindsym h split h; mode "default"
-
-    # split in vertical orientation
     bindsym v split v; mode "default"
 
-
-    # Escape
+    # back to normal: Enter,  Escape or q
+    bindsym q mode "default"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 
 bindsym $mod+w mode "layout"
 
+# TODO: i3lock-fancy or i3lock-next
+bindsym Control+Mod1+l exec i3lock -c "#000000"
+
 # Assign workspace
 assign [class="^Firefox$"] → $ws1
-assign [class="^TelegramDesktop$"] → $ws3
-assign [class="^Slack$"] → $ws3
+assign [class="^TelegramDesktop$"] → $ws4
+assign [class="^Slack$"] → $ws4
 
 # Set random wallpaper
 exec_always zsh -c 'if [[ -f $HOME/.config/i3/.wallpaper ]]; then rm -f $HOME/.config/i3/.wallpaper; fi; find $HOME/Pictures/Wallpapers -type f | shuf | head -n1 >> $HOME/.config/i3/.wallpaper; export WALLPAPER="$(< $HOME/.config/i3/.wallpaper)"; wal -g -i $WALLPAPER'
 # TODO: See --opacity-rule to disable opacity on image and video viewing apps
-exec compton -f --active-opacity=0.95 --inactive-opacity=0.83 --inactive-dim=0.2 --backend=glx --xrender-sync --vsync=opengl --dbe
-exec setxkbmap -layout us,ru
-exec setxkbmap -option 'grp:alt_shift_toggle'
+exec compton -f --active-opacity=0.93 --inactive-opacity=0.82 --inactive-dim=0.07 --backend=glx --vsync=opengl
+exec setxkbmap -layout us,ru -option 'grp:alt_shift_toggle'
 
 exec firefox
+exec /opt/telegram/Telegram
 
 #exec_always multiple screen support

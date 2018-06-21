@@ -24,6 +24,7 @@ Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
 Plugin 'Raimondi/delimitMate'
 Plugin 'vimwiki/vimwiki'
+Plugin 'lyokha/vim-xkbswitch'
 Plugin 'vim-airline/vim-airline'
 Plugin 'gcavallanti/vim-noscrollbar'
 Plugin 'fisadev/FixedTaskList.vim'
@@ -223,7 +224,7 @@ call s:MapNextFamily('q','c')
 call s:MapNextFamily('t','tab')
 
 function! VimFtConfig()
-  set tabstop=2 softtabstop=2 shiftwidth=2 expandtab nowrap
+  setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab nowrap
 endfunction
 autocmd filetype vim call VimFtConfig()
 
@@ -301,6 +302,8 @@ autocmd  FileType fzf set laststatus=0
 nnoremap <C-j> g<C-]>
 nnoremap <2-LeftMouse> g<C-]>
 nnoremap <silent> <C-k> :pop<CR>
+nnoremap <silent> <RightMouse> :pop<CR>
+nnoremap <silent> <MiddleMouse> :CtrlSpace<CR>
 
 " git
 set diffopt+=vertical
@@ -342,7 +345,7 @@ let g:nrrw_rgn_nomap_Nr = 1
 let g:nrrw_rgn_nomap_nr = 1
 xnoremap <silent> <leader>nr :NR!<CR>
 xnoremap <silent> <leader>np :NRP<CR>
-xnoremap <silent> <leader>nm :NRM!<CR>
+nnoremap <silent> <leader>nm :NRM<CR>
 
 " Tagbar
 let g:tagbar_zoomwidth = 0
@@ -355,6 +358,10 @@ let delimitMate_expand_space = 1
 let delimitMate_jump_expansion = 1
 let delimitMate_balance_matchpairs = 1
 let delimitMate_excluded_regions = "String"
+
+" xkbswitch
+let g:XkbSwitchEnabled = 1
+let g:XkbSwitchNLayout = 'us'
 
 " airline
 let g:airline_powerline_fonts = 1
@@ -399,7 +406,7 @@ let g:cpp_experimental_simple_template_highlight = 1
 nnoremap <silent> <Leader>gh :GitGutterLineHighlightsToggle<CR>
 
 " indentline
-let g:indentLine_fileType = ['h', 'hh', 'hpp', 'c', 'cc', 'cpp']
+let g:indentLine_fileType = ['h', 'hh', 'hpp', 'c', 'cc', 'cpp', 'sh', 'vim']
 let g:indentLine_setColors=0
 let g:indentLine_char='¦'
 

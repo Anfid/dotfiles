@@ -1,0 +1,16 @@
+{
+  "segments": [
+    "username",
+    "virtual_env",
+    "ssh",
+    "cwd",
+    "git",
+    "hg",
+    "read_only",
+    "root"
+  ],
+  "cwd": {
+    "mode": "dironly"
+  },
+  "theme": "gruvbox"
+}

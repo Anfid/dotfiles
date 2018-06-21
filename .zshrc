@@ -98,6 +98,10 @@ export TERM=xterm-256color
 # Aliases
 alias sd="shutdown"
 
+alias ls="exa"
+alias ld="exa -la --git"
+alias la="exa -a"
+
 alias restyle="~/.scripts/restyle.sh"
 alias vimf="~/.scripts/vimfind.sh"
 alias vimfind=vimf

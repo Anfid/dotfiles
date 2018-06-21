@@ -16,9 +16,24 @@ ln -s $DOTFILES_DIR/.vimrc $HOME/.vimrc
 ln -s $DOTFILES_DIR/.ideavimrc $HOME/.ideavimrc
 ln -s $DOTFILES_DIR/.scripts $HOME/.scripts
 
+# dependencies
+sudo apt-get install -y software-properties-common python-dev python-pip python3-dev python3-pip wget ruby-sass sassc \
+                        libxml2-utils gtk2-engines libimlib2 libimlib2-dev libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev \
+                        libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev \
+                        libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev \
+                        libxkbfile-dev autoconf libxcb-xrm0 libxcb-xrm-dev libcairo2-dev python-xcbgen xcb-proto libxcb-image0-dev \
+                        libxcb-ewmh-dev libpulse-dev libiw-dev automake
+
 mkdir ~/.config/nvim
 ln -s $DOTFILES_DIR/.config/nvim/init.vim $HOME/.config/nvim/init.vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.config/nvim/bundle/Vundle.vim
+
+cd /tmp
+git clone https://github.com/ierton/xkb-switch
+mkdir xkb-switch/build && cd xkb-switch/build
+cmake ..
+make
+sudo checkinstall -y --pkgname=xkbswitch
 
 mkdir ~/.config/i3
 ln -s $DOTFILES_DIR/.config/i3/config $HOME/.config/i3/config
@@ -26,18 +41,14 @@ ln -s $DOTFILES_DIR/.config/i3/config $HOME/.config/i3/config
 mkdir ~/.config/rofi
 ln -s $DOTFILES_DIR/.config/rofi/config $HOME/.config/rofi/config
 
+mkdir ~/.config/powerline-shell
+ln -s /home/mikhail/Documents/dotfiles/.config/powerline-shell/config.json /home/mikhail/.config/powerline-shell/config.json
+
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
 sudo apt-get update
 sudo apt-get install -y silversearcher-ag
-
-# dependencies
-sudo apt-get install -y software-properties-common python-dev python-pip python3-dev python3-pip wget ruby-sass sassc \ 
-                        libxml2-utils gtk2-engines libimlib2 libimlib2-dev libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev \
-                        libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev \
-                        libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev \
-                        autoconf libxcb-xrm0 libxcb-xrm-dev automake
 
 #neovim
 sudo add-apt-repository -y ppa:neovim-ppa/stable
@@ -72,12 +83,14 @@ sudo pip3 install pywal
 cd /tmp
 wget http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu/pool/main/o/oomox/oomox_1.2.6-1\~webupd8\~2_all.deb
 dpkg -i oomox_1.2.6-1\~webupd8\~2_all.deb
+#placeholder for polybar. Dependencies already updated
 
 # Reminders. Possibly add to script later
 
 # install rust via rustup. See manual for details.
 
 # Install ripgrep via snap or cargo.
+# Install exa via cargo
 
 # Install FontAwesome for nice icons on i3 bar:
 # Link: https://github.com/FortAwesome/Font-Awesome/releases
