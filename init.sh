@@ -44,6 +44,8 @@ ln -s $DOTFILES_DIR/.config/rofi/config $HOME/.config/rofi/config
 mkdir ~/.config/powerline-shell
 ln -s /home/mikhail/Documents/dotfiles/.config/powerline-shell/config.json /home/mikhail/.config/powerline-shell/config.json
 
+ln -s /home/mikhail/Documents/dotfiles/Wallpapers /home/mikhail/Pictures/Wallpapers
+
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
