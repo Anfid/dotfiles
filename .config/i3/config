@@ -84,17 +84,17 @@ bindsym $mod+f fullscreen toggle
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 ""
-set $ws2 ""
-set $ws3 ""
-set $ws4 ""
-set $ws5 "5"
-set $ws6 "6"
+set $ws1 "1:"
+set $ws2 "2:"
+set $ws3 "3:"
+set $ws4 "4:"
+set $ws5 "5:files"
+set $ws6 "6:misc"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
-set $ws0 "0"
-set $wsc ""
+set $wsc "10:"
+set $ws0 "0:void"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -217,6 +217,20 @@ mode "layout" {
 bindsym $mod+w mode "layout"
 
 # TODO: Media keys, brightness etc.
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 2 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 2 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 2 toggle # mute sound
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 
 # TODO: i3lock-fancy or i3lock-next
 bindsym Control+Mod1+l exec i3lock -c "#000000"
@@ -233,7 +247,7 @@ exec compton -f --active-opacity=0.93 --inactive-opacity=0.82 --inactive-dim=0.0
 exec setxkbmap -layout us,ru -option 'grp:alt_shift_toggle'
 
 # TODO: Current conky configuration is completely basic. Update
-exec_always zsh -c "source $HOME/.cache/wal/colors-pb.sh; pkill polybar; polybar bottom"
+exec_always bash -c "$HOME/.scripts/start-pb.sh"
 exec conky
 exec firefox
 exec /opt/telegram/Telegram

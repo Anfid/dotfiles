@@ -33,6 +33,7 @@ bottom = true
 width = 100%
 height = 30
 fixed-center = false
+monitor = ${env:MONITOR:}
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -56,8 +57,8 @@ font-3 = Font Awesome 5 Brands:pixelsize=15;3
 
 
 modules-left = i3
-modules-center = 
-modules-right = xbacklight pulseaudio xkeyboard wlan eth battery date powermenu
+modules-center = date
+modules-right = xbacklight pulseaudio xkeyboard wlan eth battery powermenu
 
 tray-position = right
 tray-padding = 2
@@ -81,16 +82,15 @@ label = %title:0:30:...%
 [module/xkeyboard]
 type = internal/xkeyboard
 
-format-prefix = "Layout: "
-format-prefix-foreground = ${colors.foreground}
-
-label-layout = %layout%
-label-layout-underline = ${colors.secondary}
+label-layout =  %layout%
+label-layout-underline = ${colors.color3}
+label-layout-foreground = ${colors.foreground}
 
 label-indicator-padding = 2
 label-indicator-margin = 1
-label-indicator-background = ${colors.secondary}
-label-indicator-underline = ${colors.secondary}
+label-indicator-foreground = ${colors.foreground-alt}
+label-indicator-background = ${colors.color3}
+label-indicator-underline = ${colors.color3}
 
 [module/i3]
 type = internal/i3
@@ -100,30 +100,39 @@ wrapping-scroll = false
 
 ; Only show workspaces on the same output as the bar
 pin-workspaces = true
+strip-wsnumbes = true
 
 label-mode = %mode%
 label-mode-padding = 0
 label-mode-foreground = ${colors.foreground}
 label-mode-background = ${colors.background}
 
+ws-icon-0 = 1:;
+ws-icon-1 = 2:;
+ws-icon-2 = 3:;
+ws-icon-3 = 4:;
+ws-icon-4 = 5:files;files
+ws-icon-5 = 6:misc;misc
+ws-icon-6 = 10:;
+ws-icon-7 = 0:void;void
 ; focused = Active workspace on focused monitor
-label-focused = %name%
+label-focused = %icon%
 label-focused-foreground = ${colors.highlight}
 label-focused-underline = ${colors.highlight}
 label-focused-padding = 1
 
 ; unfocused = Inactive workspace on any monitor
-label-unfocused = %name%
+label-unfocused = %icon%
 label-unfocused-foreground = ${colors.foreground}
 label-unfocused-padding = 1
 
 ; visible = Active workspace on unfocused monitor
-label-visible = %name%
+label-visible = %icon%
 label-visible-foreground = ${colors.highlight}
 label-visible-padding = 1
 
 ; urgent = Workspace with urgency hint set
-label-urgent = %name%
+label-urgent = %icon%
 label-urgent-foreground = ${colors.foreground-alt}
 label-urgent-background = ${colors.background-alt}
 label-urgent-padding = 1
@@ -232,39 +241,11 @@ label = %date% %time%
 type = internal/pulseaudio
 
 format-volume = <label-volume> <bar-volume>
-label-volume = VOL %percentage%%
+label-volume =  %percentage%%
 label-volume-foreground = ${root.foreground}
 
-label-muted = 
+label-muted =  Mute
 label-muted-foreground = ${colors.foreground}
-
-bar-volume-width = 10
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.foreground-alt}
-
-[module/alsa]
-type = internal/alsa
-
-format-volume = <label-volume> <bar-volume>
-label-volume = VOL
-label-volume-foreground = ${root.foreground}
-
-format-muted-prefix = " "
-format-muted-foreground = ${colors.foreground-alt}
-label-muted = sound muted
 
 bar-volume-width = 10
 bar-volume-foreground-0 = #55aa55
@@ -322,17 +303,18 @@ thermal-zone = 0
 warn-temperature = 60
 
 format = <ramp> <label>
-format-underline = #f50a4d
+format-underline = ${colors-foreground}
 format-warn = <ramp> <label-warn>
 format-warn-underline = ${self.format-underline}
 
 label = %temperature-c%
 label-warn = %temperature-c%
-label-warn-foreground = ${colors.secondary}
+label-warn-foreground = ${colors.foreground-alt}
+label-warn-background = ${colors.background-alt}
 
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
 ramp-foreground = ${colors.foreground-alt}
 
 [module/powermenu]
@@ -342,9 +324,10 @@ expand-right = true
 
 format-spacing = 1
 
-label-open = 
+# TODO
+label-open = menu
 label-open-foreground = ${colors.secondary}
-label-close =  cancel
+label-close = cancel
 label-close-foreground = ${colors.secondary}
 label-separator = |
 label-separator-foreground = ${colors.foreground-alt}
