@@ -48,6 +48,10 @@ ln -s $DOTFILES_DIR/Wallpapers $HOME/Pictures/Wallpapers
 
 ln -s $DOTFILES_DIR/.conkyrc $HOME/.conkyrc
 
+ln -s $DOTFILES_DIR/.config/polybar/config $HOME/.config/polybar/config
+
+ln -s $DOTFILES_DIR/.config/wal/templates $HOME/.config/wal/templates
+
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
@@ -87,7 +91,14 @@ sudo pip3 install pywal
 cd /tmp
 wget http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu/pool/main/o/oomox/oomox_1.2.6-1\~webupd8\~2_all.deb
 dpkg -i oomox_1.2.6-1\~webupd8\~2_all.deb
-#placeholder for polybar. Dependencies already updated
+#polybar
+#NOTE: May need to recompile this later
+cd /tmp
+git clone --recursive https://github.com/jaagr/polybar
+mkdir polybar/build
+cd polybar/build
+cmake ..
+sudo checkinstall -y --pkgname=polybar
 
 # Reminders. Possibly add to script later
 
