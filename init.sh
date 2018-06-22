@@ -42,9 +42,11 @@ mkdir ~/.config/rofi
 ln -s $DOTFILES_DIR/.config/rofi/config $HOME/.config/rofi/config
 
 mkdir ~/.config/powerline-shell
-ln -s /home/mikhail/Documents/dotfiles/.config/powerline-shell/config.json /home/mikhail/.config/powerline-shell/config.json
+ln -s $DOTFILES_DIR/.config/powerline-shell/config.json $HOME/.config/powerline-shell/config.json
 
-ln -s /home/mikhail/Documents/dotfiles/Wallpapers /home/mikhail/Pictures/Wallpapers
+ln -s $DOTFILES_DIR/Wallpapers $HOME/Pictures/Wallpapers
+
+ln -s $DOTFILES_DIR/.conkyrc $HOME/.conkyrc
 
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
@@ -67,7 +69,7 @@ sudo update-alternatives --config editor
 
 # i3-gaps
 # clone to ~/Programs/i3-gaps
-cd ~/Programs
+cd /tmp
 git clone https://www.github.com/Airblader/i3 i3-gaps
 cd i3-gaps
 # compile & install
@@ -78,7 +80,7 @@ mkdir -p build && cd build/
 make -j5
 sudo checkinstall -y --pkgname=i3-gaps --pkgversion=1
 
-sudo apt-get install -y i3status i3lock compton feh rofi
+sudo apt-get install -y i3status i3lock compton feh rofi conky
 #pywal
 sudo pip3 install pywal
 #oomox
