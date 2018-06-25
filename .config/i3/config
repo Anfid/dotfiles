@@ -216,10 +216,10 @@ mode "layout" {
 
 bindsym $mod+w mode "layout"
 
-# TODO: Media keys, brightness etc.
+# TODO: set device from Xresources
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 2 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 2 -5% #decrease sound volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +2% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -2% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 2 toggle # mute sound
 
 # Sreen brightness controls
@@ -243,7 +243,7 @@ assign [class="^Slack$"] → $ws4
 # Set random wallpaper
 exec_always zsh -c 'if [[ -f $HOME/.config/i3/.wallpaper ]]; then rm -f $HOME/.config/i3/.wallpaper; fi; rg ./Pictures/Wallpapers --files | shuf | head -n1 >> $HOME/.config/i3/.wallpaper; export WALLPAPER="$(< $HOME/.config/i3/.wallpaper)"; wal -g -i $WALLPAPER'
 # TODO: See --opacity-rule to disable opacity on image and video viewing apps
-exec compton -f --active-opacity=0.93 --inactive-opacity=0.82 --inactive-dim=0.07 --backend=glx --vsync=opengl
+exec compton
 exec setxkbmap -layout us,ru -option 'grp:alt_shift_toggle'
 
 # TODO: Current conky configuration is completely basic. Update

@@ -51,6 +51,8 @@ ln -s $DOTFILES_DIR/.conkyrc $HOME/.conkyrc
 mkdir $HOME/.config/polybar
 ln -s $DOTFILES_DIR/.config/polybar/config $HOME/.config/polybar/config
 
+ln -s $DOTFILES_DIR/.config/compton.conf $HOME/.config/compton.conf
+
 ln -s $DOTFILES_DIR/.config/wal/templates $HOME/.config/wal/templates
 
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
