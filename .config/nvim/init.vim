@@ -389,7 +389,7 @@ let w:airline_section_y = "▐%{noscrollbar#statusline(20,'▄','█',['▟'],['
 endfunction
 call airline#add_statusline_func('Noscrollbar')
 function! Time(...)
-  let w:airline_section_z = airline#section#create(['xkblayout', '%{strftime("%l:%M%p")}'])
+  let w:airline_section_z = airline#section#create(['%{strftime("%l:%M%p")}'])
 endfunction
 call airline#add_statusline_func('Time')
 
