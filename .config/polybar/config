@@ -46,7 +46,7 @@ font-1 = Material Design Icons:style=Regular:pixelsize=18;3
 
 modules-left = powermenu i3
 modules-center = date
-modules-right = xbacklight pulseaudio xkeyboard wlan eth battery temperature
+modules-right = xbacklight pulseaudio battery wlan eth xkeyboard temperature
 
 tray-position = right
 tray-padding = 2
@@ -165,18 +165,32 @@ type = internal/network
 interface = wlo1
 interval = 3.0
 
-format-connected =  <label-connected>
+format-connected = <ramp-signal> <label-connected>
 format-connected-underline = ${colors.color3}
-label-connected = %essid%
+label-connected = %essid% %local_ip%
+
+format-disconnected = 郎
+format-disconnected-foreground = ${colors.warning}
+format-disconnected-underline = ${colors.warning}
+
+ramp-signal-0 = 冷
+ramp-signal-1 = 爛
+ramp-signal-2 = 嵐
+ramp-signal-3 = 襤
+ramp-signal-4 = 蠟
 
 [module/eth]
 type = internal/network
 interface = enp8s0
 interval = 3.0
 
+format-connected =  <label-connected>
 format-connected-underline = ${colors.background}
-format-connected-prefix-foreground = ${colors.foreground-alt}
 label-connected = %local_ip%
+
+format-disconnected = 
+format-disconnected-foreground = ${colors.warning}
+format-disconnected-underline = ${colors.warning}
 
 [module/date]
 type = internal/date
@@ -194,8 +208,8 @@ label = %date% %time%
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume = <label-volume> <bar-volume>
-label-volume =  %percentage%%
+format-volume = <ramp-volume> <label-volume> <bar-volume>
+label-volume = %percentage%%
 label-volume-foreground = ${root.foreground}
 
 label-muted =  Mute
@@ -218,6 +232,12 @@ bar-volume-empty = ─
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground-alt}
 
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-3 = 
+ramp-volume-4 = 
+
 [module/battery]
 type = internal/battery
 battery = BAT1
@@ -230,25 +250,28 @@ format-charging-underline = #48b0ff
 format-discharging = <ramp-capacity> <label-discharging>
 format-discharging-underline = ${colors.warning}
 
-format-full =  <label-full>
+format-full =  <label-full>
 format-full-underline = ${colors.background}
 
 label-charging = %percentage%%
 label-discharging = %percentage%%
 label-full = 100%
 
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
-ramp-capacity-5 = 
-ramp-capacity-6 = 
-ramp-capacity-7 = 
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-5 = 
+ramp-capacity-6 = 
+ramp-capacity-7 = 
+ramp-capacity-8 = 
+ramp-capacity-9 = 
+ramp-capacity-10 = 
 ramp-capacity-0-foreground = ${colors.alert}
-ramp-capacity-0-background = ${colors.background-alt}
-ramp-capacity-1-foreground = ${colors.warning}
+ramp-capacity-1-foreground = ${colors.alert}
 ramp-capacity-2-foreground = ${colors.warning}
+ramp-capacity-3-foreground = ${colors.warning}
 ramp-capacity-foreground = ${colors.foreground}
 
 [module/temperature]
