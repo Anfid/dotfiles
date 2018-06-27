@@ -55,6 +55,8 @@ ln -s $DOTFILES_DIR/.config/compton.conf $HOME/.config/compton.conf
 
 ln -s $DOTFILES_DIR/.config/wal/templates $HOME/.config/wal/templates
 
+ln -s $DOTFILES_DIR/.conky $HOME/.conky
+
 ln -s $DOTFILES_DIR/.fonts $HOME/.fonts
 fc-cache -fv
 
