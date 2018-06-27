@@ -84,17 +84,17 @@ bindsym $mod+f fullscreen toggle
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1:"
-set $ws2 "2:"
-set $ws3 "3:"
-set $ws4 "4:"
-set $ws5 "5:"
+set $ws1 "1:"
+set $ws2 "2:"
+set $ws3 "3:"
+set $ws4 "4:"
+set $ws5 "5:"
 set $ws6 "6:misc"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
-set $wsc "10:"
-set $ws0 "100:"
+set $wsc "10:"
+set $ws0 "100:"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -241,7 +241,7 @@ assign [class="^TelegramDesktop$"] → $ws4
 assign [class="^Slack$"] → $ws4
 
 # Set random wallpaper
-exec_always zsh -c 'if [[ -f $HOME/.config/i3/.wallpaper ]]; then rm -f $HOME/.config/i3/.wallpaper; fi; rg ./Pictures/Wallpapers --files | shuf | head -n1 >> $HOME/.config/i3/.wallpaper; export WALLPAPER="$(< $HOME/.config/i3/.wallpaper)"; wal -g -i $WALLPAPER'
+exec_always zsh -c 'wp=`rg ./Pictures/Wallpapers --files | shuf | head -n1`; wal -g -i $wp'
 # TODO: See --opacity-rule to disable opacity on image and video viewing apps
 exec compton
 exec setxkbmap -layout us,ru -option 'grp:alt_shift_toggle'
@@ -253,3 +253,13 @@ exec firefox
 exec /opt/telegram/Telegram
 
 #exec_always multiple screen support
+
+# local. Do not commit
+assign [class="^Putty$"] → $ws3
+assign [title="openTAS"] → $ws3
+workspace $ws1 output DVI-0
+workspace $ws2 output DVI-0
+workspace $ws3 output VGA-1
+workspace $ws4 output VGA-1
+
+exec slack
