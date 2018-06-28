@@ -8,9 +8,6 @@ export ZSH=~/.oh-my-zsh
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="clean" # clean edvardm theunraveler wezm
 
-# Export wallpaper variable. Set in i3/config
-export WALLPAPER="$(< $HOME/.config/i3/.wallpaper)"
-
 # Use pywal theme
 (cat ~/.cache/wal/sequences &)
 source ~/.cache/wal/colors-tty.sh
@@ -66,7 +63,7 @@ source ~/.cache/wal/colors-tty.sh
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
-source ~/.zshrclocal.sh
+[[ -f ~/.zshrclocal ]] && source ~/.zshrclocal
 source $ZSH/oh-my-zsh.sh
 
 # User configuration

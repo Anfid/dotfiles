@@ -228,6 +228,11 @@ function! VimFtConfig()
 endfunction
 autocmd filetype vim call VimFtConfig()
 
+function! ShFtConfig()
+  setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+endfunction
+autocmd filetype sh call ShFtConfig()
+
 " Tabs management
 nnoremap <C-t>e :tabedit<Space>
 nnoremap <silent> <C-t>n :tabnew<CR>
