@@ -47,6 +47,6 @@ default_color FFFFFF
 TEXT
 ${font Santana:size=14}${alignc}TODO list${alignr}
 ${stippled_hr}
-${voffset 10}${execp ~/.Conky/viewnotes.sh}
+${voffset 10}${execp ~/.conky/viewnotes.sh}
 
 # ${stippled_hr 1}

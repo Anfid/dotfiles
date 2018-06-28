@@ -46,8 +46,6 @@ ln -s $DOTFILES_DIR/.config/powerline-shell/config.json $HOME/.config/powerline-
 
 ln -s $DOTFILES_DIR/Wallpapers $HOME/Pictures/Wallpapers
 
-ln -s $DOTFILES_DIR/.conkyrc $HOME/.conkyrc
-
 mkdir $HOME/.config/polybar
 ln -s $DOTFILES_DIR/.config/polybar/config $HOME/.config/polybar/config
 

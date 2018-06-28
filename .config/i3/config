@@ -248,7 +248,7 @@ exec setxkbmap -layout us,ru -option 'grp:alt_shift_toggle'
 
 # TODO: Current conky configuration is completely basic. Update
 exec_always bash -c "$HOME/.scripts/start-pb.sh"
-exec conky
+exec $HOME/.conky/startconky.sh
 exec firefox
 exec /opt/telegram/Telegram
 
