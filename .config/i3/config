@@ -233,13 +233,15 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 bindsym Control+Mod1+l exec bash -c 'export LC_ALL=C && source $HOME/.cache/wal/colors.sh && \
-                                     i3lock -B --blur \
-                                     --insidevercolor="$color3"40 --insidewrongcolor=ff555540 --insidecolor="$color3"40 \
-                                     --ringvercolor="$background"80 --ringwrongcolor=ff555580 --ringcolor="$background"80 \
+                                     i3lock --blur 7 --radius 200 --indicator \
+                                     --insidecolor="$color3"40 --insidevercolor="$color6"40   --insidewrongcolor=ff555540 \
+                                     --ringcolor="$background"80 --ringvercolor="$background"80 --ringwrongcolor=ff555580 \
                                      --linecolor="$color6"80 --separatorcolor="$background"80 \
                                      --keyhlcolor="$color6"c0 --bshlcolor=ff5555ff \
-                                     --clock --timestr="%I:%M%p"'
-# TODO --timefont="Santana"
+                                     --verifcolor="$background"ff wrongcolor="$background"ff --timecolor="$background"ff --datecolor="$background"ff \
+                                     --veriftext="Unlocking..." --wrongtext="Wrong password" \
+                                     --clock --timestr="%I:%M%p" --time-font="Santana" --timesize=64 --timepos ix:iy\
+                                     --datestr="%A. %d %B %Y" --date-font="Santana" --datesize=32 --datepos tx:ty+48'
 
 # Assign workspace
 assign [class="^Firefox$"] → $ws1

@@ -40,12 +40,12 @@ function update_symlink {
   response=${response,,}    # tolower
   case "$response" in
   "y")
-    ln -sf $DOTFILES_DIR/.xinitrc $HOME/.xinitrc
-    ln -sf $DOTFILES_DIR/.zshrc $HOME/.zshrc
-    ln -sf $DOTFILES_DIR/.scripts $HOME/.scripts
-    ln -sf $DOTFILES_DIR/Wallpapers $HOME/Pictures/Wallpapers
-    ln -sf $DOTFILES_DIR/.conky $HOME/.conky
-    ln -sf $DOTFILES_DIR/.fonts $HOME/.fonts
+    ln -sf $DOTFILES_DIR/.xinitrc $HOME
+    ln -sf $DOTFILES_DIR/.zshrc $HOME
+    ln -sf $DOTFILES_DIR/.scripts $HOME
+    ln -sf $DOTFILES_DIR/Wallpapers $HOME/Pictures
+    ln -sf $DOTFILES_DIR/.conky $HOME
+    ln -sf $DOTFILES_DIR/.fonts $HOME
     [[ ! -d $HOME/.config ]] && mkdir $HOME/.config
     [[ ! -d $HOME/.config ]] && mkdir $HOME/.config/nvim
     [[ ! -d $HOME/.config/i3 ]] && mkdir $HOME/.config/i3
@@ -142,6 +142,7 @@ function install_from_rep {
   cd /tmp
   git clone https://github.com/PandorasFox/i3lock-color
   cd i3lock-color
+  git tag -f "git-$(git rev-parse --short HEAD)"
   autoreconf -i && ./configure && make
   sudo checkinstall -y --pkgname=i3lock-color --pkgversion=1
 }
