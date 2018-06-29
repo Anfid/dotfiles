@@ -66,12 +66,13 @@ function install_dependencies {
   read -n1 -s
   case "${REPLY,,}" in
   "y")
-    sudo apt install software-properties-common python-dev python-pip python3-dev python3-pip wget ruby-sass sassc \
-                     libxml2-utils gtk2-engines libimlib2 libimlib2-dev libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev \
+    sudo apt install software-properties-common python-dev python-pip python3-dev python3-pip wget ruby-sass \
+                     libxml2-utils gtk2-engines libimlib2 libimlib2-dev libxcb1 libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev \
                      libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev \
-                     libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev \
-                     libxkbfile-dev autoconf libxcb-xrm0 libxcb-xrm-dev libcairo2-dev python-xcbgen xcb-proto libxcb-image0-dev \
-                     libxcb-ewmh-dev libpulse-dev libiw-dev automake
+                     libev-dev libxcb-cursor-dev libxcb-dpms0-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev \
+                     libxkbcommon-x11-dev libxkbcommon-x11-0 libxkbfile-dev autoconf libxcb-composite0 libxcb-composite0-dev \
+                     libxcb-xrm0 libxcb-xrm-dev libcairo-dev libcairo2-dev python-xcbgen xcb-proto libxcb-image0-dev \
+                     libxcb-ewmh-dev libpulse-dev libiw-dev automake pkg-config libpam-dev libx11-dev libx11-xcb-dev libxkbcommon0
     ;;
   *)
     echo 'Skipping dependencies'
@@ -127,7 +128,7 @@ function install_from_rep {
   make -j5
   sudo checkinstall -y --pkgname=i3-gaps --pkgversion=1
 
-  sudo apt install -y i3status i3lock compton feh rofi conky numlockx
+  sudo apt install -y i3status compton feh rofi conky numlockx
 
   #polybar
   cd /tmp
@@ -136,6 +137,13 @@ function install_from_rep {
   cd polybar/build
   cmake ..
   sudo checkinstall -y --pkgname=polybar
+
+  #i3lock-color
+  cd /tmp
+  git clone https://github.com/PandorasFox/i3lock-color
+  cd i3lock-color
+  autoreconf -i && ./configure && make
+  sudo checkinstall -y --pkgname=i3lock-color --pkgversion=1
 }
 
 function update_from_rep {

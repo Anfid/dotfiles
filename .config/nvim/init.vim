@@ -249,12 +249,25 @@ nnoremap <silent> <Leader>ir :source ~/.config/nvim/init.vim<CR>
 nnoremap <silent> <Tab> :set relativenumber!<CR>
 
 
-" ------------------ Plugin setups ------------------
+" ------------------ Other ------------------
+function! ShowCommitsAndExit()
+  AirlineToggle
+  tnoremap <Esc> <C-\><C-n>:bd!<Bar>qa!<CR>
+  tnoremap <C-c> <C-\><C-n>:bd!<Bar>qa!<CR>
+  nnoremap <Esc> :qa!<CR>
+  nnoremap <C-c> :qa!<CR>
+  Commits!
+  tabonly
+endfunction
+command! ShowCommitsAndExit call ShowCommitsAndExit()
+
+
+" ------------------ Plugin configuration ------------------
 
 " CtrlSpace
 nnoremap <silent> <Space> :CtrlSpace<CR>
 let g:CtrlSpaceUseMouseAndArrowsInTerm = 1
-let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
+let g:CtrlSpaceLoadLastWorkspaceOnStart = 0
 let g:CtrlSpaceGlobCommand = "rg --smart-case --hidden --follow --no-heading --files"
 
 " ALE

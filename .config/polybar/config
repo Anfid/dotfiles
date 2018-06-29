@@ -12,8 +12,8 @@
 ;==========================================================
 
 [colors]
-background = ${env:pb_background:#80000000}
-background-alt = ${env:pb_color6:#00000000}
+background = ${env:aarrggbb_background:#80000000}
+background-alt = ${env:aarrggbb_color6:#80ffffff}
 highlight = ${xrdb:color6:#2222aa}
 foreground = ${xrdb:foreground:#ffffff}
 foreground-alt = ${xrdb:background:#000000}

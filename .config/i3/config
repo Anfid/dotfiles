@@ -232,8 +232,14 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-# TODO: i3lock-fancy or i3lock-next
-bindsym Control+Mod1+l exec i3lock -c "#000000"
+bindsym Control+Mod1+l exec bash -c 'export LC_ALL=C && source $HOME/.cache/wal/colors.sh && \
+                                     i3lock -B --blur \
+                                     --insidevercolor="$color3"40 --insidewrongcolor=ff555540 --insidecolor="$color3"40 \
+                                     --ringvercolor="$background"80 --ringwrongcolor=ff555580 --ringcolor="$background"80 \
+                                     --linecolor="$color6"80 --separatorcolor="$background"80 \
+                                     --keyhlcolor="$color6"c0 --bshlcolor=ff5555ff \
+                                     --clock --timestr="%I:%M%p"'
+# TODO --timefont="Santana"
 
 # Assign workspace
 assign [class="^Firefox$"] → $ws1
@@ -242,12 +248,11 @@ assign [class="^Slack$"] → $ws4
 
 # Set random wallpaper
 exec_always zsh -c 'wp=`rg ./Pictures/Wallpapers --files | shuf | head -n1`; wal -g -i $wp'
-# TODO: See --opacity-rule to disable opacity on image and video viewing apps
 exec compton
 exec setxkbmap -layout us,ru -option 'grp:alt_shift_toggle'
 
-# TODO: Current conky configuration is completely basic. Update
 exec_always bash -c "$HOME/.scripts/start-pb.sh"
+exec_always killall -SIGUSR1 conky
 exec $HOME/.conky/startconky.sh
 exec firefox
 exec /opt/telegram/Telegram
