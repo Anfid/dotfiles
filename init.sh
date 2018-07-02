@@ -166,6 +166,9 @@ function install_initial {
   sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
   sudo update-alternatives --config editor
 
+  # mps-youtube
+  sudo apt install mps-youtube youtube-dl mplayer
+
   install_from_rep
 
   #pywal
