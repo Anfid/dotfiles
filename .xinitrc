@@ -4,7 +4,9 @@
 #
 # local xinitrc file, used by X sessions started by xinit (startx)
 
-# invoke global X session script
-. /etc/X11/Xsession
+# invoke global xinit
+. /etc/X11/xinit/xinitrc
 
 [[ -f ~/.cache/wal/colors.Xresources ]] && xrdb -merge ~/.cache/wal/colors.Xresources
+
+exec i3
