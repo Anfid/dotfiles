@@ -107,6 +107,8 @@ alias showlines="~/.scripts/showLines.sh" # Usage: showlines <file> <line> [line
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+export PYTHONIOENCODING=UTF-8
+
 function powerline_precmd() {
     PS1="$(powerline-shell --shell zsh $?)"
 }

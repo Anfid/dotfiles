@@ -47,11 +47,6 @@ function update_symlink {
     ln -sf $DOTFILES_DIR/.conky $HOME
     ln -sf $DOTFILES_DIR/.fonts $HOME
     [[ ! -d $HOME/.config ]] && mkdir $HOME/.config
-    [[ ! -d $HOME/.config ]] && mkdir $HOME/.config/nvim
-    [[ ! -d $HOME/.config/i3 ]] && mkdir $HOME/.config/i3
-    [[ ! -d $HOME/.config/rofi ]] && mkdir $HOME/.config/rofi
-    [[ ! -d $HOME/.config/powerline-shell ]] && mkdir $HOME/.config/powerline-shell
-    [[ ! -d $HOME/.config/polybar ]] && mkdir $HOME/.config/polybar
     ln -sf $DOTFILES_DIR/.config/* $HOME/.config
     echo Done!
     ;;

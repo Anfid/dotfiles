@@ -38,4 +38,6 @@ TODO. Xresources
 
 ## To do:
 * mps-youtube. Read details on configuration
+* Store preferences in file, so desired behavior can be changed whenever desired
+* Create proper script to start everything (conky, polybar, etc...)
 
