@@ -81,9 +81,8 @@ See help for other options.
 TODO. Xresources
 
 ## To do:
-* Add cursor installation to init script
-* Write a manual to install cursor for other distros
+* make blurme script work on multimonitor setups
+* Create proper script to start everything (conky, polybar, etc...)
+* Store preferences in file, so desired behavior can be changed whenever desired
 * Add .scripts to PATH
 * mps-youtube. Read details on configuration
-* Store preferences in file, so desired behavior can be changed whenever desired
-* Create proper script to start everything (conky, polybar, etc...)
