@@ -37,6 +37,7 @@ See help for other options.
 TODO. Xresources
 
 ## To do:
+* Add .scripts to PATH. Put kitty launch script to .scripts
 * mps-youtube. Read details on configuration
 * Store preferences in file, so desired behavior can be changed whenever desired
 * Create proper script to start everything (conky, polybar, etc...)

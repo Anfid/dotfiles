@@ -40,13 +40,16 @@ function update_symlink {
   response=${response,,}    # tolower
   case "$response" in
   "y")
+    sudo ln -sf $DOTFILES_DIR/.scripts/kitty /bin/kitty
     ln -sf $DOTFILES_DIR/.xinitrc $HOME
     ln -sf $DOTFILES_DIR/.zshrc $HOME
     ln -sf $DOTFILES_DIR/.scripts $HOME
-    ln -sf $DOTFILES_DIR/Wallpapers $HOME/Pictures
+    [[ ! -d $HOME/Pictures ]] && mkdir $HOME/Pictures
+    ln -sf $DOTFILES_DIR/Wallpapers $HOME/Pictures/Wallpapers
     ln -sf $DOTFILES_DIR/.conky $HOME
     ln -sf $DOTFILES_DIR/.fonts $HOME
     [[ ! -d $HOME/.config ]] && mkdir $HOME/.config
+    # TODO: link each file, not directories. This way git tracks local files, which is not desired behavior
     ln -sf $DOTFILES_DIR/.config/* $HOME/.config
     echo Done!
     ;;
@@ -67,7 +70,9 @@ function install_dependencies {
                      libev-dev libxcb-cursor-dev libxcb-dpms0-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev \
                      libxkbcommon-x11-dev libxkbcommon-x11-0 libxkbfile-dev autoconf libxcb-composite0 libxcb-composite0-dev \
                      libxcb-xrm0 libxcb-xrm-dev libcairo-dev libcairo2-dev python-xcbgen xcb-proto libxcb-image0-dev \
-                     libxcb-ewmh-dev libpulse-dev libiw-dev automake pkg-config libpam-dev libx11-dev libx11-xcb-dev libxkbcommon0
+                     libxcb-ewmh-dev libpulse-dev libiw-dev automake pkg-config libpam-dev libx11-dev libx11-xcb-dev libxkbcommon0 \
+                     libharfbuzz-bin libharfbuzz-dev libpng-dev sudo apt install libxcursor-dev libxrandr-dev libxi-dev \
+                     libxinerama-dev libgl1-mesa-dev zlib1g-dev libdbus-1-dev
     ;;
   *)
     echo 'Skipping dependencies'
@@ -106,7 +111,7 @@ function install_from_rep {
   mkdir xkb-switch/build && cd xkb-switch/build
   cmake ..
   make
-  sudo checkinstall -y --pkgname=xkbswitch
+  sudo checkinstall -y --pkgname=xkb-switch
 
   # fzf
   git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
@@ -125,7 +130,7 @@ function install_from_rep {
 
   sudo apt install -y i3status compton feh rofi conky numlockx
 
-  #polybar
+  # polybar
   cd /tmp
   git clone --recursive https://github.com/jaagr/polybar
   mkdir polybar/build
@@ -133,13 +138,18 @@ function install_from_rep {
   cmake ..
   sudo checkinstall -y --pkgname=polybar
 
-  #i3lock-color
+  # i3lock-color
   cd /tmp
   git clone https://github.com/PandorasFox/i3lock-color
   cd i3lock-color
   git tag -f "git-$(git rev-parse --short HEAD)"
   autoreconf -i && ./configure && make
   sudo checkinstall -y --pkgname=i3lock-color --pkgversion=1
+
+  # kitty
+  cd /opt
+  sudo git clone https://github.com/kovidgoyal/kitty && cd kitty
+  sudo make
 }
 
 function update_from_rep {
@@ -172,7 +182,7 @@ function install_initial {
   #oomox
   cd /tmp
   wget http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu/pool/main/o/oomox/oomox_1.2.6-1\~webupd8\~2_all.deb
-  dpkg -i oomox_1.2.6-1\~webupd8\~2_all.deb
+  sudo dpkg -i oomox_1.2.6-1\~webupd8\~2_all.deb
 }
 
 if [[ $UPDATE = yes ]]

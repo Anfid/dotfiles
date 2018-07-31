@@ -36,7 +36,7 @@ font pango:Santana Bold 12
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec kitty
 
 # kill focused window
 bindsym $mod+q kill
@@ -244,6 +244,7 @@ bindsym Control+Mod1+l exec bash -c 'export LC_ALL=C && source $HOME/.cache/wal/
 
 # Assign workspace
 assign [class="^Firefox$"] → $ws1
+assign [class="^Waterfox$"] → $ws1
 assign [class="^TelegramDesktop$"] → $ws4
 assign [class="^Slack$"] → $ws4
 
@@ -255,7 +256,7 @@ exec setxkbmap -layout us,ru -option 'grp:alt_shift_toggle'
 exec_always bash -c "$HOME/.scripts/start-pb.sh"
 exec_always killall -SIGUSR1 conky
 exec $HOME/.conky/startconky.sh
-exec firefox
+exec waterfox
 exec /opt/telegram/Telegram
 
 #exec_always multiple screen support
