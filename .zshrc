@@ -11,6 +11,7 @@ ZSH_THEME="clean" # clean edvardm theunraveler wezm
 # Use pywal theme
 (cat ~/.cache/wal/sequences &)
 source ~/.cache/wal/colors-tty.sh
+source ~/.cache/wal/colors.sh
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random

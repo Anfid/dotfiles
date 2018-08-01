@@ -124,14 +124,24 @@ tnoremap <A-l> <C-\><C-N><C-w>l
 nnoremap <silent> <C-w>r :resize <Bar> vertical resize<CR>
 tnoremap <silent> <C-w>r <C-\><C-n>:resize<CR>a
 
-vnoremap > >gv
-vnoremap < <gv
+xnoremap > >gv
+xnoremap < <gv
 
-" General navigation
-nnoremap H ^
-nnoremap L $
-vnoremap H ^
-vnoremap L $
+" General
+noremap <expr> n 'Nn'[v:searchforward]
+noremap <expr> N 'nN'[v:searchforward]
+noremap H ^
+noremap L $
+noremap s b
+noremap S B
+noremap b *
+noremap B #
+noremap H ^
+noremap L $
+noremap s b
+noremap S B
+noremap b *
+noremap B #
 
 " Insert mode navigation
 inoremap <C-n> <Esc>o
@@ -373,7 +383,7 @@ nmap <silent> <C-l> :TagbarOpenAutoClose<CR>
 " delimitMate
 let delimitMate_expand_cr = 2
 let delimitMate_expand_space = 1
-let delimitMate_jump_expansion = 1
+let delimitMate_jump_expansion = 0
 let delimitMate_balance_matchpairs = 1
 let delimitMate_excluded_regions = "String"
 

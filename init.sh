@@ -47,10 +47,17 @@ function update_symlink {
     [[ ! -d $HOME/Pictures ]] && mkdir $HOME/Pictures
     ln -sf $DOTFILES_DIR/Wallpapers $HOME/Pictures/Wallpapers
     ln -sf $DOTFILES_DIR/.conky $HOME
-    ln -sf $DOTFILES_DIR/.fonts $HOME
+    [[ ! -d $HOME/.fonts ]] && mkdir $HOME/.fonts
+    ln -sf $DOTFILES_DIR/.fonts/* $HOME/.fonts
     [[ ! -d $HOME/.config ]] && mkdir $HOME/.config
-    # TODO: link each file, not directories. This way git tracks local files, which is not desired behavior
-    ln -sf $DOTFILES_DIR/.config/* $HOME/.config
+
+    for DOTFILES_CONF_DIR in $DOTFILES_DIR/.config/*/
+    do
+      CONF_SUBDIR=${DOTFILES_CONF_DIR#"$DOTFILES_DIR/"}
+      CONF_SUBDIR=${CONF_SUBDIR%"/"}
+      [[ ! -d $HOME/$CONF_SUBDIR ]] && mkdir $HOME/$CONF_SUBDIR
+      ln -sf $DOTFILES_DIR/$CONF_SUBDIR/* $HOME/$CONF_SUBDIR
+    done
     echo Done!
     ;;
   *)
