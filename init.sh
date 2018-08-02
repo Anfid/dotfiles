@@ -135,7 +135,7 @@ function install_from_rep {
   make -j5
   sudo checkinstall -y --pkgname=i3-gaps --pkgversion=1
 
-  sudo apt install -y i3status compton feh rofi conky numlockx
+  sudo apt install -y i3status compton feh rofi conky conky-all numlockx
 
   # polybar
   cd /tmp

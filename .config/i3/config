@@ -255,9 +255,9 @@ exec setxkbmap -layout us,ru -option 'grp:alt_shift_toggle'
 
 exec_always bash -c "$HOME/.scripts/start-pb.sh"
 exec_always killall -SIGUSR1 conky
-exec $HOME/.conky/startconky.sh
+exec $HOME/.scripts/start-conky.sh
 exec waterfox
-exec /opt/telegram/Telegram
+exec telegram-desktop
 
 #exec_always multiple screen support
 

@@ -88,8 +88,6 @@ set nosplitbelow
 
 syntax on
 
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=2
-
 
 " ------------------ Key remaps ------------------
 

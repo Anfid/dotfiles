@@ -47,7 +47,7 @@ default_color FFFFFF
 
 # -- Lua Load -- #
 lua_load ~/.conky/clock_rings.lua
-lua_draw_hook_pre clock_rings
+lua_draw_hook_pre conky_clock_rings
 
 TEXT
   ${font Santana:size=12}  Root   ${fs_used /}/${fs_size /}                Home   ${fs_used /home}/${fs_size /home}$font
