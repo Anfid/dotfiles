@@ -112,6 +112,26 @@ function install_dependencies {
   esac
 }
 
+function install_icons {
+  echo 'Install icons (cursor)? [y/N]'
+  read -n1 -s
+  case "${REPLY,,}" in
+  "y")
+    sudo cp -r $DOTFILES_DIR/icons/Ardoise_no_shadow_75 /usr/share/icons
+    if [[ -f /etc/alternatives/x-cursor-theme ]]
+    then
+      sudo ln -sf /etc/alternatives/x-cursor-theme /usr/share/icons/Ardoise_no_shadow_75/cursor.theme
+    else
+      sudo ln -sf /usr/share/icons/default/index.theme /usr/share/icons/Ardoise_no_shadow_75/cursor.theme
+    fi
+    ;;
+  *)
+    echo 'Skipping installing icons'
+    ;;
+  esac
+
+}
+
 function update_dotfiles {
   cd $DOTFILES_DIR && git pull
   sed -i '/*\/local\/*/d' ./.git/info/exclude
@@ -119,6 +139,7 @@ function update_dotfiles {
 
   install_dependencies
   update_symlink
+  install_icons
 
   echo 'Add fonts? [y/N]'
   read -n1 -s
