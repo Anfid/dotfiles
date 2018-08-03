@@ -236,6 +236,9 @@ function install_initial {
   cd /tmp
   wget http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu/pool/main/o/oomox/oomox_1.2.6-1\~webupd8\~2_all.deb
   sudo dpkg -i oomox_1.2.6-1\~webupd8\~2_all.deb
+
+  update_symlink
+  install_icons
 }
 
 if [[ $UPDATE = yes ]]
