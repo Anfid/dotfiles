@@ -1,3 +1,4 @@
 # Ignore local zshrc
 .zshrclocal.sh
 */local/*
+old

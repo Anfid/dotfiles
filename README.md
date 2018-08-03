@@ -1,10 +1,54 @@
 # Dotfiles
+## How to
+Clone this repository to the directory of your choise. Init script can be used to apply dotfiles on ubuntu. Type ./init.sh -h for details.
+On other distros init.sh can be used as a guideline. Dependencies may vary on different distributions. Proper installation of compiled applications can be specified on each project's github page.
 
-Init script can be used to apply my dotfiles on ubuntu. Type ./init.sh -h for details.
-
-On other distros init.sh can be used as a list of used packages. Dependencies may vary on different distributions. Proper installation can be specified on each project's github page.
+Local preferences for zsh can be kept at ~/.zshrclocal. If this file exists, .zshrc will load it.
+Local scripts can be stored in ~/.scripts/local. Git will ignore them.
+Preferences file is yet to be created
 
 ## Reminders
+### Keybindings
+#### i3-gaps
+| Key               | Function                                                                   |
+|-------------------|----------------------------------------------------------------------------|
+| Meta+Enter        | Open new terminal window                                                   |
+| Meta+Q            | Close focused window                                                       |
+| Meta+\<direction> | Focus window to the \<direction> of the focused one                        |
+| Meta+Shift+\<direction> | Move focused window to the \<direction>                              |
+| Meta+Shift+\<n>   | Move focused window to workspace #\<n>                                     |
+| Meta+\<n>         | Focus workspace #\<n>                                                      |
+| Meta+Space        | Toggle floating window focus                                               |
+| Meta+W > D        | Choose default layout                                                      |
+| Meta+W > T        | Choose tab layout                                                          |
+| Meta+W > S        | Choose stack layout                                                        |
+| Meta+W > Space    | Toggle window floating                                                     |
+| Meta+W > G        | Enable gaps                                                                |
+| Meta+W > E        | Disable gaps (mnemonic - efficient layout)                                 |
+| Meta+W > M        | Enter move mode                                                            |
+| Meta+W > R        | Enter resize mode                                                          |
+| Meta+X            | Execute shell command. Can also be used to run applications. Utilizes rofi |
+| Meta+S            | Run application. Utilizes rofi                                             |
+| Ctrl+Alt+L        | Lock screen. Enter password to unlock                                      |
+
+Where:
+* `+` - Press keys simultaneously
+* `>` - Press keys consequently
+* `Meta` - aka Windows, Super etc.
+* `<n>` - number from 0 to 9
+* `<direction>` - vim-like direction key. Arrow keys also work
+  h - left
+  j - down
+  k - up
+  l - right
+
+In move mode press `<direction>` to move floating window in corresponding direction. Press `Shift+<direction>` to move faster
+In resize mode press J to make window bigger and K to make window smaller vertically. In resize mode press L to make window bigger and H to make window smaller horizontally. Press `Shift+<direction>` to resize faster
+All modes can be escaped with Q, Esc or Enter
+
+#### neovim
+List will be to big. See .config/nvim/init.vim. Will be restructured one day for better readability
+
 ### Project
 #### C++
 Following options may need to be changed from default on some projects.
@@ -37,8 +81,9 @@ See help for other options.
 TODO. Xresources
 
 ## To do:
-* Add .scripts to PATH. Put kitty launch script to .scripts
+* Add cursor installation to init script
+* Write a manual to install cursor for other distros
+* Add .scripts to PATH
 * mps-youtube. Read details on configuration
 * Store preferences in file, so desired behavior can be changed whenever desired
 * Create proper script to start everything (conky, polybar, etc...)
-

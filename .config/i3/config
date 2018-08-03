@@ -151,16 +151,26 @@ mode "resize" {
     # Pressing right will grow the window’s width.
     # Pressing up will shrink the window’s height.
     # Pressing down will grow the window’s height.
-    bindsym h resize shrink width 5 px or 5 ppt
-    bindsym j resize grow height 5 px or 5 ppt
-    bindsym k resize shrink height 5 px or 5 ppt
-    bindsym l resize grow width 5 px or 5 ppt
+    bindsym h resize shrink width  5 px or 1 ppt
+    bindsym j resize grow   height 5 px or 1 ppt
+    bindsym k resize shrink height 5 px or 1 ppt
+    bindsym l resize grow   width  5 px or 1 ppt
+
+    bindsym Shift+h resize shrink width  20 px or 4 ppt
+    bindsym Shift+j resize grow   height 20 px or 4 ppt
+    bindsym Shift+k resize shrink height 20 px or 4 ppt
+    bindsym Shift+l resize grow   width  20 px or 4 ppt
 
     # same bindings, but for the arrow keys
-    bindsym Left resize shrink width 5 px or 5 ppt
-    bindsym Down resize grow height 5 px or 5 ppt
-    bindsym Up resize shrink height 5 px or 5 ppt
-    bindsym Right resize grow width 5 px or 5 ppt
+    bindsym Left  resize shrink width  5px
+    bindsym Down  resize grow   height 5px
+    bindsym Up    resize shrink height 5px
+    bindsym Right resize grow   width  5px
+
+    bindsym Shift+Left  resize shrink width  20px
+    bindsym Shift+Down  resize grow   height 20px
+    bindsym Shift+Up    resize shrink height 20px
+    bindsym Shift+Right resize grow   width  20px
 
     # back to normal: Enter,  Escape or q
     bindsym q mode "default"
@@ -169,16 +179,26 @@ mode "resize" {
 }
 
 mode "move" {
-    bindsym h move left 5px
-    bindsym j move down 5px
-    bindsym k move up 5px
+    bindsym h move left  5px
+    bindsym j move down  5px
+    bindsym k move up    5px
     bindsym l move right 5px
 
+    bindsym Shift+h move left  20px
+    bindsym Shift+j move down  20px
+    bindsym Shift+k move up    20px
+    bindsym Shift+l move right 20px
+
     # same bindings, but for the arrow keys
-    bindsym Left move left 5px
-    bindsym Down move down 5px
-    bindsym Up move up 5px
+    bindsym Left  move left  5px
+    bindsym Down  move down  5px
+    bindsym Up    move up    5px
     bindsym Right move right 5px
+
+    bindsym Shift+Left  move left  20px
+    bindsym Shift+Down  move down  20px
+    bindsym Shift+Up    move up    20px
+    bindsym Shift+Right move right 20px
 
     # back to normal: Enter,  Escape or q
     bindsym q mode "default"

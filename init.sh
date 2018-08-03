@@ -34,19 +34,40 @@ Options:
   esac
 done
 
+# arg1 is relative to dotfiles file name
+# e.g. safe_link .config/nvim/init.vim will store old init.vim in $DOTFILES_DIR/old/.config/nvim/init.vim
+# and create a symbolic link from $DOTFILES_DIR/.config/nvim/init.vim to $HOME/.config/nvim/init.vim
+function safe_link {
+  file="$1"
+  [[ -f $HOME/$file && ! -L $HOME/$file ]] && \
+      mkdir -p `dirname $DOTFILES_DIR/old/$file` && \
+      mv -f $HOME/$file $DOTFILES_DIR/old/$file && \
+      echo "Note: $HOME/$file is now stored in $DOTFILES_DIR/old" && \
+      ln -sf $DOTFILES_DIR/$file $HOME/$file
+}
+
+function safe_link_dir {
+  dir="$1"
+  [[ -d $HOME/$dir && ! -L $HOME/$dir ]] && \
+      mkdir -p `dirname $DOTFILES_DIR/old/$dir` && \
+      mv -f $HOME/$dir $DOTFILES_DIR/old/$dir && \
+      echo "Note: $HOME/$dir is now stored in $DOTFILES_DIR/old" && \
+      ln -sf $DOTFILES_DIR/$dir $HOME/$dir
+}
+
 function update_symlink {
-  echo 'Do force symlink update? (Required for proper work but may remove original files) [y/N]'
+  echo 'Do symlink update? (Required for proper work. Old files will be stored in dotfiles/old) [y/N]'
   read -n1 -s response
   response=${response,,}    # tolower
   case "$response" in
   "y")
     sudo ln -sf $DOTFILES_DIR/.scripts/kitty /bin/kitty
-    ln -sf $DOTFILES_DIR/.xinitrc $HOME
-    ln -sf $DOTFILES_DIR/.zshrc $HOME
+    safe_link .xinitrc
+    safe_link .zshrc
     ln -sf $DOTFILES_DIR/.scripts $HOME
     [[ ! -d $HOME/Pictures ]] && mkdir $HOME/Pictures
     ln -sf $DOTFILES_DIR/Wallpapers $HOME/Pictures/Wallpapers
-    ln -sf $DOTFILES_DIR/.conky $HOME
+    safe_link_dir .conky
     [[ ! -d $HOME/.fonts ]] && mkdir $HOME/.fonts
     ln -sf $DOTFILES_DIR/.fonts/* $HOME/.fonts
     [[ ! -d $HOME/.config ]] && mkdir $HOME/.config
@@ -56,7 +77,11 @@ function update_symlink {
       CONF_SUBDIR=${DOTFILES_CONF_DIR#"$DOTFILES_DIR/"}
       CONF_SUBDIR=${CONF_SUBDIR%"/"}
       [[ ! -d $HOME/$CONF_SUBDIR ]] && mkdir $HOME/$CONF_SUBDIR
-      ln -sf $DOTFILES_DIR/$CONF_SUBDIR/* $HOME/$CONF_SUBDIR
+      for DOTFILES_CONF_SUBDIR_FILE in $DOTFILES_DIR/$CONF_SUBDIR/*
+      do
+        CONF_SUBDIR_FILE=${DOTFILES_CONF_SUBDIR_FILE#"$DOTFILES_DIR/"}
+        safe_link $CONF_SUBDIR_FILE
+      done
     done
     echo Done!
     ;;
@@ -209,15 +234,3 @@ then
   install_initial
   exit
 fi
-
-# Reminders. Possibly add to script later
-
-# install rust via rustup. See manual for details.
-
-# Install ripgrep via snap or cargo.
-# Install exa via cargo
-
-# Install FontAwesome for nice icons on i3 bar:
-# Link: https://github.com/FortAwesome/Font-Awesome/releases
-# Cheatsheet: https://fontawesome.com/cheatsheet?from=io
-# And ofc Input font for neovim
