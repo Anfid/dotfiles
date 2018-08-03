@@ -42,8 +42,8 @@ function safe_link {
   [[ -f $HOME/$file && ! -L $HOME/$file ]] && \
       mkdir -p `dirname $DOTFILES_DIR/old/$file` && \
       mv -f $HOME/$file $DOTFILES_DIR/old/$file && \
-      echo "Note: $HOME/$file is now stored in $DOTFILES_DIR/old" && \
-      ln -sf $DOTFILES_DIR/$file $HOME/$file
+      echo "Note: $HOME/$file is now stored in $DOTFILES_DIR/old"
+  ln -sf $DOTFILES_DIR/$file $HOME/$file
 }
 
 function safe_link_dir {
@@ -51,8 +51,10 @@ function safe_link_dir {
   [[ -d $HOME/$dir && ! -L $HOME/$dir ]] && \
       mkdir -p `dirname $DOTFILES_DIR/old/$dir` && \
       mv -f $HOME/$dir $DOTFILES_DIR/old/$dir && \
-      echo "Note: $HOME/$dir is now stored in $DOTFILES_DIR/old" && \
-      ln -sf $DOTFILES_DIR/$dir $HOME/$dir
+      echo "Note: $HOME/$dir is now stored in $DOTFILES_DIR/old"
+  [[ -d $HOME/$dir && -L $HOME/$dir ]] && \
+      rm $HOME/$dir
+  ln -sf $DOTFILES_DIR/$dir $HOME/$dir
 }
 
 function update_symlink {
@@ -61,12 +63,12 @@ function update_symlink {
   response=${response,,}    # tolower
   case "$response" in
   "y")
-    sudo ln -sf $DOTFILES_DIR/.scripts/kitty /bin/kitty
+    [[ -f /bin/kitty ]] && sudo ln -sf $DOTFILES_DIR/.scripts/kitty /bin/kitty
     safe_link .xinitrc
     safe_link .zshrc
     ln -sf $DOTFILES_DIR/.scripts $HOME
     [[ ! -d $HOME/Pictures ]] && mkdir $HOME/Pictures
-    ln -sf $DOTFILES_DIR/Wallpapers $HOME/Pictures/Wallpapers
+    ln -sf $DOTFILES_DIR/Wallpapers $HOME/Pictures/
     safe_link_dir .conky
     [[ ! -d $HOME/.fonts ]] && mkdir $HOME/.fonts
     ln -sf $DOTFILES_DIR/.fonts/* $HOME/.fonts
@@ -77,10 +79,13 @@ function update_symlink {
       CONF_SUBDIR=${DOTFILES_CONF_DIR#"$DOTFILES_DIR/"}
       CONF_SUBDIR=${CONF_SUBDIR%"/"}
       [[ ! -d $HOME/$CONF_SUBDIR ]] && mkdir $HOME/$CONF_SUBDIR
-      for DOTFILES_CONF_SUBDIR_FILE in $DOTFILES_DIR/$CONF_SUBDIR/*
+      for DOTFILES_CONF_SUBDIR_SUB in $DOTFILES_DIR/$CONF_SUBDIR/*
       do
-        CONF_SUBDIR_FILE=${DOTFILES_CONF_SUBDIR_FILE#"$DOTFILES_DIR/"}
-        safe_link $CONF_SUBDIR_FILE
+        CONF_SUBDIR_SUB=${DOTFILES_CONF_SUBDIR_SUB#"$DOTFILES_DIR/"}
+        [[ -f DOTFILES_CONF_SUBDIR_SUB ]] && \
+            safe_link $CONF_SUBDIR_SUB
+        [[ -d DOTFILES_CONF_SUBDIR_SUB ]] && \
+            safe_link_dir $CONF_SUBDIR_SUB
       done
     done
     echo Done!
