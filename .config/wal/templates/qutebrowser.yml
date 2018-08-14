@@ -1,0 +1,116 @@
+colors:
+  statusbar:
+    caret:
+      bg: "{color5}"
+      fg: "{foreground}"
+    command:
+      bg: "{color6}"
+      fg: "{background}"
+      private:
+        bg: "black"
+    insert:
+      bg: "{color2}"
+      fg: "{foreground}"
+    normal:
+      bg: "{background}"
+      fg: "{foreground}"
+    private:
+      bg: "{background}"
+      fg: "{foreground}"
+    progress:
+      bg: "{foreground}"
+    url:
+      fg: "{foreground}"
+      error:
+        fg: "#ff5555"
+      hover:
+        fg: "{color4}"
+      success:
+        http:
+          fg: "{foreground}"
+        https:
+          fg: "{color2}"
+      warn:
+        fg: "{color3}"
+  tabs:
+    bar:
+      bg: "{background}"
+    even:
+      fg: "{foreground}"
+      bg: "{background}"
+    odd:
+      fg: "{foreground}"
+      bg: "{background}"
+    selected:
+      even:
+        fg: "{background}"
+        bg: "{color6}"
+      odd:
+        fg: "{background}"
+        bg: "{color6}"
+  completion:
+    category:
+      bg: "{color6}"
+      fg: "{background}"
+      border:
+        bottom: "{background}"
+        top: "{color6}"
+    even:
+      bg: "{background}"
+    odd:
+      bg: "{background}"
+    item:
+      selected:
+        bg: "{color4}"
+        fg: "{foreground}"
+        border:
+          bottom: "{color4}"
+          top: "{color4}"
+    match:
+      fg: "{color2}"
+    scrollbar:
+      bg: "{foreground}"
+      fg: "{background}"
+  downloads:
+    bar:
+      bg: "{background}"
+    error:
+      fg: "{foreground}"
+      bg: "#ff5555"
+    start:
+      fg: "{foreground}"
+      bg: "{color5}"
+    stop:
+      fg: "{foreground}"
+      bg: "{color2}"
+  hints:
+    fg: "{foreground}"
+    bg: "{background}"
+    match:
+      fg: "{color3}"
+  keyhint:
+    fg: "{foreground}"
+    bg: "{background}"
+    suffix:
+      fg: "{color3}"
+  messages:
+    error:
+      fg: "{foreground}"
+      bg: "#ff5555"
+      border: "#ff5555"
+    info:
+      fg: "{foreground}"
+      bg: "{color2}"
+      border: "{color2}"
+    warning:
+      fg: "{foreground}"
+      bg: "#f5a70a"
+      border: "#f5a70a"
+  prompts:
+    fg: "{foreground}"
+    bg: "{background}"
+    border: "{background}"
+    selected:
+      bg: "{color3}"
+hints:
+  border: "1px solid {foreground}"
