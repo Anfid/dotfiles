@@ -43,7 +43,7 @@ source ~/.cache/wal/colors.sh
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -62,7 +62,7 @@ source ~/.cache/wal/colors.sh
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git pip)
 
 [[ -f ~/.zshrclocal ]] && source ~/.zshrclocal
 source $ZSH/oh-my-zsh.sh
@@ -73,7 +73,8 @@ export TERM=xterm-256color
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -100,11 +101,7 @@ alias ls="exa"
 alias ld="exa -la --git"
 alias la="exa -a"
 
-alias restyle="~/.scripts/restyle.sh"
-alias vimf="~/.scripts/vimfind.sh"
-alias vimfind=vimf
 alias glog="vim +ShowCommitsAndExit"
-alias showlines="~/.scripts/showLines.sh" # Usage: showlines <file> <line> [line delta = 10]
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

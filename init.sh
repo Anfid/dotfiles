@@ -82,9 +82,9 @@ function update_symlink {
       for DOTFILES_CONF_SUBDIR_SUB in $DOTFILES_DIR/$CONF_SUBDIR/*
       do
         CONF_SUBDIR_SUB=${DOTFILES_CONF_SUBDIR_SUB#"$DOTFILES_DIR/"}
-        [[ -f DOTFILES_CONF_SUBDIR_SUB ]] && \
+        [[ -f $DOTFILES_CONF_SUBDIR_SUB ]] && \
             safe_link $CONF_SUBDIR_SUB
-        [[ -d DOTFILES_CONF_SUBDIR_SUB ]] && \
+        [[ -d $DOTFILES_CONF_SUBDIR_SUB ]] && \
             safe_link_dir $CONF_SUBDIR_SUB
       done
     done

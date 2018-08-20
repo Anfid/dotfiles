@@ -144,7 +144,7 @@ settings_table = {
     },
     {
         name='battery_percent',
-        arg='BAT0',
+        arg='BAT1',
         max=100,
         bg_colour=0xffffff,
         bg_alpha=0.2,

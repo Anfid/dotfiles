@@ -49,8 +49,8 @@ font-0 = Input:style=Regular:pixelsize=13;0
 font-1 = Material Design Icons:style=Regular:pixelsize=18;3
 
 modules-left = powermenu i3
-modules-center = date
-modules-right = xbacklight mpd pulseaudio battery wlan eth xkeyboard temperature
+modules-center = wlan eth
+modules-right = pulseaudio battery xkeyboard date
 
 tray-position = right
 tray-padding = 2
