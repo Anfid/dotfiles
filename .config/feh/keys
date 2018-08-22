@@ -14,7 +14,7 @@ zoom_in  j
 zoom_out k
 
 # zooming
-zoom_default = d
+zoom_default d
 zoom_fit s
 
 # Image movement

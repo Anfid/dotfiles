@@ -356,11 +356,11 @@ c.content.pdfjs = True
 ## Valid values:
 ##   - system: Use the system wide proxy.
 ##   - none: Don't use any proxy
-# c.content.proxy = 'system'
+c.content.proxy = 'system'
 
 ## Send DNS requests over the configured proxy.
 ## Type: Bool
-# c.content.proxy_dns_requests = True
+c.content.proxy_dns_requests = True
 
 ## Allow websites to register protocol handlers via
 ## `navigator.registerProtocolHandler`.

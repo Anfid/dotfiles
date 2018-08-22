@@ -31,6 +31,7 @@ Plugin 'fisadev/FixedTaskList.vim'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'yggdroot/indentline'
+Plugin 'RRethy/vim-illuminate'
 Plugin 'bogado/file-line'
 
 Plugin 'roxma/nvim-completion-manager'

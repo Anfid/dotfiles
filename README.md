@@ -82,6 +82,7 @@ TODO. Xresources
 
 ## To do:
 * make blurme script work on multimonitor setups
+* rewrite blurme in rust? processor load is SO big
 * Create proper script to start everything (conky, polybar, etc...)
 * Store preferences in file, so desired behavior can be changed whenever desired
 * Add .scripts to PATH
