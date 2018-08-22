@@ -66,6 +66,7 @@ function update_symlink {
     [[ -f /bin/kitty ]] && sudo ln -sf $DOTFILES_DIR/.scripts/kitty /bin/kitty
     safe_link .xinitrc
     safe_link .zshrc
+    safe_link ".gtkrc-2.0"
     ln -sf $DOTFILES_DIR/.scripts $HOME
     [[ ! -d $HOME/Pictures ]] && mkdir $HOME/Pictures
     ln -sf $DOTFILES_DIR/Wallpapers $HOME/Pictures/
@@ -107,6 +108,7 @@ function install_dependencies {
   read -n1 -s
   case "${REPLY,,}" in
   "y")
+    #TODO: Consider renaming icons section to theme section and move arc-theme there
     sudo apt install software-properties-common python-dev python-pip python3-dev python3-pip wget ruby-sass \
                      libxml2-utils gtk2-engines libimlib2 libimlib2-dev libxcb1 libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev \
                      libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev \
@@ -115,7 +117,7 @@ function install_dependencies {
                      libxcb-xrm0 libxcb-xrm-dev libcairo-dev libcairo2-dev python-xcbgen xcb-proto libxcb-image0-dev \
                      libxcb-ewmh-dev libpulse-dev libiw-dev automake pkg-config libpam-dev libx11-dev libx11-xcb-dev libxkbcommon0 \
                      libharfbuzz-bin libharfbuzz-dev libpng-dev sudo apt install libxcursor-dev libxrandr-dev libxi-dev \
-                     libxinerama-dev libgl1-mesa-dev zlib1g-dev libdbus-1-dev
+                     libxinerama-dev libgl1-mesa-dev zlib1g-dev libdbus-1-dev arc-theme
     ;;
   *)
     echo 'Skipping dependencies'
