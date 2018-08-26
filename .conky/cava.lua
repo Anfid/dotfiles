@@ -21,12 +21,13 @@ function conky_cava()
         --settings
         top_left_x=15+(i-1)*30
         top_left_y=30
-        rec_width=20
-        rec_height=-cava_list[i]
+        rec_width=25
+        rec_height=-cava_list[i]-2
         --draw it
-        cairo_set_source_rgba (cr,1,1,1,1)
+        cairo_set_line_width (cr,0)
         cairo_rectangle (cr,top_left_x,top_left_y,rec_width,rec_height)
         cairo_fill_preserve (cr)
+        cairo_set_source_rgba (cr,1,1,1,0.5)
         cairo_stroke (cr)
     end
 end
