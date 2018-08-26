@@ -81,9 +81,9 @@ See help for other options.
 TODO. Xresources
 
 ## To do:
+* Set up cava conky to properly fill the monitor
 * make blurme script work on multimonitor setups
 * rewrite blurme in rust? processor load is SO big
 * Create proper script to start everything (conky, polybar, etc...)
 * Store preferences in file, so desired behavior can be changed whenever desired
 * Add .scripts to PATH
-* mps-youtube. Read details on configuration

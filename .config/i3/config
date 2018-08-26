@@ -278,18 +278,8 @@ exec setxkbmap -layout us,ru -option 'grp:alt_shift_toggle'
 exec_always bash -c "$HOME/.scripts/start-pb.sh"
 exec_always python $HOME/.scripts/reload-qute.py
 exec $HOME/.scripts/start-conky.sh
+exec cava -p $HOME/.config/cava/raw
 exec_always --no-startup-id ~/.scripts/blurme -t 0 &
 
 exec telegram-desktop
-
-#exec_always multiple screen support
-
-# local. Do not commit
-assign [class="^Putty$"] → $ws3
-assign [title="openTAS"] → $ws3
-workspace $ws1 output DVI-0
-workspace $ws2 output DVI-0
-workspace $ws3 output VGA-1
-workspace $ws4 output VGA-1
-
 exec slack
