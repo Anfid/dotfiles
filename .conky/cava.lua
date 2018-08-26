@@ -1,5 +1,9 @@
 require 'cairo'
 
+handle = io.popen("xrandr | awk '/ connected primary /{match($4,/^([0-9]*)/);print(substr($4,RSTART,RLENGTH))}'")
+screen_width = handle:read("*a")
+handle:close()
+
 function rgb_to_r_g_b(colour,alpha)
     return ((colour / 0x10000) % 0x100) / 255., ((colour / 0x100) % 0x100) / 255., (colour % 0x100) / 255., alpha
 end
@@ -19,15 +23,15 @@ function conky_cava()
 
     for i=1,#cava_list do
         --settings
-        top_left_x=15+(i-1)*30
-        top_left_y=30
-        rec_width=25
+        rec_width=(screen_width-10)/50 - 5
         rec_height=-cava_list[i]-2
+        top_left_x=(i-1)*(rec_width+5)+5
+        top_left_y=30
         --draw it
+        cairo_set_source_rgba (cr,1,1,1,0.5)
         cairo_set_line_width (cr,0)
         cairo_rectangle (cr,top_left_x,top_left_y,rec_width,rec_height)
         cairo_fill_preserve (cr)
-        cairo_set_source_rgba (cr,1,1,1,0.5)
         cairo_stroke (cr)
     end
 end

@@ -49,4 +49,3 @@ lua_load ~/.conky/cava.lua
 lua_draw_hook_pre conky_cava
 
 TEXT
-WIP
