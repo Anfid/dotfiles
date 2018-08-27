@@ -23,7 +23,7 @@ own_window_hints undecorated,sticky,skip_taskbar,skip_pager,below
 border_inner_margin 0
 border_outer_margin 0
 
-minimum_size 1920 30
+minimum_size 1920 35
 
 alignment bl
 gap_x 0

@@ -26,7 +26,7 @@ function conky_cava()
         rec_width=(screen_width-10)/50 - 5
         rec_height=-cava_list[i]-2
         top_left_x=(i-1)*(rec_width+5)+5
-        top_left_y=30
+        top_left_y=35
         --draw it
         cairo_set_source_rgba (cr,1,1,1,0.5)
         cairo_set_line_width (cr,0)
