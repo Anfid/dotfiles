@@ -1,6 +1,6 @@
 require 'cairo'
 
-handle = io.popen("xrandr | awk '/ connected primary /{match($4,/^([0-9]*)/);print(substr($4,RSTART,RLENGTH))}'")
+handle = io.popen("xrandr | perl -n -e '/ connected\\D*(\\d+)x\\d+\\+0\\+0/ && print $1'")
 screen_width = handle:read("*a")
 handle:close()
 
