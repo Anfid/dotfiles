@@ -135,8 +135,8 @@ client.urgent           $c3    $bg        $c3  #000000
 
 hide_edge_borders both
 
-gaps inner 10
-gaps outer 5
+gaps inner 0
+gaps outer 0
 smart_gaps on
 smart_borders on
 
