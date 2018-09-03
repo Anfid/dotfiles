@@ -117,7 +117,8 @@ function install_dependencies {
                      libxcb-xrm0 libxcb-xrm-dev libcairo-dev libcairo2-dev python-xcbgen xcb-proto libxcb-image0-dev \
                      libxcb-ewmh-dev libpulse-dev libiw-dev automake pkg-config libpam-dev libx11-dev libx11-xcb-dev libxkbcommon0 \
                      libharfbuzz-bin libharfbuzz-dev libpng-dev sudo apt install libxcursor-dev libxrandr-dev libxi-dev \
-                     libxinerama-dev libgl1-mesa-dev zlib1g-dev libdbus-1-dev arc-theme
+                     libxinerama-dev libgl1-mesa-dev zlib1g-dev libdbus-1-dev libgtk-3-dev libxss-dev libsdg-basedir-dev \
+                     arc-theme
     ;;
   *)
     echo 'Skipping dependencies'
@@ -171,6 +172,14 @@ function install_from_rep {
 
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.config/nvim/bundle/Vundle.vim
 
+  # i3-bg-blur
+  cd /tmp
+  git clone https://github.com/Anfid/i3-bg-blur
+  cd wp_blur
+  cargo build --release
+  [[ -f $HOME/.cargo/bin/i3-bg-blur ]] && rm $HOME/.cargo/bin/i3-bg-blur
+  cp ./target/release/i3-bg-blur $HOME/.cargo/bin/i3-bg-blur
+
   # xkbswitch
   cd /tmp
   git clone https://github.com/ierton/xkb-switch
@@ -203,6 +212,13 @@ function install_from_rep {
   cd polybar/build
   cmake ..
   sudo checkinstall -y --pkgname=polybar
+
+  # dunst
+  cd /tmp
+  git clone https://github.com/dunst-project/dunst.git
+  cd dunst
+  make
+  sudo checkinstall -y
 
   # i3lock-color
   cd /tmp
