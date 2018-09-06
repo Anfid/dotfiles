@@ -8,6 +8,7 @@ call vundle#begin('~/.config/nvim/plugins/')
 
 " Plugins
 Plugin 'gmarik/Vundle.vim'
+Plugin 'tpope/vim-rsi'
 Plugin 'vim-ctrlspace/vim-ctrlspace'
 Plugin 'w0rp/ale'
 Plugin 'junegunn/fzf.vim'
@@ -143,24 +144,12 @@ noremap b *
 noremap B #
 
 " Insert mode navigation
-inoremap <C-n> <Esc>o
-inoremap <C-p> <Esc>O
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-h> <Left>
-inoremap <C-l> <Right>
-inoremap <C-d> <Del>
-inoremap <C-b> <Backspace>
-
-" Command mode navigation
-cnoremap <C-j> <Down>
-cnoremap <C-k> <Up>
-cnoremap <C-h> <Left>
-cnoremap <C-l> <Right>
-cnoremap <C-d> <Del>
-cnoremap <C-b> <Backspace>
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
+" Most remaps done by tpope/vim-rsi. See corresponding github page for details
+inoremap <A-n> <C-o>o
+inoremap <A-p> <C-o>O
+" Navigate PU menu with <Tab>
+inoremap <expr> <C-n> (pumvisible()? "\<Esc>\<Down>" : "\<Down>")
+inoremap <expr> <C-p> (pumvisible()? "\<Esc>\<Up>" : "\<Up>")
 
 " Terminal paste
 tnoremap <expr> <A-r> '<C-\><C-n>"'.nr2char(getchar()).'pa'
@@ -391,6 +380,7 @@ let g:XkbSwitchEnabled = 1
 let g:XkbSwitchNLayout = 'us'
 
 " airline
+let g:airline_inactive_collapse = 0
 let g:airline_powerline_fonts = 1
 let g:airline_exclude_preview = 1
 let g:airline#extensions#tagbar#enabled = 1
