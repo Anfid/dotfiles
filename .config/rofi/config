@@ -1,1 +1,12 @@
-rofi.theme: ~/.cache/wal/colors-rofi-dark.rasi
+rofi.display-drun:      Application
+rofi.display-run:       Execute
+rofi.display-window:    Window
+rofi.show-icons:        true
+rofi.sidebar-mode:      true
+rofi.location:          7
+rofi.yoffset:           -35
+rofi.matching:          fuzzy
+rofi.scroll-method:     1
+rofi.terminal:          kitty
+
+rofi.theme:             ~/.cache/wal/colors-rofi.rasi
