@@ -280,7 +280,7 @@ exec_always --no-startup-id python $HOME/.scripts/reload-qute.py
 exec --no-startup-id $HOME/.scripts/start-conky.sh
 exec --no-startup-id cava -p $HOME/.config/cava/raw
 exec --no-startup-id i3-bg-blur
-exec --no-startup-id dunst
+exec --no-startup-id dunst -conf $HOME/.config/dunst/dunstrc
 
 exec telegram-desktop
 exec slack
