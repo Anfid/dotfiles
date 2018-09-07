@@ -46,6 +46,20 @@ In move mode press `<direction>` to move floating window in corresponding direct
 In resize mode press J to make window bigger and K to make window smaller vertically. In resize mode press L to make window bigger and H to make window smaller horizontally. Press `Shift+<direction>` to resize faster
 All modes can be escaped with Q, Esc or Enter
 
+#### rofi
+| Key               | Function                                                                   |
+|-------------------|----------------------------------------------------------------------------|
+| Alt+(H\|L)        | Switch to previous|next modi                                               |
+| Ctrl+[Shift+]Tab  | See above                                                                  |
+| Shift+(Left\|Right)| See above                                                                 |
+| Alt+(J\|K)        | Switch to next|previous line                                               |
+| (Down\|Up)        | See above                                                                  |
+| [Shift+]Tab       | Switch to previous|next line. Tab autoselects entry if only one is left.   |
+| Ctrl+V            | Paste from clipboard                                                       |
+| Ctrl+S            | Paste from primary selection                                               |
+
+Only main keys are listed. Others are default. Use `rofi -show keys` to get list of current key bindings
+
 #### neovim
 List will be to big. See .config/nvim/init.vim. Will be restructured one day for better readability
 
