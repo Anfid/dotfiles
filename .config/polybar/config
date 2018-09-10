@@ -171,7 +171,6 @@ interface = ${interfaces.wlan}
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
-format-connected-underline = ${colors.color3}
 label-connected = %essid% %local_ip%
 
 format-disconnected = 郎
@@ -190,7 +189,6 @@ interface = ${interfaces.eth}
 interval = 3.0
 
 format-connected =  <label-connected>
-format-connected-underline = ${colors.background}
 label-connected = %local_ip%
 
 format-disconnected = 
