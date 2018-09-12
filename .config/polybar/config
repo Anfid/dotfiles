@@ -13,7 +13,7 @@
 
 [colors]
 background = ${env:aarrggbb_background:#80000000}
-background-alt = ${env:aarrggbb_color6:#80ffffff}
+background-alt = ${env:aarrggbb_color3:#80ffffff}
 highlight = ${xrdb:color6:#2222aa}
 foreground = ${xrdb:foreground:#ffffff}
 foreground-alt = ${xrdb:background:#000000}
@@ -80,8 +80,8 @@ label-layout-foreground = ${colors.foreground}
 
 label-indicator-padding = 2
 label-indicator-margin = 1
-label-indicator-foreground = ${colors.foreground-alt}
-label-indicator-background = ${colors.color3}
+label-indicator-foreground = ${colors.foreground}
+label-indicator-background = ${colors.background-alt}
 label-indicator-underline = ${colors.color3}
 
 [module/i3]
