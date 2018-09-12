@@ -95,6 +95,7 @@ See help for other options.
 TODO. Xresources
 
 ## To do:
+* Store wallpapers on different host. Consider google drive or dropbox
 * Set up cava conky to work on all monitors on multimonitor setups
 * make blurme script work on multimonitor setups
 * Create proper script to start everything (conky, polybar, etc...)
