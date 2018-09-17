@@ -19,6 +19,7 @@ Plugin 'wellle/targets.vim'
 Plugin 'tommcdo/vim-exchange'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'pseewald/vim-anyfold'
+Plugin 'terryma/vim-multiple-cursors'
 Plugin 'chrisbra/NrrwRgn'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
@@ -35,18 +36,31 @@ Plugin 'yggdroot/indentline'
 Plugin 'RRethy/vim-illuminate'
 Plugin 'bogado/file-line'
 
-Plugin 'roxma/nvim-completion-manager'
+" language support
 Plugin 'rust-lang/rust.vim'
 Plugin 'racer-rust/vim-racer'
-Plugin 'roxma/nvim-cm-racer'
-Plugin 'roxma/ncm-clang'
+
+" completions
+Plugin 'ncm2/ncm2'
+Plugin 'roxma/nvim-yarp'
+Plugin 'ncm2/ncm2-pyclang'
+Plugin 'ncm2/ncm2-racer'
+Plugin 'Shougo/neco-vim' " ncm2-vim
+Plugin 'ncm2/ncm2-vim'
+Plugin 'ncm2/ncm2-tagprefix'
+Plugin 'ncm2/ncm2-path'
+Plugin 'ncm2/ncm2-github'
+Plugin 'ncm2/ncm2-bufword'
+Plugin 'ncm2/ncm2-ultisnips'
+
+" snippets
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 
 " colorschemes
 Plugin 'ajmwagar/vim-deus'         " deus
 Plugin 'morhetz/gruvbox'           " gruvbox
 Plugin 'dylanaraps/wal.vim'        " TODO: Needs propper function to enable. Requires no termguicolors to work properly
-Plugin 'jnurmine/Zenburn'          " zenburn
-Plugin 'fcpg/vim-farout'           " farout
 
 call vundle#end()
 
@@ -88,22 +102,33 @@ set concealcursor=n
 set splitright
 set nosplitbelow
 
+set completeopt=noinsert,menuone,noselect
+set shortmess+=c
+
 syntax on
 
 
 " ------------------ Key remaps ------------------
 
 " Free keys
-map <S-l> <Nop>
-map <S-h> <Nop>
-map <Space> <Nop>
+noremap <S-l>   <Nop>
+noremap <S-h>   <Nop>
+noremap <C-b>   <Nop>
+noremap <C-e>   <Nop>
+noremap <C-y>   <Nop>
+noremap <Space> <Nop>
+
+nnoremap <C-n> <Nop>
+nnoremap <C-p> <Nop>
 
 " leader
 let mapleader = "\<C-h>"
 
 " Scroll
-noremap J <C-E>
-noremap K <C-Y>
+nnoremap J <C-E>
+nnoremap K <C-Y>
+xnoremap J <C-E>
+xnoremap K <C-Y>
 map <ScrollWheelUp> 2<C-Y>
 map <ScrollWheelDown> 2<C-E>
 
@@ -148,8 +173,8 @@ noremap B #
 inoremap <A-n> <C-o>o
 inoremap <A-p> <C-o>O
 " Navigate PU menu with <Tab>
-inoremap <expr> <C-n> (pumvisible()? "\<Esc>\<Down>" : "\<Down>")
-inoremap <expr> <C-p> (pumvisible()? "\<Esc>\<Up>" : "\<Up>")
+inoremap <expr> <C-n> (pumvisible()? "\<C-y>\<Down>" : "\<Down>")
+inoremap <expr> <C-p> (pumvisible()? "\<C-y>\<Up>" : "\<Up>")
 
 " Terminal paste
 tnoremap <expr> <A-r> '<C-\><C-n>"'.nr2char(getchar()).'pa'
@@ -276,13 +301,6 @@ let g:ale_sign_info = "ℹ"
 let g:ale_sign_style_error = "Ⓢ"
 let g:ale_sign_style_warning = "⧌"
 
-" nvim-completion-manager
-let g:cm_matcher = {'module': 'cm_matchers.abbrev_matcher', 'case': 'smartcase'}
-let g:racer_experimental_completer = 1
-inoremap <expr> <Tab> pumvisible()? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-tab> pumvisible()? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <CR> (pumvisible() ? "\<c-y>" : "\<CR>")
-
 " fuzzy
 let $FZF_DEFAULT_COMMAND = "rg --smart-case --hidden --follow --no-heading --files"
 command! -bang -nargs=* GrepFiles call fzf#vim#grep('rg --smart-case --hidden --follow --no-heading --line-number ""'.shellescape(<q-args>), 0, <bang>0)
@@ -354,6 +372,9 @@ let g:easytags_async=1
 " anyfold
 let g:anyfold_activate=1
 set foldlevel=10
+
+" vim-multiple-cursors
+let g:multi_cursor_use_default_mapping=1
 
 " NrrwRgn
 let g:nrrw_rgn_protect = 'n'
@@ -437,6 +458,29 @@ function! VimwikiFtConfig()
   nmap <buffer> <MiddleMouse> <LeftMouse><C-Space>
 endfunction
 autocmd FileType vimwiki call VimwikiFtConfig()
+
+" Completion
+" ncm2
+let g:ncm2#filter="same_word"
+let g:ncm2#popup_limit=20
+autocmd BufEnter * call ncm2#enable_for_buffer()
+inoremap <expr> <Tab> (pumvisible() ? "\<C-n>" : "\<Tab>")
+inoremap <expr> <S-tab> (pumvisible() ? "\<C-p>" : "\<S-Tab>")
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>" : "\<CR>")
+
+let g:ncm2_pyclang#library_path = '/usr/lib/llvm-6.0/lib'
+let g:ncm2_pyclang#database_path = [
+    \ 'compile_commands.json',
+    \ 'build/compile_commands.json' ]
+let g:ncm2_pyclang#args_file_path = ['.clang_complete']
+autocmd FileType c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
+
+" Snippets
+" UltiSnips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsEditSplit="vertical"
 
 " colorscheme
 colorscheme gruvbox

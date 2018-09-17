@@ -90,6 +90,7 @@ See help for other options.
     * --project=<compile\_commands.json | \*.vsxproj | \*.sln>
 * Use the following flag with cmake to generate compile\_commands.json `-DCMAKE_EXPORT_COMPILE_COMMANDS=ON`. Alternatively, put in CMakeLists.txt
 `set(CMAKE_EXPORT_COMPILE_COMMANDS ON)`
+If this is not possible, create `.clang_complete` file with compilation flags in the project root
 
 ### Desktop
 TODO. Xresources
@@ -97,6 +98,5 @@ TODO. Xresources
 ## To do:
 * Store wallpapers on different host. Consider google drive or dropbox
 * Set up cava conky to work on all monitors on multimonitor setups
-* make blurme script work on multimonitor setups
 * Create proper script to start everything (conky, polybar, etc...)
 * Store preferences in file, so desired behavior can be changed whenever desired
