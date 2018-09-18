@@ -172,9 +172,6 @@ noremap B #
 " Most remaps done by tpope/vim-rsi. See corresponding github page for details
 inoremap <A-n> <C-o>o
 inoremap <A-p> <C-o>O
-" Navigate PU menu with <Tab>
-inoremap <expr> <C-n> (pumvisible()? "\<C-y>\<Down>" : "\<Down>")
-inoremap <expr> <C-p> (pumvisible()? "\<C-y>\<Up>" : "\<Up>")
 
 " Terminal paste
 tnoremap <expr> <A-r> '<C-\><C-n>"'.nr2char(getchar()).'pa'
@@ -257,6 +254,8 @@ endfunction
 autocmd filetype sh call ShFtConfig()
 
 " Tabs management
+nnoremap <silent> <Tab> gt
+nnoremap <silent> <S-Tab> gT
 nnoremap <C-t>e :tabedit<Space>
 nnoremap <silent> <C-t>n :tabnew<CR>
 nnoremap <silent> <C-t>c :tabclose<CR>
@@ -268,8 +267,6 @@ nnoremap <silent> <C-t>} :tablast<CR>
 
 nnoremap <silent> <Leader>ic :tabedit ~/.config/nvim/init.vim<CR>
 nnoremap <silent> <Leader>ir :source ~/.config/nvim/init.vim<CR>
-
-nnoremap <silent> <Tab> :set relativenumber!<CR>
 
 
 " ------------------ Other ------------------
@@ -477,9 +474,9 @@ autocmd FileType c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declara
 
 " Snippets
 " UltiSnips
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsExpandTrigger="<C-e>"
+let g:UltiSnipsJumpForwardTrigger="<C-n>"
+let g:UltiSnipsJumpBackwardTrigger="<C-p>"
 let g:UltiSnipsEditSplit="vertical"
 
 " colorscheme
