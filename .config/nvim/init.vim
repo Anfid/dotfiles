@@ -80,7 +80,8 @@ set mouse=a
 set number
 set noshowmode
 
-set tabstop=4 softtabstop=4 shiftwidth=4 expandtab nowrap
+set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+set nowrap linebreak
 
 set inccommand=split
 set incsearch
@@ -176,6 +177,8 @@ inoremap <A-p> <C-o>O
 " Terminal paste
 tnoremap <expr> <A-r> '<C-\><C-n>"'.nr2char(getchar()).'pa'
 
+nnoremap j gj
+nnoremap k gk
 nnoremap Y y$
 
 " Open terminal
