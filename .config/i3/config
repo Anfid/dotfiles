@@ -271,7 +271,7 @@ assign [class="^TelegramDesktop$"] → $ws4
 assign [class="^Slack$"] → $ws4
 
 # Set random wallpaper
-exec_always --no-startup-id zsh -c 'wp=`rg ./Pictures/Wallpapers --files | shuf | head -n1`; wal -g -i $wp'
+exec_always --no-startup-id zsh -c 'wp=`rg ./Pictures/Wallpapers --files | shuf | head -n1`; wal -s -t -i $wp'
 
 exec --no-startup-id compton
 exec --no-startup-id setxkbmap -layout us,ru -option 'grp:alt_shift_toggle'
