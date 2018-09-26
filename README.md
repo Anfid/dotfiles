@@ -27,8 +27,10 @@ Preferences file is yet to be created
 | Meta+W > E        | Disable gaps (mnemonic - efficient layout)                                 |
 | Meta+W > M        | Enter move mode                                                            |
 | Meta+W > R        | Enter resize mode                                                          |
+| Meta+G > I        | Enter inner gaps mode                                                      |
+| Meta+G > O        | Enter outer gaps mode                                                      |
 | Meta+X            | Execute shell command. Can also be used to run applications. Utilizes rofi |
-| Meta+S            | Run application. Utilizes rofi                                             |
+| Meta+S            | Select window or run ssh. Very likely to be changed                        |
 | Ctrl+Alt+L        | Lock screen. Enter password to unlock                                      |
 
 Where:
@@ -42,9 +44,10 @@ Where:
   k - up
   l - right
 
-In move mode press `<direction>` to move floating window in corresponding direction. Press `Shift+<direction>` to move faster
-In resize mode press J to make window bigger and K to make window smaller vertically. In resize mode press L to make window bigger and H to make window smaller horizontally. Press `Shift+<direction>` to resize faster
-All modes can be escaped with Q, Esc or Enter
+In move mode press `<direction>` to move floating window in corresponding direction. Press `Shift+<direction>` to move faster. Resize mode can be accessed by `R`.
+In resize mode press `J` to make window bigger and `K` to make window smaller vertically. Press `L` to make window bigger and `H` to make window smaller horizontally. Press `Shift+<direction>` to resize faster. Move mode can be accessed by `M`.
+In gaps mode press `J` to increase gaps and `K` to decrease them. Add `Shift` to only change local gaps. Outer gaps mode can be accessed from Inner gaps by `O`, and Inner gaps from Outer gaps by `I`
+All modes can be escaped with `Q`, `Esc` or `Enter`.
 
 #### rofi
 | Key               | Function                                                                   |

@@ -1,8 +1,4 @@
 # i3 config file (v4)
-#
-# Please see https://i3wm.org/docs/userguide.html for a complete reference!
-
-set $mod Mod4
 
 # Set colors
 set_from_resource $bg i3wm.background #f0f0f0
@@ -17,20 +13,27 @@ set_from_resource $c7 i3wm.color7 #f0f0f0
 set_from_resource $screen-primary screen.primary
 set_from_resource $screen-secondary screen.secondary
 
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
+#                       border background text indicator
+client.focused          $c6    $bg        $c6  #000000
+client.unfocused        $bg    $bg        $fg  #000000
+client.focused_inactive $bg    $bg        $c6  #000000
+client.urgent           $c3    $bg        $c3  #000000
+
+hide_edge_borders both
+
+gaps inner 0
+gaps outer 0
+smart_gaps on
+smart_borders on
+
+default_border none
+default_floating_border none
+
+# Font
 font pango:Santana Bold 12
 
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
-
-# Before i3 v4.8, we used to recommend this one as the default:
-# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-# The font above is very space-efficient, that is, it looks good, sharp and
-# clear in small sizes. However, its unicode glyph coverage is limited, the old
-# X core fonts rendering does not support right-to-left and this being a bitmap
-# font, it doesn’t scale on retina/hidpi displays.
+# Modifier
+set $mod Mod4
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -122,30 +125,54 @@ bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws0
 bindsym $mod+Shift+c move container to workspace $wsc
 
+# Move focused workspace
+bindsym $mod+Ctrl+h     move workspace to output right
+bindsym $mod+Ctrl+l     move workspace to output left
+bindsym $mod+Ctrl+Right move workspace to output right
+bindsym $mod+Ctrl+Left move workspace to output left
+
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-# Apply window colors TODO update colors
-#                       border background text indicator
-client.focused          $c6    $bg        $c6  #000000
-client.unfocused        $bg    $bg        $fg  #000000
-client.focused_inactive $bg    $bg        $c6  #000000
-client.urgent           $c3    $bg        $c3  #000000
+set $mode_layout     "▌Layout▐"
+set $mode_resize     "▌Resize▐"
+set $mode_move       "▌Move▐"
+set $mode_gaps       "▌Gaps▐"
+set $mode_gaps_outer "▌Outer gaps▐"
+set $mode_gaps_inner "▌Inner gaps▐"
 
-hide_edge_borders both
+bindsym $mod+w mode $mode_layout
+bindsym $mod+g mode $mode_gaps
 
-gaps inner 0
-gaps outer 0
-smart_gaps on
-smart_borders on
+mode $mode_layout {
+    # change container layout (stacked, tabbed, toggle split)
+    bindsym s layout stacking; mode "default"
+    bindsym t layout tabbed; mode "default"
+    bindsym d layout toggle split; mode "default"
 
-default_border none
-default_floating_border none
+    # resize window
+    bindsym r mode $mode_resize
+
+    # move floating window
+    bindsym m focus floating; mode $mode_move
+
+    # toggle tiling / floating
+    bindsym space floating toggle; mode "default"
+
+    # Set split orientation
+    bindsym h split h; mode "default"
+    bindsym v split v; mode "default"
+
+    # back to normal: Enter,  Escape or q
+    bindsym q      mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
 
 # resize window (you can also use the mouse for that)
-mode "resize" {
+mode $mode_resize {
     # These bindings trigger as soon as you enter the resize mode
 
     # Pressing left will shrink the window’s width.
@@ -174,12 +201,13 @@ mode "resize" {
     bindsym Shift+Right resize grow   width  20px
 
     # back to normal: Enter,  Escape or q
-    bindsym q mode "default"
+    bindsym m      mode $mode_move
+    bindsym q      mode "default"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 
-mode "move" {
+mode $mode_move {
     bindsym h move left  5px
     bindsym j move down  5px
     bindsym k move up    5px
@@ -202,55 +230,68 @@ mode "move" {
     bindsym Shift+Right move right 20px
 
     # back to normal: Enter,  Escape or q
-    bindsym q mode "default"
+    bindsym r      mode $mode_resize
+    bindsym q      mode "default"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 
-mode "layout" {
-    # change container layout (stacked, tabbed, toggle split)
-    bindsym s layout stacking; mode "default"
-    bindsym t layout tabbed; mode "default"
-    bindsym d layout toggle split; mode "default"
-    bindsym e gaps inner all set 0; gaps outer all set 0; mode "default"
-    bindsym g gaps inner all set 10; gaps outer all set 5; mode "default"
+mode $mode_gaps {
+    bindsym o      mode $mode_gaps_outer
+    bindsym i      mode $mode_gaps_inner
 
-    # resize window
-    bindsym r mode "resize"
-
-    # move floating window
-    bindsym m focus floating; mode "move"
-
-    # toggle tiling / floating
-    bindsym space floating toggle; mode "default"
-
-    # Set split orientation
-    bindsym h split h; mode "default"
-    bindsym v split v; mode "default"
-
-    # back to normal: Enter,  Escape or q
-    bindsym q mode "default"
+    bindsym q      mode "default"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 
-bindsym $mod+w mode "layout"
+mode $mode_gaps_inner {
+    bindsym j           gaps inner all plus 5
+    bindsym k           gaps inner all minus 5
+    bindsym 0           gaps inner all set 0
+
+    bindsym Shift+j     gaps inner current plus 5
+    bindsym Shift+k     gaps inner current minus 5
+    bindsym Shift+0     gaps inner current set 0
+
+    bindsym g      mode $mode_gaps
+    bindsym o      mode $mode_gaps_outer
+    bindsym q      mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+mode $mode_gaps_outer {
+    bindsym j           gaps outer all plus 5
+    bindsym k           gaps outer all minus 5
+    bindsym 0           gaps outer all set 0
+
+    bindsym Shift+j     gaps outer current plus 5
+    bindsym Shift+k     gaps outer current minus 5
+    bindsym Shift+0     gaps outer current set 0
+
+    bindsym g      mode $mode_gaps
+    bindsym i      mode $mode_gaps_inner
+    bindsym q      mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
 
 # TODO: set device from Xresources
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +2% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -2% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec light -A 5 # increase screen brightness
+bindsym XF86MonBrightnessUp   exec light -A 5 # increase screen brightness
 bindsym XF86MonBrightnessDown exec light -U 5 # decrease screen brightness
 
 # Media player controls
-bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPlay  exec playerctl play
 bindsym XF86AudioPause exec playerctl pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioNext  exec playerctl next
+bindsym XF86AudioPrev  exec playerctl previous
 
 bindsym Control+Mod1+l exec bash -c 'export LC_ALL=C && source $HOME/.cache/wal/colors.sh && \
                                      i3lock --blur 7 --radius 200 --indicator \
@@ -262,6 +303,10 @@ bindsym Control+Mod1+l exec bash -c 'export LC_ALL=C && source $HOME/.cache/wal/
                                      --veriftext="Unlocking..." --wrongtext="Wrong password" \
                                      --clock --timestr="%I:%M%p" --time-font="Santana" --timesize=64 --timepos ix:iy\
                                      --datestr="%A. %d %B %Y" --date-font="Santana" --datesize=32 --datepos tx:ty+48'
+
+# Handle floating dialogs
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
 
 # Assign workspace
 assign [class="^Firefox$"] → $ws1
