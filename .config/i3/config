@@ -44,6 +44,7 @@ bindsym $mod+q kill
 # start rofi (a program launcher)
 bindsym $mod+x exec "rofi -modi run,drun -show run"
 bindsym $mod+s exec "rofi -modi window,ssh -show window"
+bindsym $mod+n exec "$HOME/.scripts/nmcli-rofi"
 
 # change focus
 bindsym $mod+h focus left
