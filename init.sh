@@ -236,6 +236,14 @@ function install_from_rep {
   cd /opt
   sudo git clone https://github.com/kovidgoyal/kitty && cd kitty
   sudo make
+
+  # less
+  cd /tmp
+  git clone https://github.com/wofr06/lesspipe.git
+  cd lesspipe
+  ./configure --yes
+  sudo cp lesspipe.sh code2color /usr/bin
+  pip3 install Pygments
 }
 
 function update_from_rep {
