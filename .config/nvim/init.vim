@@ -156,14 +156,10 @@ xnoremap < <gv
 " General
 noremap <expr> n 'Nn'[v:searchforward]
 noremap <expr> N 'nN'[v:searchforward]
-noremap H ^
-noremap L $
-noremap s b
-noremap S B
-noremap b *
-noremap B #
-noremap H ^
-noremap L $
+noremap H g^
+noremap L g$
+noremap I g^i
+noremap A g$a
 noremap s b
 noremap S B
 noremap b *
@@ -420,6 +416,14 @@ let g:airline#extensions#default#layout = [
 \   [ 'a', 'b', 'x' ],
 \   [ 'c', 'warning', 'error', 'y', 'z' ]
 \ ]
+let g:airline#extensions#default#section_truncate_width = {
+\   'b': 79,
+\   'x': 60,
+\   'y': 88,
+\   'z': 45,
+\   'warning': 80,
+\   'error': 80,
+\ }
 let g:airline_section_x = airline#section#create(['tagbar'])
 let g:airline_section_c = airline#section#create_right(['filetype', 'readonly', 'file'])
 function! Noscrollbar(...)
