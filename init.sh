@@ -170,15 +170,19 @@ function update_dotfiles {
 function install_from_rep {
   install_dependencies
 
-  git clone https://github.com/VundleVim/Vundle.vim.git ~/.config/nvim/bundle/Vundle.vim
+  curl https://sh.rustup.rs -sSf | sh
+  rustup toolchain add nightly
+  rustup component add rust-src
+  rustup component add rustfmt-preview
+  rustup component add clippy-preview
 
-  # i3-bg-blur
-  cd /tmp
-  git clone https://github.com/Anfid/i3-bg-blur
-  cd wp_blur
-  cargo build --release
-  [[ -f $HOME/.cargo/bin/i3-bg-blur ]] && rm $HOME/.cargo/bin/i3-bg-blur
-  cp ./target/release/i3-bg-blur $HOME/.cargo/bin/i3-bg-blur
+  cargo install fd-find
+  cargo install ripgrep
+  cargo install exa
+  cargo install cargo-update
+  cargo install i3-bg-blur
+
+  git clone https://github.com/VundleVim/Vundle.vim.git ~/.config/nvim/bundle/Vundle.vim
 
   # xkbswitch
   cd /tmp
@@ -201,7 +205,7 @@ function install_from_rep {
   mkdir -p build && cd build/
   ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
   make -j5
-  sudo checkinstall -y --pkgname=i3-gaps --pkgversion=1
+  sudo checkinstall -y --pkgname=i3-gaps --pkgversion=`date '+%y%m%d'`
 
   sudo apt install -y i3status compton feh rofi conky conky-all numlockx
 
@@ -226,7 +230,7 @@ function install_from_rep {
   cd i3lock-color
   git tag -f "git-$(git rev-parse --short HEAD)"
   autoreconf -i && ./configure && make
-  sudo checkinstall -y --pkgname=i3lock-color --pkgversion=1
+  sudo checkinstall -y --pkgname=i3lock-color --pkgversion=`date '+%y%m%d'`
 
   # kitty
   cd /opt
