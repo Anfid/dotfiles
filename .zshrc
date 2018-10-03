@@ -117,8 +117,10 @@ fi
 alias sd="shutdown"
 
 alias ls="exa"
-alias ld="exa -la --git"
+alias ll="exa -lah --git --group-directories-first"
 alias la="exa -a"
+alias lt="exa -Ta --group-directories-first"
+alias lti="exa -Ta --group-directories-first -I"
 
 alias glog="vim +ShowCommitsAndExit"
 
