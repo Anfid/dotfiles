@@ -54,8 +54,8 @@ modules-right = pulseaudio battery xkeyboard date
 
 tray-position = right
 tray-detached = false
-tray-padding = 0
-tray-scale = 1.3
+tray-padding = -9
+tray-scale = 1.2
 tray-transparent = true
 tray-background = ${colors.background}
 
@@ -172,10 +172,10 @@ type = internal/network
 interface = ${interfaces.wlan}
 interval = 3.0
 
-format-connected = %{A1:$HOME/.scripts/nmcli-rofi:}<ramp-signal> <label-connected>%{A}
+format-connected = %{A1:$HOME/.scripts/rofi-nmcli:}<ramp-signal> <label-connected>%{A}
 label-connected = %essid% %local_ip%
 
-format-disconnected = %{A1:$HOME/.scripts/nmcli-rofi:}郎%{A}
+format-disconnected = %{A1:$HOME/.scripts/rofi-nmcli:}郎%{A}
 format-disconnected-foreground = ${colors.warning}
 format-disconnected-underline = ${colors.warning}
 
