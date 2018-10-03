@@ -1,0 +1,37 @@
+#!/bin/bash
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+FONT="Monospace 12"
+POSITION=0
+YOFF=0
+XOFF=0
+WIDTH=-25
+DATE=$(date '+%a, %d %B')
+
+if [ -r "$DIR/config" ]; then
+  source ./config
+elif [ -r "$HOME/.config/rofi/calendar" ]; then
+  source "$HOME/.config/rofi/calendar"
+else
+  echo "WARNING: config file not found! Using default values."
+fi
+
+gcal -H ':' -q RU -s Mon | cat -v | \
+  sed -e 's/^[:]\|</ /; /^\ *$/d' \
+      -e 's/\([0-9\ ]\{2\}\)>/<u><b>\1<\/b><\/u> /g' \
+      -e 's/\([0-9\ ]\{2\}\):/<b>\1<\/b> /g' | \
+  tail -n +2 | \
+  rofi -dmenu \
+       -markup-rows \
+       -no-fullscreen \
+       -font "$FONT" \
+       -hide-scrollbar \
+       -m 0 \
+       -eh 1 \
+       -location "$POSITION" \
+       -yoffset "$YOFF" \
+       -xoffset "$XOFF" \
+       -width "$WIDTH" \
+       -no-fixed-num-lines \
+       -no-custom \
+       -p "$DATE" >/dev/null

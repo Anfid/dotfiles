@@ -204,7 +204,8 @@ interval = 5
 date = "%d-%h-%Y"
 time = " %I:%M%p"
 
-format-prefix = 
+format = %{A1:$HOME/.scripts/rofi-calendar:}<label>%{A}
+format-prefix = %{A1:$HOME/.scripts/rofi-calendar:}%{A}
 format-prefix-foreground = ${colors.foreground}
 format-underline = ${colors.color3}
 
