@@ -118,7 +118,7 @@ function install_dependencies {
                      libxcb-ewmh-dev libpulse-dev libiw-dev automake pkg-config libpam-dev libx11-dev libx11-xcb-dev libxkbcommon0 \
                      libharfbuzz-bin libharfbuzz-dev libpng-dev sudo apt install libxcursor-dev libxrandr-dev libxi-dev \
                      libxinerama-dev libgl1-mesa-dev zlib1g-dev libdbus-1-dev libgtk-3-dev libxss-dev libsdg-basedir-dev \
-                     arc-theme gcal
+                     arc-theme gcal w3m-img ffmpegthumbnailer
     ;;
   *)
     echo 'Skipping dependencies'
