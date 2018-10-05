@@ -63,6 +63,14 @@ All modes can be escaped with `Q`, `Esc` or `Enter`.
 
 Only main keys are listed. Others are default. Use `rofi -show keys` to get list of current key bindings
 
+#### dunst (notification daemon)
+| Key               | Function                                                                   |
+|-------------------|----------------------------------------------------------------------------|
+| Meta+Tab          | Open context menu                                                          |
+| Meta+\`           | Show previous notification                                                 |
+| Meta+Esc          | Close notification                                                         |
+| Meta+Ctrl+Esc     | Close all notifications                                                    |
+
 #### neovim
 List will be to big. See .config/nvim/init.vim. Will be restructured one day for better readability
 
