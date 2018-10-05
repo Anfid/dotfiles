@@ -24,7 +24,7 @@ Plugin 'chrisbra/NrrwRgn'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
-Plugin 'Raimondi/delimitMate'
+Plugin 'jiangmiao/auto-pairs'
 Plugin 'vimwiki/vimwiki'
 Plugin 'lyokha/vim-xkbswitch'
 Plugin 'vim-airline/vim-airline'
@@ -385,12 +385,8 @@ let g:tagbar_zoomwidth = 0
 let g:tagbar_sort = 0
 nmap <silent> <C-l> :TagbarOpenAutoClose<CR>
 
-" delimitMate
-let delimitMate_expand_cr = 2
-let delimitMate_expand_space = 1
-let delimitMate_jump_expansion = 0
-let delimitMate_balance_matchpairs = 1
-let delimitMate_excluded_regions = "String"
+" auto-pairs
+let g:AutoPairsFlyMode = 1
 
 " xkbswitch
 let g:XkbSwitchEnabled = 1
@@ -462,6 +458,21 @@ function! VimwikiFtConfig()
   nmap <buffer> <MiddleMouse> <LeftMouse><C-Space>
 endfunction
 autocmd FileType vimwiki call VimwikiFtConfig()
+
+
+" Languages
+" rust
+let g:rustfmt_autosave = 1
+let g:rust_conceal = 0
+let g:rust_conceal_mod_path = 0
+let g:rust_conceal_pub = 0
+let g:racer_experimental_completer = 1
+let g:rustfmt_fail_silently = 0
+
+au FileType rust nmap gd <Plug>(rust-def)
+au FileType rust nmap gs <Plug>(rust-def-split)
+au FileType rust nmap gx <Plug>(rust-def-vertical)
+
 
 " Completion
 " ncm2
