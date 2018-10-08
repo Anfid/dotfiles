@@ -29,6 +29,7 @@ Preferences file is yet to be created
 | Meta+W > R        | Enter resize mode                                                          |
 | Meta+G > I        | Enter inner gaps mode                                                      |
 | Meta+G > O        | Enter outer gaps mode                                                      |
+| Meta+E            | Open file explorer (ranger by default)                                     |
 | Meta+X            | Execute shell command. Can also be used to run applications. Utilizes rofi |
 | Meta+S            | Select window or run ssh. Very likely to be changed                        |
 | Ctrl+Alt+L        | Lock screen. Enter password to unlock                                      |

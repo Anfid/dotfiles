@@ -10,8 +10,9 @@ set_from_resource $c4 i3wm.color4 #f0f0f0
 set_from_resource $c5 i3wm.color5 #f0f0f0
 set_from_resource $c6 i3wm.color6 #f0f0f0
 set_from_resource $c7 i3wm.color7 #f0f0f0
-set_from_resource $screen-primary screen.primary
-set_from_resource $screen-secondary screen.secondary
+
+set $terminal kitty
+set $explorer "kitty -e ranger"
 
 #                       border background text indicator
 client.focused          $c6    $bg        $c6  #000000
@@ -39,7 +40,7 @@ set $mod Mod4
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec $terminal
 
 # kill focused window
 bindsym $mod+q kill
@@ -48,6 +49,9 @@ bindsym $mod+q kill
 bindsym $mod+x exec "rofi -modi run,drun -show run"
 bindsym $mod+s exec "rofi -modi window,ssh -show window"
 bindsym $mod+n exec "$HOME/.scripts/rofi-nmcli"
+
+# open file explorer
+bindsym $mod+e exec $explorer
 
 # change focus
 bindsym $mod+h focus left
