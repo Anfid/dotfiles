@@ -328,10 +328,7 @@ autocmd  FileType fzf set laststatus=0
 
 " Tags
 nnoremap <C-j> g<C-]>
-nnoremap <2-LeftMouse> g<C-]>
 nnoremap <silent> <C-k> :pop<CR>
-nnoremap <silent> <RightMouse> :pop<CR>
-nnoremap <silent> <MiddleMouse> :CtrlSpace<CR>
 
 " git
 set diffopt+=vertical
