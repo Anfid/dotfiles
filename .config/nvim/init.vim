@@ -156,19 +156,17 @@ xnoremap < <gv
 " General
 noremap <expr> n 'Nn'[v:searchforward]
 noremap <expr> N 'nN'[v:searchforward]
-noremap H g^
-noremap L g$
-noremap I g^i
-noremap A g$a
+noremap <expr> H (&wrap == 1 ? "g^" : "^")
+noremap <expr> L (&wrap == 1 ? "g$" : "$")
+noremap <expr> I (&wrap == 1 ? "g^i" : "^i")
+noremap <expr> A (&wrap == 1 ? "g$a" : "$a")
 noremap s b
 noremap S B
 noremap b *
 noremap B #
 
 " Insert mode navigation
-" Most remaps done by tpope/vim-rsi. See corresponding github page for details
-inoremap <A-n> <C-o>o
-inoremap <A-p> <C-o>O
+" Remaps done by tpope/vim-rsi. See corresponding github page for details
 
 " Terminal paste
 tnoremap <expr> <A-r> '<C-\><C-n>"'.nr2char(getchar()).'pa'
@@ -456,6 +454,9 @@ function! VimwikiFtConfig()
   nmap <buffer> <2-LeftMouse> <Plug>VimwikiFollowLink<Esc>zt
   nmap <buffer> <RightMouse> <BS>
   nmap <buffer> <MiddleMouse> <LeftMouse><C-Space>
+  imap <expr> <Tab> (pumvisible() ? "\<C-n>" : "\<Tab>")
+  imap <expr> <S-tab> (pumvisible() ? "\<C-p>" : "\<S-Tab>")
+  imap <expr> <CR> (pumvisible() ? "\<c-y>" : "\<CR>")
 endfunction
 autocmd FileType vimwiki call VimwikiFtConfig()
 
