@@ -429,12 +429,6 @@ call airline#add_statusline_func('Time')
 " FixedTaskList
 nnoremap <silent> <Leader>tl :TaskList<CR>
 
-" cpp-highlight
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_class_decl_highlight = 1
-let g:cpp_experimental_simple_template_highlight = 1
-
 " gitgutter
 nnoremap <silent> <Leader>gh :GitGutterLineHighlightsToggle<CR>
 
@@ -459,6 +453,13 @@ autocmd FileType vimwiki call VimwikiFtConfig()
 
 
 " Languages
+" cpp
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_experimental_simple_template_highlight = 0
+let g:cpp_no_function_highlight = 1
+
 " rust
 let g:rustfmt_autosave = 1
 let g:rust_conceal = 0
@@ -496,6 +497,10 @@ let g:UltiSnipsJumpBackwardTrigger="<C-p>"
 let g:UltiSnipsEditSplit="vertical"
 
 " colorscheme
+let g:gruvbox_bold=1
+let g:gruvbox_italic=1
+let g:gruvbox_invert_selection=0
+let g:gruvbox_italicize_strings=1
 colorscheme gruvbox
 set background=dark
 call gruvbox#hls_hide()
