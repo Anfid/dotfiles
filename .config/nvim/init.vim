@@ -30,15 +30,17 @@ Plugin 'lyokha/vim-xkbswitch'
 Plugin 'vim-airline/vim-airline'
 Plugin 'gcavallanti/vim-noscrollbar'
 Plugin 'fisadev/FixedTaskList.vim'
-Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'yggdroot/indentline'
 Plugin 'RRethy/vim-illuminate'
 Plugin 'bogado/file-line'
 
 " language support
+Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'rust-lang/rust.vim'
 Plugin 'racer-rust/vim-racer'
+Plugin 'vim-pandoc/vim-pandoc'
+Plugin 'vim-pandoc/vim-pandoc-syntax'
 
 " completions
 Plugin 'ncm2/ncm2'
@@ -154,12 +156,15 @@ xnoremap > >gv
 xnoremap < <gv
 
 " General
-noremap <expr> n 'Nn'[v:searchforward]
-noremap <expr> N 'nN'[v:searchforward]
+noremap j gj
+noremap k gk
 noremap <expr> H (&wrap == 1 ? "g^" : "^")
 noremap <expr> L (&wrap == 1 ? "g$" : "$")
 noremap <expr> I (&wrap == 1 ? "g^i" : "^i")
 noremap <expr> A (&wrap == 1 ? "g$a" : "$a")
+nnoremap Y y$
+noremap <expr> n 'Nn'[v:searchforward]
+noremap <expr> N 'nN'[v:searchforward]
 noremap s b
 noremap S B
 noremap b *
@@ -170,10 +175,6 @@ noremap B #
 
 " Terminal paste
 tnoremap <expr> <A-r> '<C-\><C-n>"'.nr2char(getchar()).'pa'
-
-nnoremap j gj
-nnoremap k gk
-nnoremap Y y$
 
 " Open terminal
 nnoremap <silent> <C-c> :below 10split term://zsh<CR>a
@@ -438,9 +439,25 @@ let g:indentLine_setColors=0
 let g:indentLine_char='¦'
 
 " vimwiki
+let g:vimwiki_use_mouse = 1
 let g:vimwiki_folding = 'list'
+let g:vimwiki_dir_link = 'index'
+let g:vimwiki_ext2syntax = {
+\ '.md': 'markdown',
+\ '.mkd': 'markdown',
+\ '.wiki': 'vimwiki'}
+let g:vimwiki_list = [
+\ { 'path': '~/vimwiki/',
+\   'syntax': 'markdown',
+\   'ext': '.md' },
+\ { 'path': '~/.wiki/',
+\   'syntax': 'markdown',
+\   'ext': '.md' }]
 function! VimwikiFtConfig()
   setlocal tabstop=3 softtabstop=3 shiftwidth=3 expandtab wrap
+
+  set syntax=markdown
+
   nmap <buffer> <CR> <Plug>VimwikiFollowLink<Esc>zt
   nmap <buffer> <2-LeftMouse> <Plug>VimwikiFollowLink<Esc>zt
   nmap <buffer> <RightMouse> <BS>
@@ -471,6 +488,11 @@ let g:rustfmt_fail_silently = 0
 au FileType rust nmap gd <Plug>(rust-def)
 au FileType rust nmap gs <Plug>(rust-def-split)
 au FileType rust nmap gx <Plug>(rust-def-vertical)
+
+" pandoc
+let g:pandoc#syntax#conceal#use = 1
+let g:pandoc#syntax#conceal#backslash = 1
+let g:pandoc#syntax#conceal#urls = 1
 
 
 " Completion

@@ -75,6 +75,23 @@ Only main keys are listed. Others are default. Use `rofi -show keys` to get list
 #### neovim
 List will be to big. See .config/nvim/init.vim. Will be restructured one day for better readability
 
+### VimWiki
+VimWiki is set up to use markdown syntax.
+Intended to work with rclone to sync with gdrive. Rclone has to be installed first.
+Proposed directory structure:
+* `~/vimwiki` - global wiki, that is synchronized with gdrive
+   * `vimwiki/index.md` - global index page, must link local wiki
+   * `vimwiki/local` - symbolic link to `~/.wiki`
+* `~/.wiki` - local wiki, does not synchronize with gdrive
+
+First rclone remote has to be set up. To sync use the following command:
+* `rclone sync <source> <destinaton>`
+where:
+* `<source>` - source with newer files
+* `<destinaton>` - destinaton with files to be updated
+Rclone remote directory have the following syntax: `<remote>:<path/to/dir>`.
+Note: only destinaton files are updated.
+
 ### Project
 #### C++
 Following options may need to be changed from default on some projects.
