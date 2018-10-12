@@ -92,6 +92,13 @@ where:
 Rclone remote directory have the following syntax: `<remote>:<path/to/dir>`.
 Note: only destinaton files are updated.
 
+### zsh
+Zsh can handle both zsh and bash completions, but they should be kept separately. To add completions to zsh you have to generate them and write into proper directory.
+* zsh completions
+  `<echo completion> > $HOME/.zsh.compl.d/_<command>`
+* bash completions
+  `<echo completion> > $HOME/.bash.compl.d/_<command>`
+
 ### Project
 #### C++
 Following options may need to be changed from default on some projects.

@@ -31,7 +31,7 @@ ZSH_THEME="clean" # clean edvardm theunraveler wezm
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+export UPDATE_ZSH_DAYS=7
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -62,10 +62,22 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git pip)
+plugins=(git cargo pip)
 
 [[ -f ~/.zshrclocal ]] && source ~/.zshrclocal
 source $ZSH/oh-my-zsh.sh
+
+fpath+=~/.zsh.compl.d
+compinit
+
+autoload bashcompinit -U +X && bashcompinit
+if [[ -d $HOME/.bash.compl.d ]]
+then
+  for bcompl in $HOME/.bash.compl.d/*
+  do
+    source $bcompl
+  done
+fi
 
 # User configuration
 export TERM=xterm-256color
