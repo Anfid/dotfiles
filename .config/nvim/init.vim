@@ -301,10 +301,7 @@ let $FZF_DEFAULT_COMMAND = "rg --smart-case --hidden --follow --no-heading --fil
 command! -bang -nargs=* GrepFiles call fzf#vim#grep('rg --smart-case --hidden --follow --no-heading --line-number ""'.shellescape(<q-args>), 0, <bang>0)
 nnoremap <silent> <C-f> :Files<CR>
 nnoremap <silent> <C-g> :GrepFiles<CR>
-" NOTE: the following mapping is a veird workaround of vim interpreting <C-/>
-" as <C-_> and vice versa. So, the actual mapping is to <C-/>
-" TODO: check on win
-nnoremap <silent> <C-_> :BLines<CR>
+nnoremap <silent> <C-s> :BLines<CR>
 
 let g:fzf_buffers_jump = 1
 let g:fzf_colors =
@@ -456,7 +453,7 @@ let g:vimwiki_list = [
 function! VimwikiFtConfig()
   setlocal tabstop=3 softtabstop=3 shiftwidth=3 expandtab wrap
 
-  set syntax=markdown
+  set syntax=pandoc
 
   nmap <buffer> <CR> <Plug>VimwikiFollowLink<Esc>zt
   nmap <buffer> <2-LeftMouse> <Plug>VimwikiFollowLink<Esc>zt
