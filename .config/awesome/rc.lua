@@ -54,17 +54,17 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    awful.layout.suit.spiral,
+    awful.layout.suit.tile,
+    awful.layout.suit.max,
     awful.layout.suit.magnifier,
     awful.layout.suit.tile.left,
-    awful.layout.suit.tile,
     awful.layout.suit.fair,
     awful.layout.suit.floating,
     -- awful.layout.suit.tile.bottom,
     -- awful.layout.suit.tile.top,
     -- awful.layout.suit.fair.horizontal,
+    -- awful.layout.suit.spiral,
     -- awful.layout.suit.spiral.dwindle,
-    -- awful.layout.suit.max.fullscreen,
     -- awful.layout.suit.corner.nw,
     -- awful.layout.suit.corner.ne,
     -- awful.layout.suit.corner.sw,
@@ -328,7 +328,7 @@ globalkeys = gears.table.join(
               {description = "lua execute prompt", group = "awesome"}),
     ]]--
     -- Rofi
-    awful.key({ modkey }, "x", function() awful.spawn("rofi -show run") end,
+    awful.key({ modkey }, "x", function() awful.spawn("rofi -modi drun,run -show run") end,
               {description = "run rofi launcher", group = "launcher"}),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
@@ -496,7 +496,7 @@ awful.rules.rules = {
 client.connect_signal("manage", function (c)
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
-    -- if not awesome.startup then awful.client.setslave(c) end
+    if not awesome.startup then awful.client.setslave(c) end
 
     if awesome.startup and
       not c.size_hints.user_position
