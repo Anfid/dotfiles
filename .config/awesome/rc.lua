@@ -119,7 +119,16 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+local textclock = {}
+textclock.widget = wibox.widget.textclock("<span font=\"sans 8\">%H:%M\n%d.%m\n%a</span>")
+textclock.widget:set_align("center")
+textclock.tooltip = awful.tooltip({
+    objects = { textclock.widget },
+    timer_function = function()
+        return os.date("%d.%m.%Y\n%A, %B")
+    end
+})
+textclock.tooltip.textbox:set_align("center")
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -197,29 +206,29 @@ awful.screen.connect_for_each_screen(function(s)
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
     -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.noempty, taglist_buttons )
+    s.taglist = awful.widget.taglist(s, awful.widget.taglist.filter.noempty, taglist_buttons, {align = "center"}, nil, wibox.layout.fixed.vertical())
 
     -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
+    s.tasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons, {align = "center"}, nil, wibox.layout.fixed.vertical())
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "bottom", screen = s })
+    s.wibox = awful.wibar({ position = "left", width = 30, screen = s })
 
     -- Add widgets to the wibox
-    s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
+    s.wibox:setup {
+        layout = wibox.layout.align.vertical,
         { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
+            layout = wibox.layout.fixed.vertical,
             launcher,
-            s.mytaglist,
+            s.taglist,
             s.mypromptbox,
         },
-        s.mytasklist, -- Middle widget
+        s.tasklist, -- Middle widget
         { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
+            layout = wibox.layout.fixed.vertical,
             mykeyboardlayout,
             wibox.widget.systray(),
-            mytextclock,
+            textclock,
             s.mylayoutbox,
         },
     }
