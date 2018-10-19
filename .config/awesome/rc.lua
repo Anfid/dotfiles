@@ -288,13 +288,27 @@ awful.rules.rules = {
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = true }
+      }, properties = { titlebars_enabled = false }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { screen = 1, tag = "2" } },
 }
+-- }}}
+
+-- {{{ Functions
+-- Toggle titlebar on or off depending on s. Creates titlebar if it doesn't exist
+local function set_titlebar(client, s)
+    if s then
+        if client.titlebar == nil then
+            client:emit_signal("request::titlebars", "rules", {})
+        end
+        awful.titlebar.show(client)
+    else
+        awful.titlebar.hide(client)
+    end
+end
 -- }}}
 
 -- {{{ Signals
@@ -309,6 +323,23 @@ client.connect_signal("manage", function (c)
       and not c.size_hints.program_position then
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
+    end
+end)
+
+-- Show titlebar on new floating clients
+client.connect_signal("manage", function(c)
+    set_titlebar(c, c.floating or c.first_tag.layout == awful.layout.suit.floating)
+end)
+
+--Toggle titlebar on floating status change
+client.connect_signal("property::floating", function(c)
+    set_titlebar(c, c.floating)
+end)
+
+-- Show titlebars on tags with the floating layout
+tag.connect_signal("property::layout", function(t)
+    for _, c in pairs(t:clients()) do
+        set_titlebar(c, t.layout == awful.layout.suit.floating)
     end
 end)
 
