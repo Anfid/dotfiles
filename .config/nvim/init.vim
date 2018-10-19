@@ -162,6 +162,9 @@ noremap <expr> H (&wrap == 1 ? "g^" : "^")
 noremap <expr> L (&wrap == 1 ? "g$" : "$")
 noremap <expr> I (&wrap == 1 ? "g^i" : "^i")
 noremap <expr> A (&wrap == 1 ? "g$a" : "$a")
+" Fall through to non-whitespace
+noremap <silent> <leader>j /\%<C-r>=col(".")<CR>c[^ ]<CR>
+noremap <silent> <leader>k ?\%<C-r>=col(".")<CR>c[^ ]<CR>
 nnoremap Y y$
 noremap <expr> n 'Nn'[v:searchforward]
 noremap <expr> N 'nN'[v:searchforward]
