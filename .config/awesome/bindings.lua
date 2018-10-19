@@ -119,6 +119,13 @@ bindings.keyboard = {
         awful.key({ modkey }, "x", function() awful.spawn("rofi -modi drun,run -show run") end,
                   {description = "run rofi launcher", group = "launcher"}),
 
+        -- Screen lock
+        awful.key({ "Control", "Mod1" }, "l",
+                  function()
+                      awful.spawn.with_shell("$HOME/.scripts/screen-lock.sh")
+                  end,
+                  {description = "lock screen", group = "awesome"}),
+
         -- Menubar
         awful.key({ modkey }, "p", function() menubar.show() end,
                   {description = "show the menubar", group = "launcher"}),
