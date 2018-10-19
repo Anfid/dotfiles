@@ -63,7 +63,6 @@ function update_symlink {
   response=${response,,}    # tolower
   case "$response" in
   "y")
-    [[ -f /bin/kitty ]] && sudo ln -sf $DOTFILES_DIR/.scripts/kitty /bin/kitty
     safe_link .xinitrc
     safe_link .zshrc
     safe_link ".gtkrc-2.0"
@@ -182,6 +181,11 @@ function install_from_rep {
   cargo install cargo-update
   cargo install i3-bg-blur
 
+  # kitty
+  curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
+  sudo ln -sf $HOME/.local/kitty.app/bin/kitty /usr/bin/
+  sudo cp -r  $HOME/.local/kitty.app/share/*   /usr/share/
+
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.config/nvim/bundle/Vundle.vim
 
   # xkbswitch
@@ -231,11 +235,6 @@ function install_from_rep {
   git tag -f "git-$(git rev-parse --short HEAD)"
   autoreconf -i && ./configure && make
   sudo checkinstall -y --pkgname=i3lock-color --pkgversion=`date '+%y%m%d'`
-
-  # kitty
-  cd /opt
-  sudo git clone https://github.com/kovidgoyal/kitty && cd kitty
-  sudo make
 
   # less
   cd /tmp
