@@ -40,6 +40,9 @@ end
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_configuration_dir() .. "themes/default/theme.lua")
 
+-- Define notification icon size
+naughty.config.defaults['icon_size'] = 100
+
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
 editor = os.getenv("EDITOR") or "vim"
@@ -288,7 +291,7 @@ awful.rules.rules = {
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = false }
+      }, properties = { titlebars_enabled = true }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
@@ -299,8 +302,8 @@ awful.rules.rules = {
 
 -- {{{ Functions
 -- Toggle titlebar on or off depending on s. Creates titlebar if it doesn't exist
-local function set_titlebar(client, s)
-    if s then
+local function set_titlebar(client, show)
+    if show then
         if client.titlebar == nil then
             client:emit_signal("request::titlebars", "rules", {})
         end
@@ -309,14 +312,32 @@ local function set_titlebar(client, s)
         awful.titlebar.hide(client)
     end
 end
+
+local function getn(table)
+    local count = 0
+    for _, v in pairs(table) do
+        if v ~= nil then
+            count = count + 1
+        end
+    end
+
+    return count
+end
 -- }}}
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c)
     -- Set the windows at the slave,
-    -- i.e. put it at the end of others instead of setting it master.
     if not awesome.startup then awful.client.setslave(c) end
+
+    -- Set floating if slave window is created on magnifier layout
+    -- TODO: Create new layout instead of magnifier
+    if awful.layout.get(c.screen) == awful.layout.suit.magnifier
+        and getn(c.first_tag:clients()) > 1 then
+        c.floating = true
+        awful.placement.bottom(c)
+    end
 
     if awesome.startup and
       not c.size_hints.user_position
@@ -324,11 +345,6 @@ client.connect_signal("manage", function (c)
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
     end
-end)
-
--- Show titlebar on new floating clients
-client.connect_signal("manage", function(c)
-    set_titlebar(c, c.floating or c.first_tag.layout == awful.layout.suit.floating)
 end)
 
 --Toggle titlebar on floating status change
@@ -383,17 +399,22 @@ client.connect_signal("request::titlebars", function(c)
         },
         layout = wibox.layout.align.horizontal
     }
+
+    -- Hide titlebar if client is not floating
+    local l = awful.layout.get(c.screen)
+    if not (c.floating or l == awful.layout.suit.floating) then
+        awful.titlebar.hide(c)
+    end
 end)
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
-    if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
-        and awful.client.focus.filter(c) then
+    if awful.client.focus.filter(c) then
         client.focus = c
     end
 end)
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
+client.connect_signal("focus",   function(c) c.border_color = beautiful.border_focus  end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
