@@ -126,13 +126,17 @@ fi
 # For a full list of active aliases, run `alias`.
 
 # Aliases
-alias sd="shutdown"
+alias sd="shutdown" # [options]
+
+alias mntrw="sudo mount -o rw,gid=users,fmask=113,dmask=002" # device mount_point
+alias mntro="sudo mount -o ro,gid=users,fmask=333,dmask=222" # device mount_point
+alias unmnt="sudo umount" # mount_point
 
 alias ls="exa"
 alias ll="exa -lah --git --group-directories-first"
 alias la="exa -a"
 alias lt="exa -Ta --group-directories-first"
-alias lti="exa -Ta --group-directories-first -I"
+alias lti="exa -Ta --group-directories-first -I" # ignore_glob
 
 alias glog="vim +ShowCommitsAndExit"
 
