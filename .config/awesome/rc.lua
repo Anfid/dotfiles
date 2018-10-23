@@ -10,6 +10,8 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
+-- User library
+local cosy = require("cosy")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -48,23 +50,17 @@ terminal = "kitty"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
--- Default modkey.
--- Usually, Mod4 is the key with a logo between Control and Alt.
--- If you do not like this or do not have such a key,
--- I suggest you to remap Mod4 to another key using xmodmap or other tools.
--- However, you can use another modifier like Mod1, but it may interact with others.
-modkey = "Mod4"
-
 awesome.set_preferred_icon_size(35)
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     awful.layout.suit.tile,
     awful.layout.suit.max,
-    awful.layout.suit.magnifier,
+    cosy.layout.popup,
     awful.layout.suit.tile.left,
     awful.layout.suit.fair,
     awful.layout.suit.floating,
+    -- awful.layout.suit.magnifier,
     -- awful.layout.suit.tile.bottom,
     -- awful.layout.suit.tile.top,
     -- awful.layout.suit.fair.horizontal,
@@ -106,8 +102,8 @@ awesomemenu = {
    { "Quit", function() awesome.quit() end}
 }
 
-mainmenu = awful.menu({ items = { { "Power", powermenu, beautiful.awesome_icon },
-                                  { "Awesome", awesomemenu, beautiful.awesome_icon },
+mainmenu = awful.menu({ items = { { "Power",    powermenu,   beautiful.awesome_icon },
+                                  { "Awesome",  awesomemenu, beautiful.awesome_icon },
                                   { "Terminal", terminal }
                                 }
                         })
@@ -138,13 +134,13 @@ textclock.tooltip.textbox:set_align("center")
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
-                    awful.button({ modkey }, 1, function(t)
+                    awful.button({ cosy.bindings.modkey }, 1, function(t)
                                               if client.focus then
                                                   client.focus:move_to_tag(t)
                                               end
                                           end),
                     awful.button({ }, 3, awful.tag.viewtoggle),
-                    awful.button({ modkey }, 3, function(t)
+                    awful.button({ cosy.bindings.modkey }, 3, function(t)
                                               if client.focus then
                                                   client.focus:toggle_tag(t)
                                               end
@@ -241,10 +237,8 @@ end)
 -- }}}
 
 -- {{{ Set bindings
-bindings = require("bindings")
-
-root.buttons(bindings.mouse.global)
-root.keys(bindings.keyboard.global)
+root.buttons(cosy.bindings.mouse.global)
+root.keys(cosy.bindings.keyboard.global)
 -- }}}
 
 -- {{{ Rules
@@ -256,8 +250,8 @@ awful.rules.rules = {
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
                      raise = true,
-                     keys = bindings.keyboard.client,
-                     buttons = bindings.mouse.client,
+                     keys = cosy.bindings.keyboard.client,
+                     buttons = cosy.bindings.mouse.client,
                      screen = awful.screen.preferred,
                      placement = awful.placement.no_overlap+awful.placement.no_offscreen
      }
@@ -331,9 +325,9 @@ client.connect_signal("manage", function (c)
     -- Set the windows at the slave,
     if not awesome.startup then awful.client.setslave(c) end
 
-    -- Set floating if slave window is created on magnifier layout
-    -- TODO: Create new layout instead of magnifier
-    if awful.layout.get(c.screen) == awful.layout.suit.magnifier
+    -- Set floating if slave window is created on popup layout
+    -- TODO: Consider if more elegant solution is possible
+    if awful.layout.get(c.screen) == cosy.layout.popup
         and getn(c.first_tag:clients()) > 1 then
         c.floating = true
         awful.placement.bottom(c)
@@ -409,7 +403,8 @@ end)
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
-    if awful.client.focus.filter(c) then
+    if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
+        and awful.client.focus.filter(c) then
         client.focus = c
     end
 end)
