@@ -52,6 +52,8 @@ editor_cmd = terminal .. " -e " .. editor
 
 awesome.set_preferred_icon_size(35)
 
+floatgeoms = {}
+
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     awful.layout.suit.tile,
@@ -296,14 +298,15 @@ awful.rules.rules = {
 
 -- {{{ Functions
 -- Toggle titlebar on or off depending on s. Creates titlebar if it doesn't exist
-local function set_titlebar(client, show)
+local function manage_titlebar(c)
+    show = c.floating or awful.layout.get(c.screen) == awful.layout.suit.floating
     if show then
-        if client.titlebar == nil then
-            client:emit_signal("request::titlebars", "rules", {})
+        if c.titlebar == nil then
+            c:emit_signal("request::titlebars", "rules", {})
         end
-        awful.titlebar.show(client)
+        awful.titlebar.show(c)
     else
-        awful.titlebar.hide(client)
+        awful.titlebar.hide(c)
     end
 end
 
@@ -333,6 +336,11 @@ client.connect_signal("manage", function (c)
         awful.placement.bottom(c)
     end
 
+    -- Save floating client geometry
+    if c.floating or awful.layout.get(c.screen) == awful.layout.suit.floating then
+        floatgeoms[c.window] = c:geometry()
+    end
+
     if awesome.startup and
       not c.size_hints.user_position
       and not c.size_hints.program_position then
@@ -341,16 +349,37 @@ client.connect_signal("manage", function (c)
     end
 end)
 
---Toggle titlebar on floating status change
+-- FIXME: Exclude titlebar from geometry
 client.connect_signal("property::floating", function(c)
-    set_titlebar(c, c.floating)
+    local floating = c.floating or awful.layout.get(c.screen) == awful.layout.suit.floating
+    if floating then
+        c:geometry(floatgeoms[c.window])
+    end
+    manage_titlebar(c)
+    awful.placement.no_offscreen(c)
 end)
 
--- Show titlebars on tags with the floating layout
 tag.connect_signal("property::layout", function(t)
     for _, c in pairs(t:clients()) do
-        set_titlebar(c, t.layout == awful.layout.suit.floating)
+        local floating = c.floating or t.layout == awful.layout.suit.floating
+        if floating then
+            c:geometry(floatgeoms[c.window])
+        end
+        manage_titlebar(c)
+        awful.placement.no_offscreen(c)
     end
+end)
+
+client.connect_signal("property::geometry", function(c)
+    local floating = c.floating or awful.layout.get(c.screen) == awful.layout.suit.floating
+    if floating then
+        floatgeoms[c.window] = c:geometry()
+    end
+end)
+
+client.connect_signal("unmanage", function(c) floatgeoms[c.window] = nil end)
+
+client.connect_signal("manage", function(c)
 end)
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
