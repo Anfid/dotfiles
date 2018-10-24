@@ -1,14 +1,10 @@
 local awful = require("awful")
 local gears = require("gears")
-local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
+local menu = require("cosy.menu")
+local global = require("global")
 
--- Default modkey.
--- Usually, Mod4 is the key with a logo between Control and Alt.
--- If you do not like this or do not have such a key,
--- I suggest you to remap Mod4 to another key using xmodmap or other tools.
--- However, you can use another modifier like Mod1, but it may interact with others.
-local modkey = "Mod4"
+local modkey = global.modkey
 
 local bindings = {
     modkey = modkey,
@@ -18,7 +14,7 @@ local bindings = {
 
 bindings.mouse = {
     global = gears.table.join(
-        awful.button({ }, 3, function () mainmenu:toggle() end),
+        awful.button({ }, 3, function () menu.main:toggle() end),
         awful.button({ }, 4, awful.tag.viewnext),
         awful.button({ }, 5, awful.tag.viewprev)
     ),
@@ -53,11 +49,11 @@ bindings.keyboard = {
             end,
             {description = "focus previous by index", group = "client"}),
 
-        awful.key({ modkey,           }, "w", function () mainmenu:show() end,
+        awful.key({ modkey,           }, "w", function () menu.main:show() end,
                   {description = "show main menu", group = "awesome"}),
 
         -- Standard program
-        awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
+        awful.key({ modkey,           }, "Return", function () awful.spawn(global.terminal) end,
                   {description = "open a terminal", group = "launcher"}),
         awful.key({ modkey, "Control" }, "r", awesome.restart,
                   {description = "reload awesome", group = "awesome"}),
@@ -133,10 +129,6 @@ bindings.keyboard = {
                       awful.spawn.with_shell("$HOME/.scripts/screen-lock.sh")
                   end,
                   {description = "lock screen", group = "awesome"}),
-
-        -- Menubar
-        awful.key({ modkey }, "p", function() menubar.show() end,
-                  {description = "show the menubar", group = "launcher"}),
 
         -- Media Keys
         awful.key({}, "XF86MonBrightnessUp",   function() awful.spawn("light -A 5")                   end,

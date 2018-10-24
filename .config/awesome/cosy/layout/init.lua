@@ -5,6 +5,7 @@
 ---------------------------------------------------------------------------
 
 local layout = {}
+
 layout.popup = require("cosy.layout.popup")
 
 return layout

@@ -2,16 +2,22 @@
 local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
--- Widget and layout library
-local wibox = require("wibox")
+awesome.set_preferred_icon_size(35)
+
 -- Theme handling library
 local beautiful = require("beautiful")
+beautiful.init(gears.filesystem.get_configuration_dir() .. "themes/default/theme.lua")
+
+-- Widget and layout library
+local wibox = require("wibox")
+
 -- Notification library
 local naughty = require("naughty")
-local menubar = require("menubar")
-local hotkeys_popup = require("awful.hotkeys_popup").widget
+naughty.config.defaults['icon_size'] = 64
+
 -- User library
 local cosy = require("cosy")
+local global = require("global")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -39,19 +45,6 @@ end
 -- }}}
 
 -- {{{ Variable definitions
--- Themes define colours, icons, font and wallpapers.
-beautiful.init(gears.filesystem.get_configuration_dir() .. "themes/default/theme.lua")
-
--- Define notification icon size
-naughty.config.defaults['icon_size'] = 100
-
--- This is used later as the default terminal and editor to run.
-terminal = "kitty"
-editor = os.getenv("EDITOR") or "vim"
-editor_cmd = terminal .. " -e " .. editor
-
-awesome.set_preferred_icon_size(35)
-
 floatgeoms = {}
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
@@ -90,49 +83,10 @@ local function client_menu_toggle_fn()
 end
 -- }}}
 
--- {{{ Menu
--- Create a launcher widget and a main menu
-powermenu = {
-   { "Shutdown", "shutdown 0"},
-   { "Reboot", "shutdown -r 0" },
-}
-
-awesomemenu = {
-   { "Restart", awesome.restart },
-   { "Hotkeys", function() return false, hotkeys_popup.show_help end},
-   { "Edit config", editor_cmd .. " " .. awesome.conffile },
-   { "Quit", function() awesome.quit() end}
-}
-
-mainmenu = awful.menu({ items = { { "Power",    powermenu,   beautiful.awesome_icon },
-                                  { "Awesome",  awesomemenu, beautiful.awesome_icon },
-                                  { "Terminal", terminal }
-                                }
-                        })
-
-launcher = awful.widget.launcher({ image = beautiful.awesome_icon,
-                                   menu = mainmenu })
-
--- Menubar configuration
-menubar.utils.terminal = terminal -- Set the terminal for applications that require it
--- }}}
-
 -- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
+keyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
--- Create a textclock widget
-local textclock = {}
-textclock.widget = wibox.widget.textclock("<span font=\"sans 8\">%H:%M\n%d.%m\n%a</span>")
-textclock.widget:set_align("center")
-textclock.tooltip = awful.tooltip({
-    objects = { textclock.widget },
-    timer_function = function()
-        return os.date("%d.%m.%Y\n%A, %B")
-    end
-})
-textclock.tooltip.textbox:set_align("center")
-
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
@@ -198,12 +152,10 @@ awful.screen.connect_for_each_screen(function(s)
     -- Each screen has its own tag table.
     awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
 
-    -- Create a promptbox for each screen
-    s.mypromptbox = awful.widget.prompt()
     -- Create an imagebox widget which will contain an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
-    s.mylayoutbox = awful.widget.layoutbox(s)
-    s.mylayoutbox:buttons(gears.table.join(
+    s.layoutbox = awful.widget.layoutbox(s)
+    s.layoutbox:buttons(gears.table.join(
                            awful.button({ }, 1, function () awful.layout.inc( 1) end),
                            awful.button({ }, 3, function () awful.layout.inc(-1) end),
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
@@ -222,17 +174,17 @@ awful.screen.connect_for_each_screen(function(s)
         layout = wibox.layout.align.vertical,
         { -- Left widgets
             layout = wibox.layout.fixed.vertical,
-            launcher,
+            cosy.widget.launcher,
             s.taglist,
-            s.mypromptbox,
+            cosy.widget.promptbox,
         },
         s.tasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.vertical,
-            mykeyboardlayout,
+            keyboardlayout,
             wibox.widget.systray(),
-            textclock,
-            s.mylayoutbox,
+            cosy.widget.textclock,
+            s.layoutbox,
         },
     }
 end)
