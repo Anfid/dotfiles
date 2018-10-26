@@ -182,9 +182,9 @@ function install_from_rep {
   cargo install i3-bg-blur
 
   # kitty
-  curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
-  sudo ln -sf $HOME/.local/kitty.app/bin/kitty /usr/bin/
-  sudo cp -r  $HOME/.local/kitty.app/share/*   /usr/share/
+  curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n dest=$HOME/.local/opt
+  ln -sf $HOME/.local/opt/kitty.app/bin/kitty $HOME/.local/bin/
+  cp -rf $HOME/.local/opt/kitty.app/share/*   $HOME/.local/share/
 
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.config/nvim/bundle/Vundle.vim
 
