@@ -433,6 +433,12 @@ call airline#add_statusline_func('Time')
 nnoremap <silent> <Leader>tl :TaskList<CR>
 
 " gitgutter
+let g:gitgutter_sign_added='┃'
+let g:gitgutter_sign_modified='┃'
+let g:gitgutter_sign_removed='◢'
+let g:gitgutter_sign_removed_first_line='◥'
+let g:gitgutter_sign_modified_removed='◢'
+
 nnoremap <silent> <Leader>gh :GitGutterLineHighlightsToggle<CR>
 
 " indentline
