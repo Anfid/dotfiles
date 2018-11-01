@@ -290,7 +290,7 @@ command! ShowCommitsAndExit call ShowCommitsAndExit()
 nnoremap <silent> <Space> :CtrlSpace<CR>
 let g:CtrlSpaceUseMouseAndArrowsInTerm = 1
 let g:CtrlSpaceLoadLastWorkspaceOnStart = 0
-let g:CtrlSpaceGlobCommand = "rg --smart-case --hidden --follow --no-heading --files"
+let g:CtrlSpaceGlobCommand = "rg --smart-case --hidden --follow --no-heading --files --glob '!.git/'"
 
 " ALE
 let g:ale_sign_error = "✗"
@@ -302,8 +302,8 @@ let g:ale_linters = {'cpp': ['clang', 'cppcheck']}
 let g:ale_lua_luacheck_options = '--no-redefined --no-unused-args'
 
 " fuzzy
-let $FZF_DEFAULT_COMMAND = "rg --smart-case --hidden --follow --no-heading --files"
-command! -bang -nargs=* GrepFiles call fzf#vim#grep('rg --smart-case --hidden --follow --no-heading --line-number ""'.shellescape(<q-args>), 0, <bang>0)
+let $FZF_DEFAULT_COMMAND = "rg --smart-case --hidden --follow --no-heading --files --glob '!.git/'"
+command! -bang -nargs=* GrepFiles call fzf#vim#grep('rg --smart-case --hidden --follow --no-heading --line-number "" --glob "!.git/"'.shellescape(<q-args>), 0, <bang>0)
 nnoremap <silent> <C-f> :Files<CR>
 nnoremap <silent> <C-g> :GrepFiles<CR>
 nnoremap <silent> <C-s> :BLines<CR>
