@@ -20,6 +20,7 @@ Plugin 'tommcdo/vim-exchange'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'pseewald/vim-anyfold'
 Plugin 'terryma/vim-multiple-cursors'
+Plugin 'rhysd/clever-f.vim'
 Plugin 'chrisbra/NrrwRgn'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
@@ -115,6 +116,8 @@ syntax on
 " ------------------ Key remaps ------------------
 
 " Free keys
+noremap ;       <Nop>
+noremap ,       <Nop>
 noremap <S-l>   <Nop>
 noremap <S-h>   <Nop>
 noremap <C-b>   <Nop>
@@ -369,6 +372,10 @@ set foldlevel=10
 
 " vim-multiple-cursors
 let g:multi_cursor_use_default_mapping=1
+
+" clever-f
+let g:clever_f_smart_case = 1
+let g:clever_f_fix_key_direction = 1
 
 " NrrwRgn
 let g:nrrw_rgn_protect = 'n'
