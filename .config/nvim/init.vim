@@ -15,7 +15,6 @@ Plugin 'junegunn/fzf.vim'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fugitive'
 Plugin 'simnalamburt/vim-mundo'
-Plugin 'wellle/targets.vim'
 Plugin 'tommcdo/vim-exchange'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'pseewald/vim-anyfold'
@@ -35,6 +34,13 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'yggdroot/indentline'
 Plugin 'RRethy/vim-illuminate'
 Plugin 'bogado/file-line'
+
+" text objects
+Plugin 'kana/vim-textobj-user'
+Plugin 'Julian/vim-textobj-variable-segment'
+Plugin 'wellle/targets.vim'
+Plugin 'junegunn/vim-after-object'
+Plugin 'tpope/vim-speeddating' " proper date increment/decrement
 
 " language support
 Plugin 'octol/vim-cpp-enhanced-highlight'
@@ -303,6 +309,7 @@ let g:ale_sign_style_error = "Ⓢ"
 let g:ale_sign_style_warning = "⧌"
 let g:ale_linters = {'cpp': ['clang', 'cppcheck']}
 let g:ale_lua_luacheck_options = '--no-redefined --no-unused-args'
+let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
 
 " fuzzy
 let $FZF_DEFAULT_COMMAND = "rg --smart-case --hidden --follow --no-heading --files --glob '!.git/'"
@@ -367,7 +374,7 @@ let g:easytags_resolve_links = 1
 let g:easytags_async=1
 
 " anyfold
-let g:anyfold_activate=1
+autocmd BufEnter * AnyFoldActivate
 set foldlevel=10
 
 " vim-multiple-cursors
@@ -428,7 +435,7 @@ let g:airline#extensions#default#section_truncate_width = {
 let g:airline_section_x = airline#section#create(['tagbar'])
 let g:airline_section_c = airline#section#create_right(['filetype', 'readonly', 'file'])
 function! Noscrollbar(...)
-let w:airline_section_y = "▐%{noscrollbar#statusline(20,'▄','█',['▟'],['▙'])}▌"
+  let w:airline_section_y = "▐%{noscrollbar#statusline(20,'▄','█',['▟'],['▙'])}▌"
 endfunction
 call airline#add_statusline_func('Noscrollbar')
 function! Time(...)
@@ -440,18 +447,21 @@ call airline#add_statusline_func('Time')
 nnoremap <silent> <Leader>tl :TaskList<CR>
 
 " gitgutter
-let g:gitgutter_sign_added='┃'
-let g:gitgutter_sign_modified='┃'
-let g:gitgutter_sign_removed='◢'
-let g:gitgutter_sign_removed_first_line='◥'
-let g:gitgutter_sign_modified_removed='◢'
+let g:gitgutter_sign_added              = '┃'
+let g:gitgutter_sign_modified           = '┃'
+let g:gitgutter_sign_removed            = '◢'
+let g:gitgutter_sign_removed_first_line = '◥'
+let g:gitgutter_sign_modified_removed   = '◢'
 
 nnoremap <silent> <Leader>gh :GitGutterLineHighlightsToggle<CR>
 
 " indentline
 let g:indentLine_fileType = ['h', 'hh', 'hpp', 'c', 'cc', 'cpp', 'sh', 'vim']
-let g:indentLine_setColors=0
-let g:indentLine_char='¦'
+let g:indentLine_setColors = 0
+let g:indentLine_char = '¦'
+
+" vim-after-object
+call after_object#enable(["a", ""], '=', ':')
 
 " vimwiki
 let g:vimwiki_use_mouse = 1
