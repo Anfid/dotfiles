@@ -39,6 +39,7 @@ Plugin 'bogado/file-line'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'rust-lang/rust.vim'
 Plugin 'racer-rust/vim-racer'
+Plugin 'tbastos/vim-lua'
 Plugin 'vim-pandoc/vim-pandoc'
 Plugin 'vim-pandoc/vim-pandoc-syntax'
 
@@ -292,12 +293,13 @@ let g:CtrlSpaceLoadLastWorkspaceOnStart = 0
 let g:CtrlSpaceGlobCommand = "rg --smart-case --hidden --follow --no-heading --files"
 
 " ALE
-let g:ale_linters = {'cpp': ['clang', 'cppcheck']}
 let g:ale_sign_error = "✗"
 let g:ale_sign_warning = "⚠"
 let g:ale_sign_info = "ℹ"
 let g:ale_sign_style_error = "Ⓢ"
 let g:ale_sign_style_warning = "⧌"
+let g:ale_linters = {'cpp': ['clang', 'cppcheck']}
+let g:ale_lua_luacheck_options = '--no-redefined --no-unused-args'
 
 " fuzzy
 let $FZF_DEFAULT_COMMAND = "rg --smart-case --hidden --follow --no-heading --files"
@@ -488,6 +490,9 @@ let g:rustfmt_fail_silently = 0
 au FileType rust nmap gd <Plug>(rust-def)
 au FileType rust nmap gs <Plug>(rust-def-split)
 au FileType rust nmap gx <Plug>(rust-def-vertical)
+
+" lua
+let g:lua_syntax_nofold = 1
 
 " pandoc
 let g:pandoc#syntax#conceal#use = 1
