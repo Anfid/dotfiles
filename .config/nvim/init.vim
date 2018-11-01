@@ -30,6 +30,7 @@ Plugin 'lyokha/vim-xkbswitch'
 Plugin 'vim-airline/vim-airline'
 Plugin 'gcavallanti/vim-noscrollbar'
 Plugin 'fisadev/FixedTaskList.vim'
+Plugin 'junegunn/vim-peekaboo'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'yggdroot/indentline'
 Plugin 'RRethy/vim-illuminate'
@@ -445,6 +446,9 @@ call airline#add_statusline_func('Time')
 
 " FixedTaskList
 nnoremap <silent> <Leader>tl :TaskList<CR>
+
+" vim-peekaboo
+let g:peekaboo_delay = 500
 
 " gitgutter
 let g:gitgutter_sign_added              = '┃'
