@@ -1,52 +1,54 @@
-# -- Conky settings -- #
-background no
-update_interval 15
- 
-cpu_avg_samples 2
-net_avg_samples 2
- 
-override_utf8_locale yes
- 
-double_buffer yes
-no_buffers yes
- 
-text_buffer_size 2048
-imlib_cache_size 0
- 
-# -- Window specifications -- #
- 
-own_window yes
-own_window_type override
-own_window_transparent yes
-own_window_hints undecorated,sticky,skip_taskbar,skip_pager,below
- 
-border_inner_margin 0
-border_outer_margin 0
+-- Conky settings --
+conky.config = {
+    background = false,
+    update_interval = 15,
 
-minimum_size 200 80
- 
-alignment tl
-gap_x 40
-gap_y 620
- 
-# -- Graphics settings -- #
-draw_shades no
-draw_outline no
-draw_borders no
-draw_graph_borders no
- 
-# -- Text settings -- #
-use_xft yes
-xftfont Santana:size=10
-xftalpha 0.8
- 
-uppercase no
- 
-default_color FFFFFF
- 
-TEXT
+    cpu_avg_samples = 2,
+    net_avg_samples = 2,
+
+    override_utf8_locale = true,
+
+    double_buffer = true,
+    no_buffers = true,
+
+    text_buffer_size = 2048,
+    imlib_cache_size = 0,
+
+    -- Window specifications --
+
+    own_window = true,
+    own_window_type = "override",
+    own_window_transparent = true,
+    own_window_hints = "undecorated,sticky,skip_taskbar,skip_pager,below",
+
+    border_inner_margin = 0,
+    border_outer_margin = 0,
+
+    minimum_width = 200,
+    minimum_height = 80,
+
+    alignment = "top_left",
+    gap_x = 40,
+    gap_y = 620,
+
+    -- Graphics settings --
+    draw_shades = false,
+    draw_outline = false,
+    draw_borders = false,
+    draw_graph_borders = false,
+
+    -- Text settings --
+    use_xft = true,
+    xftfont = "Santana:size=10",
+    xftalpha = 0.8,
+
+    uppercase = false,
+
+    default_color = "#FFFFFF",
+}
+
+conky.text = [[
 ${font Santana:size=14}${alignc}TODO list${alignr}
-${stippled_hr}
+${font Iosevka:size=11}${stippled_hr}
 ${voffset 10}${execp ~/.conky/viewnotes.sh}
-
-# ${stippled_hr 1}
+]]

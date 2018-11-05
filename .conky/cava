@@ -1,51 +1,43 @@
-# -- Conky settings -- #
-background no
-update_interval 0.05
+-- Conky settings --
+conky.config = {
+    background = false,
+    update_interval = 0.05,
 
-cpu_avg_samples 2
-net_avg_samples 2
+    double_buffer = true,
+    no_buffers  = true,
 
-override_utf8_locale yes
+    imlib_cache_size = 0,
 
-double_buffer yes
-no_buffers yes
+    -- Window specifications --
 
-text_buffer_size 2048
-imlib_cache_size 0
+    own_window = true,
+    own_window_type = "override",
+    own_window_transparent = true,
+    own_window_argb_visual = true,
+    own_window_hints = "undecorated,sticky,skip_taskbar,skip_pager,below",
 
-# -- Window specifications -- #
+    border_inner_margin = 0,
+    border_outer_margin = 0,
 
-own_window yes
-own_window_type override
-own_window_transparent yes
-own_window_hints undecorated,sticky,skip_taskbar,skip_pager,below
+    minimum_width = 1920,
+    minimum_height = 35,
 
-border_inner_margin 0
-border_outer_margin 0
+    alignment = "bottom_left",
+    gap_x = 0,
+    gap_y = 0,
 
-minimum_size 1920 35
+    -- Graphics settings --
+    draw_shades = false,
+    draw_outline = false,
+    draw_borders = false,
+    draw_graph_borders = false,
 
-alignment bl
-gap_x 0
-gap_y 0
+    use_xft = true,
 
-# -- Graphics settings -- #
-draw_shades no
-draw_outline no
-draw_borders no
-draw_graph_borders no
+    lua_load = "~/.conky/cava.lua",
+    lua_draw_hook_pre = "conky_cava"
+};
 
-# -- Text settings -- #
-use_xft yes
-xftfont Santana:size=18
-xftalpha 0.8
+-- Lua Load --
 
-uppercase no
-
-default_color FFFFFF
-
-# -- Lua Load -- #
-lua_load ~/.conky/cava.lua
-lua_draw_hook_pre conky_cava
-
-TEXT
+conky.text = [[]]
