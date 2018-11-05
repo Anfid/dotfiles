@@ -465,7 +465,7 @@ let g:indentLine_setColors = 0
 let g:indentLine_char = '¦'
 
 " vim-after-object
-call after_object#enable(["a", ""], '=', ':')
+call after_object#enable(["a", "A"], '=', ':')
 
 " vimwiki
 let g:vimwiki_use_mouse = 1
