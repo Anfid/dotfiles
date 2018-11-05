@@ -46,8 +46,8 @@ bindsym $mod+Return exec $terminal
 bindsym $mod+q kill
 
 # start rofi (a program launcher)
-bindsym $mod+x exec "rofi -modi run,drun -show run"
-bindsym $mod+s exec "rofi -modi window,ssh -show window"
+bindsym $mod+x exec "rofi -location 7 -yoffset -35 -modi run,drun -show run"
+bindsym $mod+s exec "rofi -location 7 -yoffset -35 -modi window,ssh -show window"
 bindsym $mod+n exec "$HOME/.scripts/rofi-nmcli"
 
 # open file explorer

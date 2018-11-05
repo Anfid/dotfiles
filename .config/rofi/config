@@ -3,11 +3,10 @@ rofi.display-run:       Execute
 rofi.display-window:    Window
 rofi.show-icons:        true
 rofi.sidebar-mode:      true
-rofi.location:          7
-rofi.yoffset:           -35
 rofi.matching:          fuzzy
 rofi.scroll-method:     1
 rofi.terminal:          kitty
+rofi.font:              Iosevka Regular 12
 
 rofi.kb-mode-next:      Shift+Right,Control+Tab,Alt+l
 rofi.kb-mode-previous:  Shift+Left,Control+ISO_Left_Tab,Alt+h

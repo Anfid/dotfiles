@@ -4,10 +4,52 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 # default config
 FIELDS=SSID,SECURITY,BARS
 POSITION=0; XOFF=0; YOFF=0;
-FONT="DejaVu Sans Mono Bold 14"
 
 # get current uuid
 CURRUUID=$(nmcli -f UUID,TYPE con show --active | grep wifi | awk '{print $1}')
+
+# get desired parameters
+function parse_params () {
+  if [ -r "$DIR/config" ]; then
+    source ./config
+  elif [ -r "$HOME/.config/rofi/wifi" ]; then
+    source "$HOME/.config/rofi/wifi"
+  else
+    echo "WARNING: config file not found! Using default values."
+  fi
+
+  echo "coming to loop"
+
+  while [[ $# -gt 0 ]]
+  do
+    echo "entered loop"
+    key="$1"
+
+    case $key in
+    -xoffset)
+      XOFF=$2
+      shift;shift
+      ;;
+    -yoffset)
+      YOFF=$2
+      shift;shift
+      ;;
+    -location)
+      POSITION=$2
+      shift;shift
+      ;;
+    *)
+      echo 'Unknown option used.
+Options:
+  -location           Set the location of rofi
+  -xoffset            X offset
+  -yoffset            Y offset
+'
+      exit
+      ;;
+    esac
+  done
+}
 
 # get wifi state
 function wifistate () {
@@ -56,10 +98,10 @@ function linenum () {
 }
 
 function rwidth () {
-    minus=$(echo -n "IN-USE  " | wc -m)
-    rwidth=$(if_wifistate "$(($(echo "$1" | head -n 1 | awk '{print length($0); }')-$minus))" \
-      "$(echo "$2" | awk '{print length($0); }')" )
-    echo $rwidth
+  minus=$(echo -n "IN-USE  " | wc -m)
+  rwidth=$(if_wifistate "$(($(echo "$1" | head -n 1 | awk '{print length($0); }')-$minus))" \
+    "$(echo "$2" | awk '{print length($0); }')" )
+  echo $rwidth
 }
 
 function menu () {
@@ -67,9 +109,9 @@ function menu () {
 
   if [[ "$ws" =~ 'enabled' ]]; then
     if [[ "$wa" != '' ]]; then
-        echo "$1\n\n$2\n$3\nManual Connection"
+      echo "$1\n\n$2\n$3\nManual Connection"
     else
-        echo "$1\n\n$3\nManual Connection"
+      echo "$1\n\n$3\nManual Connection"
     fi
   else
     echo "$3"
@@ -79,99 +121,93 @@ function menu () {
 function rofi_cmd () {
   # don't repeat lines with uniq -u
   echo -e "$1" | uniq -u | rofi -dmenu -p "Wi-Fi SSID" -lines "$LINENUM" \
-    -location "$POSITION" -yoffset "$YOFF" -xoffset "$XOFF" -font "$FONT" -width "$RWIDTH"
+    -location "$POSITION" -yoffset "$YOFF" -xoffset "$XOFF" -width "$RWIDTH"
 }
 
 function rofi_menu () {
-    TOGGLE=$(toggle_wifi)
-    CURRCONNECT=$(current_connection)
-    [[ "$TOGGLE" =~ 'Enable' ]] && LIST="" || LIST=$(nmcli_list)
+  TOGGLE=$(toggle_wifi)
+  CURRCONNECT=$(current_connection)
+  [[ "$TOGGLE" =~ 'Enable' ]] && LIST="" || LIST=$(nmcli_list)
 
-    MENU=$(menu "$LIST" "$CURRCONNECT" "$TOGGLE")
+  MENU=$(menu "$LIST" "$CURRCONNECT" "$TOGGLE")
 
-    LINENUM=$(linenum "$LIST")
-    RWIDTH=$(rwidth "$LIST" "$TOGGLE")
+  LINENUM=$(linenum "$LIST")
+  RWIDTH=$(rwidth "$LIST" "$TOGGLE")
 
-    rofi_cmd "$MENU"
+  rofi_cmd "$MENU"
 }
 
 function get_ssid () {
-    # get fields in order
-    eval FIELDSARR=( $(cat ./config | awk 'BEGIN { FS=","; OFS="\n" } /^FIELDS/ \
-      { $1 = substr($1, 8); print $0; }') )
+  # get fields in order
+  eval FIELDSARR=( $(cat ./config | awk 'BEGIN { FS=","; OFS="\n" } /^FIELDS/ \
+    { $1 = substr($1, 8); print $0; }') )
 
-    # get position of SSID field
-    for i in "${!FIELDSARR[@]}"; do
-      if [[ "${FIELDSARR[$i]}" = "SSID" ]]; then
-          SSID_POS="${i}";
-      fi
-    done
+  # get position of SSID field
+  for i in "${!FIELDSARR[@]}"; do
+    if [[ "${FIELDSARR[$i]}" = "SSID" ]]; then
+      SSID_POS="${i}";
+    fi
+  done
 
-    # let for arithmetical vars
-    let AWKSSIDPOS=$SSID_POS+1
+  # let for arithmetical vars
+  let AWKSSIDPOS=$SSID_POS+1
 
-    # get SSID from AWKSSIDPOS
-    CHSSID=$(echo "$1" | awk -v"AWKSSIDPOS=$AWKSSIDPOS" '{print $AWKSSIDPOS;}')
-    echo "$CHSSID"
+  # get SSID from AWKSSIDPOS
+  CHSSID=$(echo "$1" | awk -v"AWKSSIDPOS=$AWKSSIDPOS" '{print $AWKSSIDPOS;}')
+  echo "$CHSSID"
 }
 
 function cleanup_networks () {
-  nmcli --fields UUID,TIMESTAMP-REAL,DEVICE con show | grep -e '--' |  awk '{print $1}' \
-    | while read line; do nmcli con delete uuid $line; done
+  nmcli --fields UUID,TIMESTAMP-REAL,DEVICE con show | grep -e '--' |  awk '{print $1}' | \
+    while read line; do nmcli con delete uuid $line; done
 }
 
 function main () {
 
-    if [ -r "$DIR/config" ]; then
-      source ./config
-    elif [ -r "$HOME/.config/rofi/wifi" ]; then
-      source "$HOME/.config/rofi/wifi"
-    else
-      echo "WARNING: config file not found! Using default values."
+  parse_params $@
+
+  OPS=$(rofi_menu)
+  CHSSID=$(get_ssid "$OPS")
+
+  if [[ "$OPS" =~ 'Disable' ]]; then
+    nmcli radio wifi off
+
+  elif [[ "$OPS" =~ 'Enable' ]]; then
+    nmcli radio wifi on
+
+  elif [[ "$OPS" =~ 'Disconnect' ]]; then
+    nmcli con down uuid $CURRUUID
+    cleanup_networks
+
+  elif [[ "$OPS" =~ 'Manual' ]]; then
+    # Manual entry of the SSID
+    MSSID=$(echo -en "" | rofi -dmenu -p "SSID" -mesg "Enter the SSID of the network" \
+      -lines 0)
+
+    # manual entry of the PASSWORD
+    MPASS=$(echo -en "" | rofi -dmenu -password -p "PASSWORD" -mesg \
+      "Enter the PASSWORD of the network" -lines 0)
+
+    # If the user entered a manual password, then use the password nmcli command
+    if [ "$MPASS" = "" ]; then
+      nmcli dev wifi con "$MSSID"
+    elif [ "$MSSID" != '' ] && [ "$MPASS" != '' ]; then
+      nmcli dev wifi con "$MSSID" password "$MPASS"
     fi
 
-    OPS=$(rofi_menu)
-    CHSSID=$(get_ssid "$OPS")
-
-    if [[ "$OPS" =~ 'Disable' ]]; then
-      nmcli radio wifi off
-
-    elif [[ "$OPS" =~ 'Enable' ]]; then
-      nmcli radio wifi on
-
-    elif [[ "$OPS" =~ 'Disconnect' ]]; then
-      nmcli con down uuid $CURRUUID
-      cleanup_networks
-
-    elif [[ "$OPS" =~ 'Manual' ]]; then
-      # Manual entry of the SSID
-      MSSID=$(echo -en "" | rofi -dmenu -p "SSID" -mesg "Enter the SSID of the network" \
-        -lines 0 -font "$FONT")
-
-      # manual entry of the PASSWORD
-      MPASS=$(echo -en "" | rofi -dmenu -password -p "PASSWORD" -mesg \
-        "Enter the PASSWORD of the network" -lines 0 -font "$FONT")
-
-      # If the user entered a manual password, then use the password nmcli command
-      if [ "$MPASS" = "" ]; then
-        nmcli dev wifi con "$MSSID"
-      elif [ "$MSSID" != '' ] && [ "$MPASS" != '' ]; then
-        nmcli dev wifi con "$MSSID" password "$MPASS"
-      fi
-
-    else
-        if [[ "$OPS" =~ "WPA2" ]] || [[ "$OPS" =~ "WEP" ]]; then
-          WIFIPASS=$(echo -en "" | rofi -dmenu -password -p "PASSWORD" \
-            -mesg "Enter the PASSWORD of the network" -lines 0 -font "$FONT")
-        fi
-
-        if [[ "$CHSSID" != '' ]] && [[ "$WIFIPASS" != '' ]]; then
-          nmcli dev wifi con "$CHSSID" password "$WIFIPASS"
-        fi
+  else
+    if [[ "$OPS" =~ "WPA2" ]] || [[ "$OPS" =~ "WEP" ]]; then
+      WIFIPASS=$(echo -en "" | rofi -dmenu -password -p "PASSWORD" \
+        -mesg "Enter the PASSWORD of the network" -lines 0)
     fi
+
+    if [[ "$CHSSID" != '' ]] && [[ "$WIFIPASS" != '' ]]; then
+      nmcli dev wifi con "$CHSSID" password "$WIFIPASS"
+    fi
+  fi
 }
 
 # clean up obsoleted connections
 # nmcli --fields UUID,TIMESTAMP-REAL,DEVICE con show | grep never |  awk '{print $1}' | while read line; do nmcli con delete uuid $line; done
 
-main
+main $@
