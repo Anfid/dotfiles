@@ -461,7 +461,7 @@ let g:gitgutter_sign_modified_removed   = '◢'
 nnoremap <silent> <Leader>gh :GitGutterLineHighlightsToggle<CR>
 
 " indentline
-let g:indentLine_fileType = ['h', 'hh', 'hpp', 'c', 'cc', 'cpp', 'sh', 'vim']
+let g:indentLine_fileType = ['h', 'hh', 'hpp', 'c', 'cc', 'cpp', 'sh', 'vim', 'lua']
 let g:indentLine_setColors = 0
 let g:indentLine_char = '¦'
 
