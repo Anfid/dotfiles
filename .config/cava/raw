@@ -47,7 +47,7 @@ raw_target = /tmp/cava
 data_format = ascii
 
 # Ascii max value. In 'ascii' mode range will run from 0 to value specified here
-ascii_max_range = 32
+ascii_max_range = 1000
 
 # Ascii delimiters. In ascii format each bar and frame is separated by a delimiters.
 # Use decimal value in ascii table (i.e. 59 = ';' and 10 = '\n' (line feed)).
