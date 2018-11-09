@@ -12,9 +12,10 @@ Plugin 'tpope/vim-rsi'
 Plugin 'vim-ctrlspace/vim-ctrlspace'
 Plugin 'w0rp/ale'
 Plugin 'junegunn/fzf.vim'
-Plugin 'tpope/vim-vinegar'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fugitive'
+Plugin 'rbgrouleff/bclose.vim'
+Plugin 'francoiscabrol/ranger.vim'
 Plugin 'simnalamburt/vim-mundo'
 Plugin 'tommcdo/vim-exchange'
 Plugin 'scrooloose/nerdcommenter'
@@ -359,6 +360,11 @@ autocmd User fugitive
  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
  \   nnoremap <buffer> <BS> :edit %:h<CR> |
  \ endif
+
+" Ranger
+let g:ranger_map_keys = 0
+let g:ranger_replace_netrw = 1
+nnoremap - :Ranger<CR>
 
 " Gundo
 nnoremap <silent> <Leader>u :MundoToggle<CR>
