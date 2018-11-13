@@ -129,18 +129,13 @@ syntax on
 " Free keys
 noremap ;       <Nop>
 noremap ,       <Nop>
-noremap <S-l>   <Nop>
-noremap <S-h>   <Nop>
 noremap <C-b>   <Nop>
 noremap <C-e>   <Nop>
 noremap <C-y>   <Nop>
-noremap <Space> <Nop>
-
-nnoremap <C-n> <Nop>
-nnoremap <C-p> <Nop>
 
 " leader
-let mapleader = "\<C-h>"
+noremap <Space> <Nop>
+let mapleader = " "
 
 " Scroll
 nnoremap J <C-E>
@@ -301,7 +296,7 @@ command! ShowCommitsAndExit call ShowCommitsAndExit()
 " ------------------ Plugin configuration ------------------
 
 " CtrlSpace
-nnoremap <silent> <Space> :CtrlSpace<CR>
+nnoremap <silent> <C-Space> :CtrlSpace<CR>
 let g:CtrlSpaceUseMouseAndArrowsInTerm = 1
 let g:CtrlSpaceLoadLastWorkspaceOnStart = 0
 let g:CtrlSpaceGlobCommand = "rg --smart-case --hidden --follow --no-heading --files --glob '!.git/'"
