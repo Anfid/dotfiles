@@ -138,12 +138,51 @@ noremap <Space> <Nop>
 let mapleader = " "
 
 " Scroll
-nnoremap J <C-E>
-nnoremap K <C-Y>
-xnoremap J <C-E>
-xnoremap K <C-Y>
-map <ScrollWheelUp> 2<C-Y>
-map <ScrollWheelDown> 2<C-E>
+let g:keyboard_scroll = 5
+let g:mouse_scroll = 3
+
+function! AlignOptimal()
+  let l:view = winsaveview()
+  let l:view['topline'] += winline() - winheight(0) / 4
+  call winrestview(l:view)
+endfunction
+
+function! Scroll(lines, direction)
+  if v:count && a:lines
+    let l:lines = v:count * a:lines
+  elseif a:lines
+    " if count is not present, prevent cursor scroll off, unless it is already
+    " on the edge of the screen
+    if a:direction == "up"
+      let l:to_edge = winheight(0) - winline()
+    elseif a:direction == "down"
+      let l:to_edge = winline() - 1
+    endif
+    let l:lines = (l:to_edge != 0 && l:to_edge < a:lines) ? l:to_edge : a:lines
+  elseif v:count
+    let l:lines = v:count
+  else
+    let l:lines = 1
+  endif
+
+  if a:direction == "up"
+    execute "normal!" l:lines . "\<C-y>"
+  elseif a:direction == "down"
+    execute "normal!" l:lines . "\<C-e>"
+  endif
+endfunction
+
+nnoremap zm zz
+xnoremap zm zz
+nnoremap <silent> zz :<C-u>call AlignOptimal()<CR>
+xnoremap <silent> zz :<C-u>call AlignOptimal()<CR>
+
+nnoremap <silent> J :<C-u>call Scroll(g:keyboard_scroll, "down")<CR>
+nnoremap <silent> K :<C-u>call Scroll(g:keyboard_scroll, "up")<CR>
+xnoremap <silent> J :<C-u>call Scroll(g:keyboard_scroll, "down")<CR>
+xnoremap <silent> K :<C-u>call Scroll(g:keyboard_scroll, "up")<CR>
+map <silent> <ScrollWheelUp>   :<C-u>Scroll(g:mouse_scroll, "up")<CR>
+map <silent> <ScrollWheelDown> :<C-u>Scroll(g:mouse_scroll, "down")<CR>
 
 " Window navigation and management
 nnoremap <A-h> <C-W>h
