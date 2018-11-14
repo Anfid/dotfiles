@@ -28,7 +28,7 @@ conky.config = {
     minimum_height = 80,
 
     alignment = "top_left",
-    gap_x = 40,
+    gap_x = 80,
     gap_y = 620,
 
     -- Graphics settings --
