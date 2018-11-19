@@ -141,13 +141,21 @@ let mapleader = " "
 let g:keyboard_scroll = 5
 let g:mouse_scroll = 3
 
-function! AlignOptimal()
+function! AlignOptimal(mode)
+  if a:mode == "x"
+    normal gv
+  endif
+
   let l:view = winsaveview()
   let l:view['topline'] += winline() - winheight(0) / 4
   call winrestview(l:view)
 endfunction
 
-function! Scroll(lines, direction)
+function! Scroll(lines, direction, mode)
+  if a:mode == "x"
+    normal gv
+  endif
+
   if v:count && a:lines
     let l:lines = v:count * a:lines
   elseif a:lines
@@ -174,15 +182,17 @@ endfunction
 
 nnoremap zm zz
 xnoremap zm zz
-nnoremap <silent> zz :<C-u>call AlignOptimal()<CR>
-xnoremap <silent> zz :<C-u>call AlignOptimal()<CR>
+nnoremap <silent> zz :<C-u>call AlignOptimal("n")<CR>
+xnoremap <silent> zz :<C-u>call AlignOptimal("x")<CR>
 
-nnoremap <silent> J :<C-u>call Scroll(g:keyboard_scroll, "down")<CR>
-nnoremap <silent> K :<C-u>call Scroll(g:keyboard_scroll, "up")<CR>
-xnoremap <silent> J :<C-u>call Scroll(g:keyboard_scroll, "down")<CR>
-xnoremap <silent> K :<C-u>call Scroll(g:keyboard_scroll, "up")<CR>
-map <silent> <ScrollWheelUp>   :<C-u>Scroll(g:mouse_scroll, "up")<CR>
-map <silent> <ScrollWheelDown> :<C-u>Scroll(g:mouse_scroll, "down")<CR>
+nnoremap <silent> J :<C-u>call Scroll(g:keyboard_scroll, "down", "n")<CR>
+nnoremap <silent> K :<C-u>call Scroll(g:keyboard_scroll, "up", "n")<CR>
+xnoremap <silent> J :<C-u>call Scroll(g:keyboard_scroll, "down", "x")<CR>
+xnoremap <silent> K :<C-u>call Scroll(g:keyboard_scroll, "up", "x")<CR>
+nnoremap <silent> <ScrollWheelUp>   :<C-u>Scroll(g:mouse_scroll, "up", "n")<CR>
+nnoremap <silent> <ScrollWheelDown> :<C-u>Scroll(g:mouse_scroll, "down", "n")<CR>
+xnoremap <silent> <ScrollWheelUp>   :<C-u>Scroll(g:mouse_scroll, "up", "x")<CR>
+xnoremap <silent> <ScrollWheelDown> :<C-u>Scroll(g:mouse_scroll, "down", "x")<CR>
 
 " Window navigation and management
 nnoremap <A-h> <C-W>h
