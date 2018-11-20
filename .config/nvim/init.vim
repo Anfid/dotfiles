@@ -371,7 +371,11 @@ let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
 
 " fuzzy
 let $FZF_DEFAULT_COMMAND = "rg --smart-case --hidden --follow --no-heading --files --glob '!.git/'"
-command! -bang -nargs=* GrepFiles call fzf#vim#grep('rg --smart-case --hidden --follow --no-heading --line-number "" --glob "!.git/"'.shellescape(<q-args>), 0, <bang>0)
+command! -bang -nargs=* GrepFiles
+\ call fzf#vim#grep('rg --smart-case --hidden --follow --no-heading --line-number --color always "" --glob "!.git/"'.shellescape(<q-args>), 0,
+\   {'options': ['--reverse', '--preview-window', 'down:60%:hidden', '--preview', '/home/mikhail/.config/nvim/plugins/fzf.vim/bin/preview.sh {}', '--bind', '?:toggle-preview']},
+\   <bang>0 )
+
 nnoremap <silent> <C-f> :Files<CR>
 nnoremap <silent> <C-g> :GrepFiles<CR>
 nnoremap <silent> <C-s> :BLines<CR>
