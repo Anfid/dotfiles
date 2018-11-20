@@ -238,6 +238,10 @@ noremap b *
 noremap B #
 
 " Insert mode navigation
+inoremap <expr> <Esc>   (pumvisible() ? "\<C-e>" : "\<Esc>")
+inoremap <expr> <Tab>   (pumvisible() ? "\<C-n>" : "\<Tab>")
+inoremap <expr> <S-tab> (pumvisible() ? "\<C-p>" : "\<S-Tab>")
+inoremap <expr> <CR>    (pumvisible() ? "\<c-y>" : "\<CR>")
 " Remaps done by tpope/vim-rsi. See corresponding github page for details
 
 " Terminal paste
@@ -549,9 +553,10 @@ function! VimwikiFtConfig()
   nmap <buffer> <2-LeftMouse> <Plug>VimwikiFollowLink<Esc>zt
   nmap <buffer> <RightMouse> <BS>
   nmap <buffer> <MiddleMouse> <LeftMouse><C-Space>
-  imap <expr> <Tab> (pumvisible() ? "\<C-n>" : "\<Tab>")
+  imap <expr> <Esc>   (pumvisible() ? "\<C-e>" : "\<Esc>")
+  imap <expr> <Tab>   (pumvisible() ? "\<C-n>" : "\<Tab>")
   imap <expr> <S-tab> (pumvisible() ? "\<C-p>" : "\<S-Tab>")
-  imap <expr> <CR> (pumvisible() ? "\<c-y>" : "\<CR>")
+  imap <expr> <CR>    (pumvisible() ? "\<c-y>" : "\<CR>")
 endfunction
 autocmd FileType vimwiki call VimwikiFtConfig()
 
@@ -590,9 +595,6 @@ let g:pandoc#syntax#conceal#urls = 1
 let g:ncm2#filter="same_word"
 let g:ncm2#popup_limit=20
 autocmd BufEnter * call ncm2#enable_for_buffer()
-inoremap <expr> <Tab> (pumvisible() ? "\<C-n>" : "\<Tab>")
-inoremap <expr> <S-tab> (pumvisible() ? "\<C-p>" : "\<S-Tab>")
-inoremap <expr> <CR> (pumvisible() ? "\<c-y>" : "\<CR>")
 
 let g:ncm2_pyclang#library_path = '/usr/lib/llvm-6.0/lib'
 let g:ncm2_pyclang#database_path = [
