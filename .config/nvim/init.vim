@@ -189,18 +189,29 @@ xnoremap <silent> <ScrollWheelUp>   :<C-u>Scroll(g:mouse_scroll, "up")<CR>
 xnoremap <silent> <ScrollWheelDown> :<C-u>Scroll(g:mouse_scroll, "down")<CR>
 
 " Window navigation and management
-nnoremap <A-h> <C-W>h
-nnoremap <A-j> <C-W>j
-nnoremap <A-k> <C-W>k
-nnoremap <A-l> <C-W>l
-inoremap <A-h> <C-\><C-N><C-w>h
-inoremap <A-j> <C-\><C-N><C-w>j
-inoremap <A-k> <C-\><C-N><C-w>k
-inoremap <A-l> <C-\><C-N><C-w>l
-tnoremap <A-h> <C-\><C-N><C-w>h
-tnoremap <A-j> <C-\><C-N><C-w>j
-tnoremap <A-k> <C-\><C-N><C-w>k
-tnoremap <A-l> <C-\><C-N><C-w>l
+nnoremap <silent> <A-h> <C-W>h
+nnoremap <silent> <A-j> <C-W>j
+nnoremap <silent> <A-k> <C-W>k
+nnoremap <silent> <A-l> <C-W>l
+inoremap <silent> <A-h> <C-\><C-N><C-w>h
+inoremap <silent> <A-j> <C-\><C-N><C-w>j
+inoremap <silent> <A-k> <C-\><C-N><C-w>k
+inoremap <silent> <A-l> <C-\><C-N><C-w>l
+vnoremap <silent> <A-h> <C-\><C-N><C-w>h
+vnoremap <silent> <A-j> <C-\><C-N><C-w>j
+vnoremap <silent> <A-k> <C-\><C-N><C-w>k
+vnoremap <silent> <A-l> <C-\><C-N><C-w>l
+cnoremap <silent> <A-h> <C-\><C-N><C-w>h
+cnoremap <silent> <A-j> <C-\><C-N><C-w>j
+cnoremap <silent> <A-k> <C-\><C-N><C-w>k
+cnoremap <silent> <A-l> <C-\><C-N><C-w>l
+tnoremap <silent> <A-h> <C-\><C-N><C-w>h
+tnoremap <silent> <A-j> <C-\><C-N><C-w>j
+tnoremap <silent> <A-k> <C-\><C-N><C-w>k
+tnoremap <silent> <A-l> <C-\><C-N><C-w>l
+autocmd BufWinEnter,WinEnter term://* startinsert
+autocmd BufLeave term://* stopinsert
+autocmd TermOpen * startinsert
 
 nnoremap <silent> <C-w>r :resize <Bar> vertical resize<CR>
 tnoremap <silent> <C-w>r <C-\><C-n>:resize<CR>a
@@ -233,7 +244,7 @@ noremap B #
 tnoremap <expr> <A-r> '<C-\><C-n>"'.nr2char(getchar()).'pa'
 
 " Open terminal
-nnoremap <silent> <C-c> :below 10split term://zsh<CR>a
+nnoremap <silent> <C-c> <Cmd>below 10split term://zsh<CR>
 
 " Remove item from qf list
 function! RemoveQFItem()
