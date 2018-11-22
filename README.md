@@ -132,7 +132,9 @@ If this is not possible, create `.clang_complete` file with compilation flags in
 TODO. Xresources
 
 ## To do:
-* Write own snippets instead of provided by plugin
+* Make init script modular, so it is possible to choose what to install
+   * Apply zsh
+* Write own vim snippets instead of provided by plugin
 * Store wallpapers on different host. Consider google drive or dropbox
 * Set up cava conky to work on all monitors on multimonitor setups
 * Create proper script to start everything (conky, polybar, etc...)
