@@ -9,12 +9,12 @@ else
   curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 fi
 
+source $zsh_conf/plugins.zsh
+
 # Load basic settings
 for file in $zsh_conf/settings/*; do
   source $file
 done
-
-source $zsh_conf/plugins.zsh
 
 [[ -f ~/.zshrclocal ]] && source ~/.zshrclocal
 
