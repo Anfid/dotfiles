@@ -185,10 +185,10 @@ nnoremap <silent> J <Cmd>call Scroll(g:keyboard_scroll, "down")<CR>
 nnoremap <silent> K <Cmd>call Scroll(g:keyboard_scroll, "up")<CR>
 xnoremap <silent> J <Cmd>call Scroll(g:keyboard_scroll, "down")<CR>
 xnoremap <silent> K <Cmd>call Scroll(g:keyboard_scroll, "up")<CR>
-nnoremap <silent> <ScrollWheelUp>   :<C-u>Scroll(g:mouse_scroll, "up")<CR>
-nnoremap <silent> <ScrollWheelDown> :<C-u>Scroll(g:mouse_scroll, "down")<CR>
-xnoremap <silent> <ScrollWheelUp>   :<C-u>Scroll(g:mouse_scroll, "up")<CR>
-xnoremap <silent> <ScrollWheelDown> :<C-u>Scroll(g:mouse_scroll, "down")<CR>
+nnoremap <silent> <ScrollWheelUp>   <Cmd>call Scroll(g:mouse_scroll, "up")<CR>
+nnoremap <silent> <ScrollWheelDown> <Cmd>call Scroll(g:mouse_scroll, "down")<CR>
+xnoremap <silent> <ScrollWheelUp>   <Cmd>call Scroll(g:mouse_scroll, "up")<CR>
+xnoremap <silent> <ScrollWheelDown> <Cmd>call Scroll(g:mouse_scroll, "down")<CR>
 
 " Window navigation and management
 nnoremap <silent> <A-h> <C-W>h
