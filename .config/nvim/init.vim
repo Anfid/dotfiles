@@ -46,6 +46,7 @@ Plugin 'Julian/vim-textobj-variable-segment'
 Plugin 'wellle/targets.vim'
 Plugin 'junegunn/vim-after-object'
 Plugin 'tpope/vim-speeddating' " proper date increment/decrement
+Plugin 'bkad/CamelCaseMotion'
 
 " language support
 Plugin 'octol/vim-cpp-enhanced-highlight'
@@ -234,6 +235,7 @@ noremap <silent> <leader>k ?\%<C-r>=col(".")<CR>c[^ ]<CR>
 nnoremap Y y$
 noremap <expr> n 'Nn'[v:searchforward]
 noremap <expr> N 'nN'[v:searchforward]
+" Later overwritten in Plugins/CamelCaseMotion
 noremap s b
 noremap S B
 noremap b *
@@ -534,6 +536,23 @@ let g:indentLine_char = '¦'
 
 " vim-after-object
 call after_object#enable(["a", "A"], '=', ':')
+
+" CamelCaseMotion
+nmap <silent> w  <Plug>CamelCaseMotion_w
+nmap <silent> s  <Plug>CamelCaseMotion_b
+nmap <silent> e  <Plug>CamelCaseMotion_e
+nmap <silent> ge <Plug>CamelCaseMotion_ge
+xmap <silent> w  <Plug>CamelCaseMotion_w
+xmap <silent> s  <Plug>CamelCaseMotion_b
+xmap <silent> e  <Plug>CamelCaseMotion_e
+xmap <silent> ge <Plug>CamelCaseMotion_ge
+
+xmap <silent> iw <Plug>CamelCaseMotion_iw
+xmap <silent> is <Plug>CamelCaseMotion_ib
+xmap <silent> ie <Plug>CamelCaseMotion_ie
+omap <silent> iw <Plug>CamelCaseMotion_iw
+omap <silent> is <Plug>CamelCaseMotion_ib
+omap <silent> ie <Plug>CamelCaseMotion_ie
 
 " vimwiki
 let g:vimwiki_use_mouse = 1
