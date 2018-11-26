@@ -72,3 +72,18 @@ if [[ $COMPLETION_WAITING_DOTS = true ]]; then
   zle -N expand-or-complete-with-dots
   bindkey "^I" expand-or-complete-with-dots
 fi
+
+# Load local zsh completions
+fpath+=$HOME/.zsh.compl.d
+compinit
+
+# Load local bash completions
+autoload bashcompinit -U +X && bashcompinit
+if [[ -d $HOME/.bash.compl.d ]]
+then
+  for bcompl in $HOME/.bash.compl.d/*
+  do
+    source $bcompl
+  done
+fi
+
