@@ -54,6 +54,342 @@ c.auto_save.session = True
 ## Type: Dict
 # c.bindings.key_mappings = {'<Ctrl-[>': '<Escape>', '<Ctrl-6>': '<Ctrl-^>', '<Ctrl-M>': '<Return>', '<Ctrl-J>': '<Return>', '<Shift-Return>': '<Return>', '<Enter>': '<Return>', '<Shift-Enter>': '<Return>', '<Ctrl-Enter>': '<Ctrl-Return>'}
 
+## Background color of the completion widget category headers.
+## Type: QssColor
+# c.colors.completion.category.bg = 'qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #888888, stop:1 #505050)'
+
+## Bottom border color of the completion widget category headers.
+## Type: QssColor
+# c.colors.completion.category.border.bottom = 'black'
+
+## Top border color of the completion widget category headers.
+## Type: QssColor
+# c.colors.completion.category.border.top = 'black'
+
+## Foreground color of completion widget category headers.
+## Type: QtColor
+# c.colors.completion.category.fg = 'white'
+
+## Background color of the completion widget for even rows.
+## Type: QssColor
+# c.colors.completion.even.bg = '#333333'
+
+## Text color of the completion widget. May be a single color to use for
+## all columns or a list of three colors, one for each column.
+## Type: List of QtColor, or QtColor
+# c.colors.completion.fg = ['white', 'white', 'white']
+
+## Background color of the selected completion item.
+## Type: QssColor
+# c.colors.completion.item.selected.bg = '#e8c000'
+
+## Bottom border color of the selected completion item.
+## Type: QssColor
+# c.colors.completion.item.selected.border.bottom = '#bbbb00'
+
+## Top border color of the completion widget category headers.
+## Type: QssColor
+# c.colors.completion.item.selected.border.top = '#bbbb00'
+
+## Foreground color of the selected completion item.
+## Type: QtColor
+# c.colors.completion.item.selected.fg = 'black'
+
+## Foreground color of the matched text in the completion.
+## Type: QssColor
+# c.colors.completion.match.fg = '#ff4444'
+
+## Background color of the completion widget for odd rows.
+## Type: QssColor
+# c.colors.completion.odd.bg = '#444444'
+
+## Color of the scrollbar in the completion view.
+## Type: QssColor
+# c.colors.completion.scrollbar.bg = '#333333'
+
+## Color of the scrollbar handle in the completion view.
+## Type: QssColor
+# c.colors.completion.scrollbar.fg = 'white'
+
+## Background color for the download bar.
+## Type: QssColor
+# c.colors.downloads.bar.bg = 'black'
+
+## Background color for downloads with errors.
+## Type: QtColor
+# c.colors.downloads.error.bg = 'red'
+
+## Foreground color for downloads with errors.
+## Type: QtColor
+# c.colors.downloads.error.fg = 'white'
+
+## Color gradient start for download backgrounds.
+## Type: QtColor
+# c.colors.downloads.start.bg = '#0000aa'
+
+## Color gradient start for download text.
+## Type: QtColor
+# c.colors.downloads.start.fg = 'white'
+
+## Color gradient stop for download backgrounds.
+## Type: QtColor
+# c.colors.downloads.stop.bg = '#00aa00'
+
+## Color gradient end for download text.
+## Type: QtColor
+# c.colors.downloads.stop.fg = 'white'
+
+## Color gradient interpolation system for download backgrounds.
+## Type: ColorSystem
+## Valid values:
+##   - rgb: Interpolate in the RGB color system.
+##   - hsv: Interpolate in the HSV color system.
+##   - hsl: Interpolate in the HSL color system.
+##   - none: Don't show a gradient.
+# c.colors.downloads.system.bg = 'rgb'
+
+## Color gradient interpolation system for download text.
+## Type: ColorSystem
+## Valid values:
+##   - rgb: Interpolate in the RGB color system.
+##   - hsv: Interpolate in the HSV color system.
+##   - hsl: Interpolate in the HSL color system.
+##   - none: Don't show a gradient.
+# c.colors.downloads.system.fg = 'rgb'
+
+## Background color for hints. Note that you can use a `rgba(...)` value
+## for transparency.
+## Type: QssColor
+# c.colors.hints.bg = 'qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(255, 247, 133, 0.8), stop:1 rgba(255, 197, 66, 0.8))'
+
+## Font color for hints.
+## Type: QssColor
+# c.colors.hints.fg = 'black'
+
+## Font color for the matched part of hints.
+## Type: QssColor
+# c.colors.hints.match.fg = 'green'
+
+## Background color of the keyhint widget.
+## Type: QssColor
+# c.colors.keyhint.bg = 'rgba(0, 0, 0, 80%)'
+
+## Text color for the keyhint widget.
+## Type: QssColor
+# c.colors.keyhint.fg = '#FFFFFF'
+
+## Highlight color for keys to complete the current keychain.
+## Type: QssColor
+# c.colors.keyhint.suffix.fg = '#FFFF00'
+
+## Background color of an error message.
+## Type: QssColor
+# c.colors.messages.error.bg = 'red'
+
+## Border color of an error message.
+## Type: QssColor
+# c.colors.messages.error.border = '#bb0000'
+
+## Foreground color of an error message.
+## Type: QssColor
+# c.colors.messages.error.fg = 'white'
+
+## Background color of an info message.
+## Type: QssColor
+# c.colors.messages.info.bg = 'black'
+
+## Border color of an info message.
+## Type: QssColor
+# c.colors.messages.info.border = '#333333'
+
+## Foreground color of an info message.
+## Type: QssColor
+# c.colors.messages.info.fg = 'white'
+
+## Background color of a warning message.
+## Type: QssColor
+# c.colors.messages.warning.bg = 'darkorange'
+
+## Border color of a warning message.
+## Type: QssColor
+# c.colors.messages.warning.border = '#d47300'
+
+## Foreground color of a warning message.
+## Type: QssColor
+# c.colors.messages.warning.fg = 'white'
+
+## Background color for prompts.
+## Type: QssColor
+# c.colors.prompts.bg = '#444444'
+
+## Border used around UI elements in prompts.
+## Type: String
+# c.colors.prompts.border = '1px solid gray'
+
+## Foreground color for prompts.
+## Type: QssColor
+# c.colors.prompts.fg = 'white'
+
+## Background color for the selected item in filename prompts.
+## Type: QssColor
+# c.colors.prompts.selected.bg = 'grey'
+
+## Background color of the statusbar in caret mode.
+## Type: QssColor
+# c.colors.statusbar.caret.bg = 'purple'
+
+## Foreground color of the statusbar in caret mode.
+## Type: QssColor
+# c.colors.statusbar.caret.fg = 'white'
+
+## Background color of the statusbar in caret mode with a selection.
+## Type: QssColor
+# c.colors.statusbar.caret.selection.bg = '#a12dff'
+
+## Foreground color of the statusbar in caret mode with a selection.
+## Type: QssColor
+# c.colors.statusbar.caret.selection.fg = 'white'
+
+## Background color of the statusbar in command mode.
+## Type: QssColor
+# c.colors.statusbar.command.bg = 'black'
+
+## Foreground color of the statusbar in command mode.
+## Type: QssColor
+# c.colors.statusbar.command.fg = 'white'
+
+## Background color of the statusbar in private browsing + command mode.
+## Type: QssColor
+# c.colors.statusbar.command.private.bg = 'grey'
+
+## Foreground color of the statusbar in private browsing + command mode.
+## Type: QssColor
+# c.colors.statusbar.command.private.fg = 'white'
+
+## Background color of the statusbar in insert mode.
+## Type: QssColor
+# c.colors.statusbar.insert.bg = 'darkgreen'
+
+## Foreground color of the statusbar in insert mode.
+## Type: QssColor
+# c.colors.statusbar.insert.fg = 'white'
+
+## Background color of the statusbar.
+## Type: QssColor
+# c.colors.statusbar.normal.bg = 'black'
+
+## Foreground color of the statusbar.
+## Type: QssColor
+# c.colors.statusbar.normal.fg = 'white'
+
+## Background color of the statusbar in passthrough mode.
+## Type: QssColor
+# c.colors.statusbar.passthrough.bg = 'darkblue'
+
+## Foreground color of the statusbar in passthrough mode.
+## Type: QssColor
+# c.colors.statusbar.passthrough.fg = 'white'
+
+## Background color of the statusbar in private browsing mode.
+## Type: QssColor
+# c.colors.statusbar.private.bg = '#666666'
+
+## Foreground color of the statusbar in private browsing mode.
+## Type: QssColor
+# c.colors.statusbar.private.fg = 'white'
+
+## Background color of the progress bar.
+## Type: QssColor
+# c.colors.statusbar.progress.bg = 'white'
+
+## Foreground color of the URL in the statusbar on error.
+## Type: QssColor
+# c.colors.statusbar.url.error.fg = 'orange'
+
+## Default foreground color of the URL in the statusbar.
+## Type: QssColor
+# c.colors.statusbar.url.fg = 'white'
+
+## Foreground color of the URL in the statusbar for hovered links.
+## Type: QssColor
+# c.colors.statusbar.url.hover.fg = 'aqua'
+
+## Foreground color of the URL in the statusbar on successful load
+## (http).
+## Type: QssColor
+# c.colors.statusbar.url.success.http.fg = 'white'
+
+## Foreground color of the URL in the statusbar on successful load
+## (https).
+## Type: QssColor
+# c.colors.statusbar.url.success.https.fg = 'lime'
+
+## Foreground color of the URL in the statusbar when there's a warning.
+## Type: QssColor
+# c.colors.statusbar.url.warn.fg = 'yellow'
+
+## Background color of the tab bar.
+## Type: QtColor
+# c.colors.tabs.bar.bg = '#555555'
+
+## Background color of unselected even tabs.
+## Type: QtColor
+# c.colors.tabs.even.bg = 'darkgrey'
+
+## Foreground color of unselected even tabs.
+## Type: QtColor
+# c.colors.tabs.even.fg = 'white'
+
+## Color for the tab indicator on errors.
+## Type: QtColor
+# c.colors.tabs.indicator.error = '#ff0000'
+
+## Color gradient start for the tab indicator.
+## Type: QtColor
+# c.colors.tabs.indicator.start = '#0000aa'
+
+## Color gradient end for the tab indicator.
+## Type: QtColor
+# c.colors.tabs.indicator.stop = '#00aa00'
+
+## Color gradient interpolation system for the tab indicator.
+## Type: ColorSystem
+## Valid values:
+##   - rgb: Interpolate in the RGB color system.
+##   - hsv: Interpolate in the HSV color system.
+##   - hsl: Interpolate in the HSL color system.
+##   - none: Don't show a gradient.
+# c.colors.tabs.indicator.system = 'rgb'
+
+## Background color of unselected odd tabs.
+## Type: QtColor
+# c.colors.tabs.odd.bg = 'grey'
+
+## Foreground color of unselected odd tabs.
+## Type: QtColor
+# c.colors.tabs.odd.fg = 'white'
+
+## Background color of selected even tabs.
+## Type: QtColor
+# c.colors.tabs.selected.even.bg = 'black'
+
+## Foreground color of selected even tabs.
+## Type: QtColor
+# c.colors.tabs.selected.even.fg = 'white'
+
+## Background color of selected odd tabs.
+## Type: QtColor
+# c.colors.tabs.selected.odd.bg = 'black'
+
+## Foreground color of selected odd tabs.
+## Type: QtColor
+# c.colors.tabs.selected.odd.fg = 'white'
+
+## Background color for webpages if unset (or empty to use the theme's
+## color).
+## Type: QtColor
+# c.colors.webpage.bg = 'white'
+
 ## Number of commands to save in the command history. 0: no history / -1:
 ## unlimited
 ## Type: Int
@@ -98,18 +434,26 @@ c.completion.show = 'always'
 ## Type: Bool
 c.completion.shrink = True
 
-# Format of timestamps (e.g. for the history completion).
-# Type: TimestampTemplate
-c.completion.timestamp_format = '$d-%m-%Y'
+## Format of timestamps (e.g. for the history completion).
+## Type: TimestampTemplate
+c.completion.timestamp_format = '%Y-%m-%d'
 
 ## Execute the best-matching command on a partial match.
 ## Type: Bool
 # c.completion.use_best_match = False
 
+## A list of patterns which should not be shown in the history. This only
+## affects the completion. Matching URLs are still saved in the history
+## (and visible on the qute://history page), but hidden in the
+## completion. Changing this setting will cause the completion history to
+## be regenerated on the next start, which will take a short while.
+## Type: List of UrlPattern
+# c.completion.web_history.exclude = []
+
 ## Number of URLs to show in the web history. 0: no history / -1:
 ## unlimited
 ## Type: Int
-# c.completion.web_history_max_items = -1
+# c.completion.web_history.max_items = -1
 
 ## Require a confirmation before quitting the application.
 ## Type: ConfirmQuit
@@ -120,8 +464,8 @@ c.completion.timestamp_format = '$d-%m-%Y'
 ##   - never: Never show a confirmation.
 # c.confirm_quit = ['never']
 
-## Automatically start playing `<video>` elements. Note this option needs
-## a restart with QtWebEngine on Qt < 5.11.
+## Automatically start playing `<video>` elements. Note: On Qt < 5.11,
+## this option needs a restart and does not support URL patterns.
 ## Type: Bool
 # c.content.autoplay = True
 
@@ -156,10 +500,10 @@ c.completion.timestamp_format = '$d-%m-%Y'
 ## Type: String
 ## Valid values:
 ##   - all: Accept all cookies.
-##   - no-3rdparty: Accept cookies from the same origin only.
+##   - no-3rdparty: Accept cookies from the same origin only. This is known to break some sites, such as GMail.
 ##   - no-unknown-3rdparty: Accept cookies from the same origin only, unless a cookie is already set for the domain. On QtWebEngine, this is the same as no-3rdparty.
 ##   - never: Don't accept cookies at all.
-# c.content.cookies.accept = 'no-3rdparty'
+# c.content.cookies.accept = 'all'
 
 ## Store cookies. Note this option needs a restart with QtWebEngine on Qt
 ## < 5.9.
@@ -213,12 +557,13 @@ c.completion.timestamp_format = '$d-%m-%Y'
 # c.content.headers.do_not_track = True
 
 ## When to send the Referer header. The Referer header tells websites
-## from which website you were coming from when visiting them.
+## from which website you were coming from when visiting them. No restart
+## is needed with QtWebKit.
 ## Type: String
 ## Valid values:
 ##   - always: Always send the Referer.
 ##   - never: Never send the Referer. This is not recommended, as some sites may break.
-##   - same-domain: Only send the Referer for the same domain. This will still protect your privacy, but shouldn't break any sites.
+##   - same-domain: Only send the Referer for the same domain. This will still protect your privacy, but shouldn't break any sites. With QtWebEngine, the referer will still be sent for other domains, but with stripped path information.
 # c.content.headers.referer = 'same-domain'
 
 ## User agent to send. Unset to send the default. Note that the value
@@ -233,15 +578,17 @@ c.completion.timestamp_format = '$d-%m-%Y'
 ## List of URLs of lists which contain hosts to block.  The file can be
 ## in one of the following formats:  - An `/etc/hosts`-like file - One
 ## host per line - A zip-file of any of the above, with either only one
-## file, or a file   named `hosts` (with any extension).
+## file, or a file   named `hosts` (with any extension).  It's also
+## possible to add a local file or directory via a `file://` URL. In case
+## of a directory, all files in the directory are read as adblock lists.
+## The file `~/.config/qutebrowser/blocked-hosts` is always read if it
+## exists.
 ## Type: List of Url
 # c.content.host_blocking.lists = ['https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts']
 
-## List of domains that should always be loaded, despite being ad-
-## blocked. Domains may contain * and ? wildcards and are otherwise
-## required to exactly match the requested domain. Local domains are
-## always exempt from hostblocking.
-## Type: List of String
+## A list of patterns that should always be loaded, despite being ad-
+## blocked. Local domains are always exempt from hostblocking.
+## Type: List of UrlPattern
 # c.content.host_blocking.whitelist = ['piwik.org']
 
 ## Enable hyperlink auditing (`<a ping>`).
@@ -309,6 +656,20 @@ c.completion.timestamp_format = '$d-%m-%Y'
 ##   - false
 ##   - ask
 # c.content.media_capture = 'ask'
+
+## Allow websites to lock your mouse pointer.
+## Type: BoolAsk
+## Valid values:
+##   - true
+##   - false
+##   - ask
+c.content.mouse_lock = 'ask'
+
+## Automatically mute tabs. Note that if the `:tab-mute` command is used,
+## the mute status for the affected tab is now controlled manually, and
+## this setting doesn't have any effect.
+## Type: Bool
+c.content.mute = False
 
 ## Netrc-file for HTTP authentication. If unset, `~/.netrc` is used.
 ## Type: File
@@ -387,11 +748,15 @@ c.content.proxy_dns_requests = True
 ## Type: Bool
 # c.content.webgl = True
 
-## Only expose public interfaces via WebRTC. On Qt 5.9, this option
-## requires a restart. On Qt 5.10, this option doesn't work at all
-## because of a Qt bug. On Qt >= 5.11, no restart is required.
-## Type: Bool
-# c.content.webrtc_public_interfaces_only = False
+## Which interfaces to expose via WebRTC. On Qt 5.10, this option doesn't
+## work because of a Qt bug.
+## Type: String
+## Valid values:
+##   - all-interfaces: WebRTC has the right to enumerate all interfaces and bind them to discover public interfaces.
+##   - default-public-and-private-interfaces: WebRTC should only use the default route used by http. This also exposes the associated default private address. Default route is the route chosen by the OS on a multi-homed endpoint.
+##   - default-public-interface-only: WebRTC should only use the default route used by http. This doesn't expose any local addresses.
+##   - disable-non-proxied-udp: WebRTC should only use TCP to contact peers or servers unless the proxy server supports UDP. This doesn't expose any local addresses either.
+# c.content.webrtc_ip_handling_policy = 'all-interfaces'
 
 ## Limit fullscreen to the browser window (does not expand to fill the
 ## screen).
@@ -400,9 +765,9 @@ c.content.proxy_dns_requests = True
 
 ## Monitor load requests for cross-site scripting attempts. Suspicious
 ## scripts will be blocked and reported in the inspector's JavaScript
-## console. Enabling this feature might have an impact on performance.
+## console.
 ## Type: Bool
-# c.content.xss_auditing = False
+# c.content.xss_auditing = True
 
 ## Directory to save downloads to. If unset, a sensible OS-specific
 ## default is used.
@@ -437,7 +802,7 @@ c.downloads.location.suggestion = 'both'
 ## Valid values:
 ##   - top
 ##   - bottom
-# c.downloads.position = 'bottom'
+c.downloads.position = 'bottom'
 
 ## Duration (in milliseconds) to wait before removing finished downloads.
 ## If set to -1, downloads are never removed.
@@ -496,7 +861,7 @@ c.fonts.messages.warning = '12pt monospace'
 ## Default monospace fonts. Whenever "monospace" is used in a font
 ## setting, it's replaced with the fonts listed here.
 ## Type: Font
-c.fonts.monospace = 'Input'
+c.fonts.monospace = 'Iosevka, Input'
 
 ## Font used for prompts.
 ## Type: Font
@@ -565,9 +930,13 @@ c.fonts.tabs = '12pt monospace'
 ## Type: Int
 # c.hints.auto_follow_timeout = 0
 
+## CSS border value for hints.
+## Type: String
+# c.hints.border = '1px solid #E3BE23'
+
 ## Characters used for hint strings.
 ## Type: UniqueCharString
-c.hints.chars = 'jfhkdgslanvueiwmxzopq'
+c.hints.chars = 'jfhkdgslanvueiw'
 
 ## Dictionary file to be used by the word hints.
 ## Type: File
@@ -755,9 +1124,34 @@ c.messages.timeout = 5000
 ## Type: Bool
 # c.qt.highdpi = False
 
-## Show a scrollbar.
-## Type: Bool
-c.scrolling.bar = True
+## When to use Chromium's low-end device mode. This improves the RAM
+## usage of renderer processes, at the expense of performance.
+## Type: String
+## Valid values:
+##   - always: Always use low-end device mode.
+##   - auto: Decide automatically (uses low-end mode with < 1 GB available RAM).
+##   - never: Never use low-end device mode.
+c.qt.low_end_device_mode = 'auto'
+
+## Which Chromium process model to use. Alternative process models use
+## less resources, but decrease security and robustness. See the
+## following pages for more details:    -
+## https://www.chromium.org/developers/design-documents/process-models
+## - https://doc.qt.io/qt-5/qtwebengine-features.html#process-models
+## Type: String
+## Valid values:
+##   - process-per-site-instance: Pages from separate sites are put into separate processes and separate visits to the same site are also isolated.
+##   - process-per-site: Pages from separate sites are put into separate processes. Unlike Process per Site Instance, all visits to the same site will share an OS process. The benefit of this model is reduced memory consumption, because more web pages will share processes. The drawbacks include reduced security, robustness, and responsiveness.
+##   - single-process: Run all tabs in a single process. This should be used for debugging purposes only, and it disables `:open --private`.
+c.qt.process_model = 'process-per-site-instance'
+
+## When to show the scrollbar.
+## Type: String
+## Valid values:
+##   - always: Always show the scrollbar.
+##   - never: Never show the scrollbar.
+##   - when-searching: Show the scrollbar when searching for text in the webpage. With the QtWebKit backend, this is equal to `never`.
+c.scrolling.bar = 'when-searching'
 
 ## Enable smooth scrolling for web pages. Note smooth scrolling does not
 ## work with the `:scroll-px` command.
@@ -785,6 +1179,56 @@ c.scrolling.bar = True
 ## Load a restored tab as soon as it takes focus.
 ## Type: Bool
 # c.session.lazy_restore = False
+
+## Languages to use for spell checking. You can check for available
+## languages and install dictionaries using scripts/dictcli.py. Run the
+## script with -h/--help for instructions.
+## Type: List of String
+## Valid values:
+##   - af-ZA: Afrikaans (South Africa)
+##   - bg-BG: Bulgarian (Bulgaria)
+##   - ca-ES: Catalan (Spain)
+##   - cs-CZ: Czech (Czech Republic)
+##   - da-DK: Danish (Denmark)
+##   - de-DE: German (Germany)
+##   - el-GR: Greek (Greece)
+##   - en-AU: English (Australia)
+##   - en-CA: English (Canada)
+##   - en-GB: English (United Kingdom)
+##   - en-US: English (United States)
+##   - es-ES: Spanish (Spain)
+##   - et-EE: Estonian (Estonia)
+##   - fa-IR: Farsi (Iran)
+##   - fo-FO: Faroese (Faroe Islands)
+##   - fr-FR: French (France)
+##   - he-IL: Hebrew (Israel)
+##   - hi-IN: Hindi (India)
+##   - hr-HR: Croatian (Croatia)
+##   - hu-HU: Hungarian (Hungary)
+##   - id-ID: Indonesian (Indonesia)
+##   - it-IT: Italian (Italy)
+##   - ko: Korean
+##   - lt-LT: Lithuanian (Lithuania)
+##   - lv-LV: Latvian (Latvia)
+##   - nb-NO: Norwegian (Norway)
+##   - nl-NL: Dutch (Netherlands)
+##   - pl-PL: Polish (Poland)
+##   - pt-BR: Portuguese (Brazil)
+##   - pt-PT: Portuguese (Portugal)
+##   - ro-RO: Romanian (Romania)
+##   - ru-RU: Russian (Russia)
+##   - sh: Serbo-Croatian
+##   - sk-SK: Slovak (Slovakia)
+##   - sl-SI: Slovenian (Slovenia)
+##   - sq: Albanian
+##   - sr: Serbian
+##   - sv-SE: Swedish (Sweden)
+##   - ta-IN: Tamil (India)
+##   - tg-TG: Tajik (Tajikistan)
+##   - tr-TR: Turkish (Turkey)
+##   - uk-UA: Ukrainian (Ukraine)
+##   - vi-VN: Vietnamese (Viet Nam)
+# c.spellcheck.languages = []
 
 ## Hide the statusbar unless a message is shown.
 ## Type: Bool
@@ -1187,6 +1631,9 @@ config.bind('r', 'reload')
 # config.bind('sk', 'set-cmd-text -s :bind')
 # config.bind('sl', 'set-cmd-text -s :set -t')
 # config.bind('ss', 'set-cmd-text -s :set')
+# config.bind('tIH', 'config-cycle -p -u *://*.{url:host}/* content.images ;; reload')
+# config.bind('tIh', 'config-cycle -p -u *://{url:host}/* content.images ;; reload')
+# config.bind('tIu', 'config-cycle -p -u {url} content.images ;; reload')
 # config.bind('tPH', 'config-cycle -p -u *://*.{url:host}/* content.plugins ;; reload')
 # config.bind('tPh', 'config-cycle -p -u *://{url:host}/* content.plugins ;; reload')
 # config.bind('tPu', 'config-cycle -p -u {url} content.plugins ;; reload')
@@ -1194,6 +1641,9 @@ config.bind('r', 'reload')
 # config.bind('tSh', 'config-cycle -p -u *://{url:host}/* content.javascript.enabled ;; reload')
 # config.bind('tSu', 'config-cycle -p -u {url} content.javascript.enabled ;; reload')
 # config.bind('th', 'back -t')
+# config.bind('tiH', 'config-cycle -p -t -u *://*.{url:host}/* content.images ;; reload')
+# config.bind('tih', 'config-cycle -p -t -u *://{url:host}/* content.images ;; reload')
+# config.bind('tiu', 'config-cycle -p -t -u {url} content.images ;; reload')
 # config.bind('tl', 'forward -t')
 # config.bind('tpH', 'config-cycle -p -t -u *://*.{url:host}/* content.plugins ;; reload')
 # config.bind('tph', 'config-cycle -p -t -u *://{url:host}/* content.plugins ;; reload')
