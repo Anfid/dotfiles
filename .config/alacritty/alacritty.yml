@@ -61,17 +61,17 @@ draw_bold_text_with_bright_colors: true
 font:
   # The normal (roman) font face to use.
   normal:
-    family: Input
+    family: IosevkaTermLigaturized Nerd Font
     style: Regular
 
   # The bold font face
   bold:
-    family: Input
+    family: IosevkaTermLigaturized Nerd Font
     style: Bold
 
   # The italic font face
   italic:
-    family: Input
+    family: IosevkaTermLigaturized Nerd Font
     style: Italic
 
   # Point size of the font
@@ -88,7 +88,7 @@ font:
   # the right, increase the y offset to move the glyph upward.
   glyph_offset:
     x: 0
-    y: -2
+    y: 0
 
   # Scale the font size based on the monitor's DPI. This will lead to bigger text on HiDPI
   # screens and make reading text a little easier.
