@@ -2,17 +2,30 @@
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
 
-# Provides utilities, comptetions and aliases
+########################################
+#  Utilities, completions and aliases  #
+########################################
 zplug "plugins/git",   from:oh-my-zsh
 zplug "plugins/pip",   from:oh-my-zsh
 zplug "plugins/cargo", from:oh-my-zsh
+zplug "zsh-users/zsh-completions"
 
 
-# Reminds available aliases
+##############################
+#  Remind available aliases  #
+##############################
 zplug "djui/alias-tips"
 
 
-# Fish-like suggestions as-you-type
+##################
+#  cd backwards  #
+##################
+zplug "Tarrasch/zsh-bd"
+
+
+###########################
+#  Fish-like suggestions  #
+###########################
 function zsh-autosuggestions-override() {
     # ignore commands in vi-mode
     ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(forward-char end-of-line)
@@ -23,11 +36,16 @@ function zsh-autosuggestions-override() {
 zplug "zsh-users/zsh-autosuggestions", hook-load:zsh-autosuggestions-override
 
 
+###############
+#  Powerline  #
+###############
 zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
 
+POWERLEVEL9K_MODE='nerdfont-complete'
+
 # elements
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vi_mode dir dir_writable vcs status)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs time)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vi_mode dir dir_writable vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time background_jobs time)
 
 # vi_mode
 POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND='blue'
@@ -71,11 +89,18 @@ POWERLEVEL9K_STATUS_OK_BACKGROUND='green'
 POWERLEVEL9K_STATUS_ERROR_FOREGROUND='black'
 POWERLEVEL9K_STATUS_ERROR_BACKGROUND='red'
 
+# command_execution_time
+POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=7
+POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND='white'
+POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND='black'
+
 # time
 POWERLEVEL9K_TIME_FORMAT='%D{%l:%M%p}'
 
 
-# vi-mode plugin
+#############
+#  VI-mode  #
+#############
 MODE_CURSOR_VICMD="blinking block"
 MODE_CURSOR_VIINS="blinking bar"
 zplug "softmoth/zsh-vim-mode"
@@ -83,16 +108,22 @@ zplug "softmoth/zsh-vim-mode"
 zplug "okapia/zsh-viexchange", on:"softmoth/zsh-vim-mode", defer:3
 
 
-# Substring history search
+##############################
+#  Substring history search  #
+##############################
 # Load after vim-mode to prevent vim bindings to perform substring search
 zplug "zsh-users/zsh-history-substring-search", defer:1
 
 
-# Close matching paired characters
+######################################
+#  Close matching paired characters  #
+######################################
 zplug "hlissner/zsh-autopair", defer:2
 
 
-# Syntax highlight
+######################
+#  Syntax highlight  #
+######################
 zplug "zdharma/fast-syntax-highlighting", defer:2
 
 
