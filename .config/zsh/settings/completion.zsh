@@ -75,7 +75,7 @@ fi
 
 # Load local zsh completions
 fpath+=$HOME/.zsh.compl.d
-compinit
+compinit -d ~/.cache/zsh/zcompdump/$ZSH_VERSION
 
 # Load local bash completions
 autoload bashcompinit -U +X && bashcompinit
