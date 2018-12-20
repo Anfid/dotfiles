@@ -1,86 +1,101 @@
 " TODO: Sort everything in different files. init.vim now looks messy
 
-set runtimepath+=~/.config/nvim/bundle/Vundle.vim
 set runtimepath+=~/.fzf
 let &packpath = &runtimepath
 
-call vundle#begin('~/.config/nvim/plugins/')
+" autoinstall vim-plug
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 " Plugins
-Plugin 'gmarik/Vundle.vim'
-Plugin 'tpope/vim-rsi'
-Plugin 'vim-ctrlspace/vim-ctrlspace'
-Plugin 'w0rp/ale'
-Plugin 'junegunn/fzf.vim'
-Plugin 'tpope/vim-eunuch'
-Plugin 'tpope/vim-fugitive'
-Plugin 'rbgrouleff/bclose.vim'
-Plugin 'francoiscabrol/ranger.vim'
-Plugin 'simnalamburt/vim-mundo'
-Plugin 'tommcdo/vim-exchange'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'pseewald/vim-anyfold'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'rhysd/clever-f.vim'
-Plugin 'chrisbra/NrrwRgn'
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
-Plugin 'majutsushi/tagbar'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'tpope/vim-repeat'
-Plugin 'vimwiki/vimwiki'
-Plugin 'lyokha/vim-xkbswitch'
-Plugin 'vim-airline/vim-airline'
-Plugin 'gcavallanti/vim-noscrollbar'
-Plugin 'fisadev/FixedTaskList.vim'
-Plugin 'junegunn/vim-peekaboo'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'yggdroot/indentline'
-Plugin 'RRethy/vim-illuminate'
-Plugin 'bogado/file-line'
+call plug#begin('~/.config/nvim/plugins/')
+
+Plug 'junegunn/vim-plug'
+Plug 'tpope/vim-rsi'
+Plug 'vim-ctrlspace/vim-ctrlspace'
+Plug 'w0rp/ale'
+Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-fugitive'
+Plug 'rbgrouleff/bclose.vim'
+Plug 'francoiscabrol/ranger.vim'
+Plug 'simnalamburt/vim-mundo'
+Plug 'tommcdo/vim-exchange'
+Plug 'scrooloose/nerdcommenter'
+Plug 'pseewald/vim-anyfold'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'rhysd/clever-f.vim'
+Plug 'chrisbra/NrrwRgn'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-easytags'
+Plug 'majutsushi/tagbar'
+Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-repeat'
+Plug 'vimwiki/vimwiki'
+Plug 'lyokha/vim-xkbswitch'
+Plug 'vim-airline/vim-airline'
+Plug 'gcavallanti/vim-noscrollbar'
+Plug 'fisadev/FixedTaskList.vim'
+Plug 'junegunn/vim-peekaboo'
+Plug 'airblade/vim-gitgutter'
+Plug 'yggdroot/indentline'
+Plug 'RRethy/vim-illuminate'
+Plug 'bogado/file-line'
 
 " text objects
-Plugin 'tpope/vim-surround'
-Plugin 'kana/vim-textobj-user'
-Plugin 'kana/vim-textobj-function'
-Plugin 'kana/vim-textobj-entire'
-Plugin 'kana/vim-textobj-indent'
-Plugin 'Julian/vim-textobj-variable-segment'
-Plugin 'wellle/targets.vim'
-Plugin 'junegunn/vim-after-object'
-Plugin 'tpope/vim-speeddating' " proper date increment/decrement
+Plug 'tpope/vim-surround'
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-function'
+Plug 'kana/vim-textobj-entire'
+Plug 'kana/vim-textobj-indent'
+Plug 'Julian/vim-textobj-variable-segment'
+Plug 'wellle/targets.vim'
+Plug 'junegunn/vim-after-object'
+Plug 'tpope/vim-speeddating' " proper date increment/decrement
 
 " language support
-Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'rust-lang/rust.vim'
-Plugin 'racer-rust/vim-racer'
-Plugin 'tbastos/vim-lua'
-Plugin 'vim-pandoc/vim-pandoc'
-Plugin 'vim-pandoc/vim-pandoc-syntax'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer'
+Plug 'tbastos/vim-lua'
+Plug 'ensime/ensime-vim', {
+  \ 'do': 'pip3 install sexpdata websocket-client'
+\ }
+Plug 'derekwyatt/vim-scala'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 
 " completions
-Plugin 'ncm2/ncm2'
-Plugin 'roxma/nvim-yarp'
-Plugin 'ncm2/ncm2-pyclang'
-Plugin 'ncm2/ncm2-racer'
-Plugin 'Shougo/neco-vim' " ncm2-vim
-Plugin 'ncm2/ncm2-vim'
-Plugin 'ncm2/ncm2-tagprefix'
-Plugin 'ncm2/ncm2-path'
-Plugin 'ncm2/ncm2-github'
-Plugin 'ncm2/ncm2-bufword'
-Plugin 'ncm2/ncm2-ultisnips'
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+Plug 'ncm2/ncm2-pyclang'
+Plug 'ncm2/ncm2-racer'
+Plug 'Shougo/neco-vim' " ncm2-vim
+Plug 'ncm2/ncm2-vim'
+Plug 'ncm2/ncm2-tagprefix'
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-github'
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-ultisnips'
+Plug 'artur-shaik/vim-javacomplete2' " ncm2-jc2
+Plug 'ObserverOfTime/ncm2-jc2'
+Plug 'autozimu/LanguageClient-neovim', {
+  \ 'branch': 'next',
+  \ 'do': 'bash install.sh',
+\ }
 
 " snippets
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " colorschemes
-Plugin 'ajmwagar/vim-deus'         " deus
-Plugin 'morhetz/gruvbox'           " gruvbox
-Plugin 'dylanaraps/wal.vim'        " TODO: Needs propper function to enable. Requires no termguicolors to work properly
+Plug 'ajmwagar/vim-deus'        " deus
+Plug 'morhetz/gruvbox'          " gruvbox
 
-call vundle#end()
+call plug#end()
 
 
 " ------------------ Settings ------------------
