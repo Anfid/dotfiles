@@ -9,4 +9,4 @@
 
 [[ -f ~/.cache/wal/colors.Xresources ]] && xrdb -merge ~/.cache/wal/colors.Xresources
 
-exec i3
+exec awesome
