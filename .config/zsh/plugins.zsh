@@ -41,7 +41,7 @@ zplug "zsh-users/zsh-autosuggestions", hook-load:zsh-autosuggestions-override
 ###############
 zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
 
-POWERLEVEL9K_MODE='nerdfont-complete'
+POWERLEVEL9K_MODE='awesome-fontconfig'
 
 # elements
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vi_mode dir dir_writable vcs)
