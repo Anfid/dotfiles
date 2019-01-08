@@ -28,6 +28,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'pseewald/vim-anyfold'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'rhysd/clever-f.vim'
+Plug 'godlygeek/tabular'
 Plug 'chrisbra/NrrwRgn'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-easytags'
@@ -92,7 +93,6 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 " colorschemes
-Plug 'ajmwagar/vim-deus'        " deus
 Plug 'morhetz/gruvbox'          " gruvbox
 
 call plug#end()
