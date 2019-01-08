@@ -394,6 +394,11 @@ let g:ale_sign_style_warning = "⧌"
 let g:ale_linters = {'cpp': ['clang', 'cppcheck']}
 let g:ale_lua_luacheck_options = '--no-redefined --no-unused-args'
 let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_enter = 1
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_filetype_changed = 1
 
 " fuzzy
 let $FZF_DEFAULT_COMMAND = "rg --smart-case --hidden --follow --no-heading --files --glob '!.git/'"
