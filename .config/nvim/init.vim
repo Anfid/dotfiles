@@ -110,13 +110,8 @@ set ttimeout
 
 set mouse=a
 
-set number relativenumber
+set number
 set cursorline
-augroup numbertoggle
-  autocmd!
-  autocmd WinEnter,BufEnter,InsertLeave,CmdLineLeave,CmdWinEnter,FocusGained * set number relativenumber   cursorline
-  autocmd WinLeave,BufLeave,InsertEnter,CmdLineEnter,CmdWinLeave,FocusLost   * set number norelativenumber nocursorline
-augroup END
 
 set noshowmode
 
