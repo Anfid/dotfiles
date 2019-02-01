@@ -180,6 +180,7 @@ function install_from_rep {
   cargo install exa
   cargo install cargo-update
   cargo install i3-bg-blur
+  cargo install gluon_language-server
 
   # kitty
   curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n dest=$HOME/.local/opt

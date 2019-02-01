@@ -61,6 +61,7 @@ Plug 'tpope/vim-speeddating' " proper date increment/decrement
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
+Plug 'gluon-lang/vim-gluon'
 Plug 'tbastos/vim-lua'
 Plug 'ensime/ensime-vim', {
   \ 'do': 'pip3 install sexpdata websocket-client'
@@ -628,10 +629,18 @@ autocmd BufEnter * call ncm2#enable_for_buffer()
 
 let g:ncm2_pyclang#library_path = '/usr/lib/llvm-6.0/lib'
 let g:ncm2_pyclang#database_path = [
-    \ 'compile_commands.json',
-    \ 'build/compile_commands.json' ]
+\ 'compile_commands.json',
+\ 'build/compile_commands.json' ]
 let g:ncm2_pyclang#args_file_path = ['.clang_complete']
 autocmd FileType c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
+
+" LanguageClient
+let g:LanguageClient_serverCommands = {
+\ 'gluon': ['gluon_language-server'],
+\ }
+
+" Automatically start language servers.
+let g:LanguageClient_autoStart = 1
 
 " Snippets
 " UltiSnips
