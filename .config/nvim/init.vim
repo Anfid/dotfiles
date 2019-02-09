@@ -344,6 +344,9 @@ function! ShFtConfig()
 endfunction
 autocmd filetype sh call ShFtConfig()
 
+autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
+autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
+
 " Tabs management
 nnoremap <silent> <Tab> gt
 nnoremap <silent> <S-Tab> gT

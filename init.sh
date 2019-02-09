@@ -179,6 +179,7 @@ function install_from_rep {
   cargo install ripgrep
   cargo install exa
   cargo install cargo-update
+  cargo install rusty-tags
   cargo install i3-bg-blur
   cargo install gluon_language-server
 

@@ -22,8 +22,7 @@ for file in $zsh_conf/settings/*; do
   source $file
 done
 
-# source local zshrc
-[[ -f $HOME/.zshrclocal ]] && source $HOME/.zshrclocal
+export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src/
 
 # Aliases
 alias sd="shutdown" # [options]
@@ -44,3 +43,6 @@ fi
 alias glog="nvim +ShowCommitsAndExit"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# source local zshrc
+[[ -f $HOME/.zshrclocal ]] && source $HOME/.zshrclocal
