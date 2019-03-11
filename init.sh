@@ -65,6 +65,7 @@ function update_symlink {
   "y")
     safe_link .xinitrc
     safe_link .zshrc
+    safe_link .zprofile
     safe_link ".gtkrc-2.0"
     ln -sf $DOTFILES_DIR/.scripts $HOME
     [[ ! -d $HOME/Pictures ]] && mkdir $HOME/Pictures
@@ -115,7 +116,7 @@ function install_dependencies {
                      libxkbcommon-x11-dev libxkbcommon-x11-0 libxkbfile-dev autoconf libxcb-composite0 libxcb-composite0-dev \
                      libxcb-xrm0 libxcb-xrm-dev libcairo-dev libcairo2-dev python-xcbgen xcb-proto libxcb-image0-dev \
                      libxcb-ewmh-dev libpulse-dev libiw-dev automake pkg-config libpam-dev libx11-dev libx11-xcb-dev libxkbcommon0 \
-                     libharfbuzz-bin libharfbuzz-dev libpng-dev sudo apt install libxcursor-dev libxrandr-dev libxi-dev \
+                     libharfbuzz-bin libharfbuzz-dev libpng-dev libxcursor-dev libxrandr-dev libxi-dev \
                      libxinerama-dev libgl1-mesa-dev zlib1g-dev libdbus-1-dev libgtk-3-dev libxss-dev libsdg-basedir-dev \
                      arc-theme gcal w3m-img ffmpegthumbnailer
     ;;
