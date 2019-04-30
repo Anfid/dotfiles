@@ -32,6 +32,8 @@ alias mntrw="sudo mount -o rw,gid=users,fmask=113,dmask=002" # device mount_poin
 alias mntro="sudo mount -o ro,gid=users,fmask=333,dmask=222" # device mount_point
 alias unmnt="sudo umount" # mount_point
 
+c() luajit -e "print($*)"
+
 if hash exa 2>/dev/null; then
     alias ls="exa"
     alias ll="exa -lah --git --group-directories-first"
