@@ -1,4 +1,4 @@
-" ------------------ Functions
+" ------------------ Functions ------------------
 " Align cursor to top quarter of the screen
 function! AlignOptimal()
   let l:view = winsaveview()
@@ -86,12 +86,12 @@ function! s:MapNextFamily(map,cmd) abort
 endfunction
 
 
-" ------------------ Leader
+" ------------------ Leader ------------------
 noremap <Space> <Nop>
 let mapleader = " "
 
 
-" ------------------ Movement
+" ------------------ Movement ------------------
 " General
 nnoremap n h|  xnoremap n h|  onoremap n h
 nnoremap e gj| xnoremap e gj| onoremap e gj
@@ -136,7 +136,7 @@ inoremap <expr> <CR>    (pumvisible() ? "\<c-y>" : "\<CR>")
 tnoremap <expr> <A-r> '<C-\><C-n>"'.nr2char(getchar()).'pa'
 
 
-" ------------------ Editing
+" ------------------ Editing ------------------
 " Insert mode
 nnoremap a i
 nnoremap t a
@@ -189,9 +189,9 @@ xnoremap < <gv
 nmap <Leader>a <Plug>(EasyAlign)| xmap <Leader>a <Plug>(EasyAlign)
 
 
-" ------------------ Navigation
+" ------------------ Navigation ------------------
 " Tags
-nnoremap <C-k> g<C-]>
+nnoremap <C-e> g<C-]>
 nnoremap <silent> <C-y> <Cmd>pop<CR>
 
 " Screen positioning
@@ -217,7 +217,7 @@ xnoremap <silent> <ScrollWheelDown> <Cmd>call Scroll(g:mouse_scroll, "down")<CR>
 nnoremap ,a za| xnoremap ,a za| onoremap ,a za
 
 
-" ------------------ Buffers
+" ------------------ Buffers ------------------
 " Splits
 noremap <silent> <A-n> <Esc><C-w>h| inoremap <silent> <A-n> <Esc><C-w>h| cnoremap <silent> <A-n> <Esc><C-w>h
 noremap <silent> <A-e> <Esc><C-w>j| inoremap <silent> <A-e> <Esc><C-w>j| cnoremap <silent> <A-e> <Esc><C-w>j
@@ -259,10 +259,7 @@ nnoremap <silent> <Leader>sr <Cmd>source ~/.config/nvim/init.vim<CR>
 nnoremap <silent> <Leader>st <Cmd>source %<CR>
 
 
-" ------------------ Text Objects
-onoremap r i
-xnoremap r i
-
+" ------------------ Text Objects ------------------
 let g:textobj_entire_no_default_key_mappings = 1
 let g:textobj_function_no_default_key_mappings = 1
 let g:textobj_indent_no_default_key_mappings = 1
@@ -289,6 +286,15 @@ omap <silent> aC :call TextObjWordBasedColumn("aW")<cr>| xmap <silent> aC :<C-u>
 omap <silent> rc :call TextObjWordBasedColumn("iw")<cr>| xmap <silent> rc :<C-u>call TextObjWordBasedColumn("iw")<cr>
 omap <silent> rC :call TextObjWordBasedColumn("iW")<cr>| xmap <silent> rC :<C-u>call TextObjWordBasedColumn("iW")<cr>
 call after_object#enable(["a", "A"], '=', ':')
+let g:targets_aiAI = 'arAR'
+
+" Targets workaround. Could not get it to work with provided options
+onoremap rw iw| xnoremap rw iw
+onoremap rW iW| xnoremap rW iW
+onoremap rp ip| xnoremap rp ip
+onoremap rp ip| xnoremap rp ip
+onoremap rs is| xnoremap rs is
+onoremap rp ip| xnoremap rp ip
 
 nmap ds  <Plug>Dsurround
 nmap ws  <Plug>Csurround
@@ -302,7 +308,7 @@ xmap S   <Plug>VSurround
 xmap gS  <Plug>VgSurround
 
 
-" ------------------ Free keys
+" ------------------ Free keys ------------------
 noremap <C-b>   <Nop>
 noremap ;       <Nop>
 
@@ -380,7 +386,8 @@ nnoremap <silent> <Leader>tl :TaskList<CR>
 
 nnoremap <silent> <Leader>gh :GitGutterLineHighlightsToggle<CR>
 
-" ------------------ UltiSnips
+
+" ------------------ UltiSnips ------------------
 let g:UltiSnipsExpandTrigger="<C-w>"
 let g:UltiSnipsJumpForwardTrigger="<C-n>"
 let g:UltiSnipsJumpBackwardTrigger="<C-p>"
@@ -388,7 +395,7 @@ let g:UltiSnipsJumpBackwardTrigger="<C-p>"
 nnoremap <silent> <Leader>hs :call gruvbox#hls_toggle()<CR>
 
 
-" ------------------ Workarounds for tpope plugins
+" ------------------ Workarounds for tpope plugins ------------------
 nmap z <Plug>(RepeatUndo)
 if empty(mapcheck("<Plug>(RepeatUndo)"))
   nnoremap <Plug>(RepeatUndo) u
