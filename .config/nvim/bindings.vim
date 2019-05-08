@@ -32,6 +32,44 @@ function! Scroll(lines, direction)
   endif
 endfunction
 
+function! GetCharRelative(x, y)
+  return strcharpart(strpart(getline(line('.') + a:y), col('.') + a:x - 1), 0, 1)
+endfunction
+
+function! JumpVertical(direction, ...)
+  if a:direction == 'down'
+    let a = 1
+    let dir_flag = ''
+  elseif a:direction == 'up'
+    let a = -1
+    let dir_flag = 'b'
+  else
+    echoerr 'Invalid argument'
+    return
+  endif
+
+  let col = col('.')
+  let line = line('.')
+  let jumplist_threshold = get(a:, 1, 10)
+  let char = GetCharRelative(0, 0)
+  let next_char = GetCharRelative(0, a)
+
+  if next_char == '' || next_char == ' ' || next_char == '	' ||
+  \  char == ''      || char == ' '      || char == '	'
+    let dest_line = search('\%'.col.'c[^ 	]', 'n'.dir_flag)
+    if abs(line - dest_line) > jumplist_threshold
+      call setpos("''", getpos('.'))
+    endif
+    call cursor(dest_line, col)
+  else
+    let dest_line = search('\%'.col.'c[ 	]\|^.\{,'.(col-1).'}$', 'nW'.dir_flag) - a
+    if abs(line - dest_line) >= jumplist_threshold
+      call setpos("''", getpos('.'))
+    endif
+    call cursor(dest_line, col)
+  endif
+endfunction
+
 " Remove item from qf list
 function! RemoveQFItem()
   let curqfidx = line('.') - 1
@@ -124,8 +162,8 @@ nmap p <Plug>(clever-f-t)| xmap p <Plug>(clever-f-t)| omap p <Plug>(clever-f-t)
 nmap P <Plug>(clever-f-T)| xmap P <Plug>(clever-f-T)| omap P <Plug>(clever-f-T)
 
 " Fall through to non-whitespace
-noremap <silent> <leader>e /\%<C-r>=col(".")<CR>c[^ 	]<CR>
-noremap <silent> <leader>i ?\%<C-r>=col(".")<CR>c[^ 	]<CR>
+noremap <silent> <leader>e <Cmd>call JumpVertical('down')<CR>
+noremap <silent> <leader>i <Cmd>call JumpVertical('up')<CR>
 
 " Insert
 inoremap <expr> <Tab>   (pumvisible() ? "\<C-n>" : "\<Tab>")

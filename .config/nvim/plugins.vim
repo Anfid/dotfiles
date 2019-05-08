@@ -269,7 +269,6 @@ let g:ncm2_pyclang#database_path = [
 \ 'compile_commands.json',
 \ 'build/compile_commands.json' ]
 let g:ncm2_pyclang#args_file_path = ['.clang_complete']
-autocmd FileType c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
 
 " Snippets
 let g:UltiSnipsEditSplit="vertical"
