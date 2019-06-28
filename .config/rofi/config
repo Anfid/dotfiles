@@ -8,10 +8,10 @@ rofi.scroll-method:     1
 rofi.terminal:          kitty
 rofi.font:              Iosevka Regular 12
 
-rofi.kb-mode-next:      Shift+Right,Control+Tab,Alt+l
-rofi.kb-mode-previous:  Shift+Left,Control+ISO_Left_Tab,Alt+h
-rofi.kb-row-up:         Up,Control+p,ISO_Left_Tab,Alt+k
-rofi.kb-row-down:       Down,Control+n,Alt+j
+rofi.kb-mode-next:      Shift+Right,Control+Tab,Alt+o
+rofi.kb-mode-previous:  Shift+Left,Control+ISO_Left_Tab,Alt+n
+rofi.kb-row-up:         Up,Control+p,ISO_Left_Tab,Alt+i
+rofi.kb-row-down:       Down,Control+n,Alt+e
 rofi.kb-primary-paste:  Control+s,Shift+Insert
 
 rofi.theme:             ~/.cache/wal/colors-rofi.rasi
