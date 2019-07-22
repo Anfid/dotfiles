@@ -301,6 +301,7 @@ nnoremap <silent> <Leader>st <Cmd>source %<CR>
 let g:textobj_entire_no_default_key_mappings = 1
 let g:textobj_function_no_default_key_mappings = 1
 let g:textobj_indent_no_default_key_mappings = 1
+let g:textobj_line_no_default_key_mappings = 1
 let g:textobj_variable_no_default_key_mappings = 1
 let g:skip_default_textobj_word_column_mappings = 1
 let g:surround_no_mappings = 1
@@ -315,6 +316,8 @@ omap ai <Plug>(textobj-indent-a)|              xmap ai <Plug>(textobj-indent-a)
 omap ri <Plug>(textobj-indent-i)|              xmap ri <Plug>(textobj-indent-i)
 omap aI <Plug>(textobj-indent-same-a)|         xmap aI <Plug>(textobj-indent-same-a)
 omap rI <Plug>(textobj-indent-same-i)|         xmap rI <Plug>(textobj-indent-same-i)
+omap al <Plug>(textobj-line-a)|                xmap al <Plug>(textobj-line-a)|
+omap rl <Plug>(textobj-line-i)|                xmap rl <Plug>(textobj-line-i)|
 omap av <Plug>(textobj-variable-a)|            xmap av <Plug>(textobj-variable-a)
 omap rv <Plug>(textobj-variable-i)|            xmap rv <Plug>(textobj-variable-i)
 omap rh <Plug>GitGutterTextObjectInnerPending| xmap rh <Plug>GitGutterTextObjectInnerVisual
@@ -349,6 +352,10 @@ xmap gS  <Plug>VgSurround
 " ------------------ Free keys ------------------
 noremap <C-b>   <Nop>
 noremap ;       <Nop>
+
+
+" ------------------ Quality of life ------------------
+nnoremap w<CR> :w<CR>
 
 
 " ------------------ Plugin keys ------------------

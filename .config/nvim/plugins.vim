@@ -43,10 +43,12 @@ Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-function'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-indent'
+Plug 'kana/vim-textobj-line'
 Plug 'Julian/vim-textobj-variable-segment'
 Plug 'coderifous/textobj-word-column.vim'
 Plug 'wellle/targets.vim'
 Plug 'junegunn/vim-after-object'
+Plug 'terryma/vim-expand-region'
 
 " language support
 Plug 'octol/vim-cpp-enhanced-highlight'
@@ -79,10 +81,29 @@ Plug 'honza/vim-snippets'
 " colorschemes
 Plug 'morhetz/gruvbox'          " gruvbox
 
+" To reorganize
+Plug 'kassio/neoterm'
+Plug 'kana/vim-operator-user'
+Plug 'haya14busa/vim-operator-flashy'
+
 call plug#end()
 
 
 " ------------------ Settings ------------------
+let g:expand_region_text_objects = {
+      \ 'rw'  :0,
+      \ 'rW'  :0,
+      \ 'r"'  :0,
+      \ 'r''' :0,
+      \ 'r]'  :1,
+      \ 'rb'  :1,
+      \ 'rl'  :0,
+      \ 'ri'  :0,
+      \ 'rB'  :1,
+      \ 'rf'  :0,
+      \ 're'  :0,
+      \ }
+
 " CtrlSpace
 let g:CtrlSpaceUseMouseAndArrowsInTerm = 1
 let g:CtrlSpaceLoadLastWorkspaceOnStart = 0
