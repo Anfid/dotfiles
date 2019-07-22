@@ -36,6 +36,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'yggdroot/indentline'
 Plug 'RRethy/vim-illuminate'
 Plug 'bogado/file-line'
+Plug 'kassio/neoterm'
 
 " text objects
 Plug 'tpope/vim-surround'
@@ -82,7 +83,6 @@ Plug 'honza/vim-snippets'
 Plug 'morhetz/gruvbox'          " gruvbox
 
 " To reorganize
-Plug 'kassio/neoterm'
 Plug 'kana/vim-operator-user'
 Plug 'haya14busa/vim-operator-flashy'
 
@@ -90,20 +90,6 @@ call plug#end()
 
 
 " ------------------ Settings ------------------
-let g:expand_region_text_objects = {
-      \ 'rw'  :0,
-      \ 'rW'  :0,
-      \ 'r"'  :0,
-      \ 'r''' :0,
-      \ 'r]'  :1,
-      \ 'rb'  :1,
-      \ 'rl'  :0,
-      \ 'ri'  :0,
-      \ 'rB'  :1,
-      \ 'rf'  :0,
-      \ 're'  :0,
-      \ }
-
 " CtrlSpace
 let g:CtrlSpaceUseMouseAndArrowsInTerm = 1
 let g:CtrlSpaceLoadLastWorkspaceOnStart = 0
@@ -233,6 +219,14 @@ let g:gitgutter_sign_modified_removed   = '◢'
 let g:indentLine_fileType = ['h', 'hh', 'hpp', 'c', 'cc', 'cpp', 'sh', 'vim', 'lua']
 let g:indentLine_setColors = 0
 let g:indentLine_char = '¦'
+
+" neoterm
+let g:neoterm_size = 10
+let g:neoterm_default_mod = "below"
+let g:neoterm_autoinsert = 1
+let g:neoterm_fixedsize = 1
+let g:neoterm_term_per_tab = 1
+
 
 " vimwiki
 let g:vimwiki_use_mouse = 1

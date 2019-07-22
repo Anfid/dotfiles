@@ -282,7 +282,7 @@ nnoremap <silent> <C-t>{ <Cmd>tabfirst<CR>
 nnoremap <silent> <C-t>} <Cmd>tablast<CR>
 
 " Open terminal
-nnoremap <silent> <C-c> <Cmd>below 10split term://zsh<CR>
+nnoremap <silent> <C-c> <Cmd>Tnew<CR>
 
 " Next-family
 call s:MapNextFamily('a','')
@@ -328,6 +328,20 @@ omap <silent> rc :call TextObjWordBasedColumn("iw")<cr>| xmap <silent> rc :<C-u>
 omap <silent> rC :call TextObjWordBasedColumn("iW")<cr>| xmap <silent> rC :<C-u>call TextObjWordBasedColumn("iW")<cr>
 call after_object#enable(["a", "A"], '=', ':')
 let g:targets_aiAI = 'arAR'
+
+let g:expand_region_text_objects = {
+\ 'rw'  :0,
+\ 'rW'  :0,
+\ 'r"'  :0,
+\ 'r''' :0,
+\ 'r]'  :1,
+\ 'rb'  :1,
+\ 'rl'  :0,
+\ 'ri'  :0,
+\ 'rB'  :1,
+\ 'rf'  :0,
+\ 're'  :0,
+\ }
 
 " Targets workaround. Could not get it to work with provided options
 onoremap rw iw| xnoremap rw iw
