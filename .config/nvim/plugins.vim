@@ -22,8 +22,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'pseewald/vim-anyfold'
 Plug 'rhysd/clever-f.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-easytags'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-repeat'
@@ -76,17 +75,17 @@ Plug 'artur-shaik/vim-javacomplete2' " ncm2-jc2
 Plug 'ObserverOfTime/ncm2-jc2'
 
 " snippets
-Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips', { 'on': [] }
 Plug 'honza/vim-snippets'
 
 " colorschemes
 Plug 'morhetz/gruvbox'          " gruvbox
 
-" To reorganize
-Plug 'kana/vim-operator-user'
-Plug 'haya14busa/vim-operator-flashy'
-
 call plug#end()
+
+augroup plug_on_insert
+  autocmd InsertEnter * call plug#load('ultisnips')
+augroup END
 
 
 " ------------------ Settings ------------------
@@ -141,14 +140,14 @@ autocmd  FileType fzf set laststatus=0
 " Ranger
 let g:ranger_map_keys = 0
 let g:ranger_replace_netrw = 1
+" disable netrw loading
+let g:loaded_netrwPlugin = 1
 
-" easytags
-let g:easytags_file = './.tags'
-let g:easytags_dynamic_files = 1
-let g:easytags_include_members = 1
-let g:easytags_auto_highlight = 0
-let g:easytags_resolve_links = 1
-let g:easytags_async=1
+" gutentags
+let g:gutentags_ctags_tagfile = './.tags'
+let g:gutentags_ctags_auto_set_tags = 0
+let g:gutentags_generate_on_empty_buffer = 1
+let g:gutentags_resolve_symlinks = 1
 
 " anyfold
 autocmd BufEnter * AnyFoldActivate
@@ -269,10 +268,6 @@ let g:rust_conceal_pub = 0
 let g:racer_experimental_completer = 1
 let g:rustfmt_fail_silently = 0
 
-au FileType rust nmap gd <Plug>(rust-def)
-au FileType rust nmap gs <Plug>(rust-def-split)
-au FileType rust nmap gx <Plug>(rust-def-vertical)
-
 " lua
 let g:lua_syntax_nofold = 1
 
@@ -302,6 +297,3 @@ let g:gruvbox_bold=1
 let g:gruvbox_italic=1
 let g:gruvbox_invert_selection=0
 let g:gruvbox_italicize_strings=1
-colorscheme gruvbox
-set background=dark
-call gruvbox#hls_hide()

@@ -254,6 +254,9 @@ xnoremap <silent> <ScrollWheelDown> <Cmd>call Scroll(g:mouse_scroll, "down")<CR>
 " Folds
 nnoremap ,a za| xnoremap ,a za| onoremap ,a za
 
+" Highlight
+nnoremap <silent> <Leader>hs :call gruvbox#hls_toggle()<CR>
+
 
 " ------------------ Buffers ------------------
 " Splits

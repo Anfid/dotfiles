@@ -79,11 +79,6 @@ command! ShowCommitsAndExit call ShowCommitsAndExit()
 
 
 " ------------------ Colorscheme ------------------
-let g:gruvbox_bold=1
-let g:gruvbox_italic=1
-let g:gruvbox_invert_selection=0
-let g:gruvbox_italicize_strings=1
-colorscheme gruvbox
 set background=dark
+colorscheme gruvbox
 call gruvbox#hls_hide()
-nnoremap <silent> <Leader>hs :call gruvbox#hls_toggle()<CR>
