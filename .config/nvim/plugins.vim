@@ -196,16 +196,24 @@ let g:airline#extensions#default#section_truncate_width = {
 \   'warning': 80,
 \   'error': 80,
 \ }
-let g:airline_section_x = airline#section#create(['tagbar'])
-let g:airline_section_c = airline#section#create_right(['filetype', 'readonly', 'file'])
-function! Noscrollbar(...)
-  let w:airline_section_y = "▐%{noscrollbar#statusline(20,'▄','█',['▟'],['▙'])}▌"
-endfunction
-call airline#add_statusline_func('Noscrollbar')
-function! Time(...)
-  let w:airline_section_z = airline#section#create(['%{strftime("%l:%M%p")}'])
-endfunction
-call airline#add_statusline_func('Time')
+
+function! AirlineInit()
+  let g:airline_section_x = airline#section#create(['tagbar'])
+  let g:airline_section_c = airline#section#create_right(['filetype', 'readonly', 'file'])
+
+  function! Noscrollbar(...)
+    let w:airline_section_y = "▐%{noscrollbar#statusline(20,'▄','█',['▟'],['▙'])}▌"
+  endfunction
+  call airline#add_statusline_func('Noscrollbar')
+
+  function! Time(...)
+    let w:airline_section_z = airline#section#create(['%{strftime("%l:%M%p")}'])
+  endfunction
+  call airline#add_statusline_func('Time')
+  endfunction
+
+  let g:airline_timer = timer_start(30, airline#update_statusline(), {'repeat': -1})
+autocmd User AirlineAfterInit call AirlineInit()
 
 " gitgutter
 let g:gitgutter_max_signs               = 1500
