@@ -39,7 +39,7 @@ zplug "zsh-users/zsh-autosuggestions", hook-load:zsh-autosuggestions-override
 ###############
 #  Powerline  #
 ###############
-zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
+zplug "romkatv/powerlevel10k", use:powerlevel10k.zsh-theme
 
 POWERLEVEL9K_MODE='awesome-fontconfig'
 
