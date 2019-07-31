@@ -4,16 +4,20 @@ export TERM=xterm-256color
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-zsh_conf=$HOME/.config/zsh
+export ZSH_CACHE_DIR="$HOME/.cache/zsh/"
 
-export ZPLUG_HOME=$zsh_conf/zplug
+zsh_conf="$HOME/.config/zsh"
 
-# load zplug or download if missing
-if [[ -f $zsh_conf/zplug/init.zsh ]]; then
-  source $zsh_conf/zplug/init.zsh
-else
-  curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+export ZPLUGIN_HOME=$zsh_conf/zplugin
+
+# Uncomment for profiling
+#zmodload zsh/zprof
+
+# load zplugin or download if missing
+if [[ ! -a $ZPLUGIN_HOME/bin/zplugin.zsh ]]; then
+  git clone https://github.com/zdharma/zplugin.git $ZPLUGIN_HOME/bin
 fi
+source $ZPLUGIN_HOME/bin/zplugin.zsh
 
 source $zsh_conf/plugins.zsh
 

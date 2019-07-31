@@ -1,26 +1,25 @@
-# Self-management
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-
-
 ########################################
 #  Utilities, completions and aliases  #
 ########################################
-zplug "plugins/git",   from:oh-my-zsh
-zplug "plugins/pip",   from:oh-my-zsh
-zplug "plugins/cargo", from:oh-my-zsh
-zplug "zsh-users/zsh-completions"
+zplugin snippet OMZ::plugins/git/git.plugin.zsh
+zplugin snippet OMZ::plugins/pip/pip.plugin.zsh
+zplugin ice as"completion"
+zplugin snippet OMZ::plugins/cargo/_cargo
+zplugin light "zsh-users/zsh-completions"
 
 
 ##############################
 #  Remind available aliases  #
 ##############################
-zplug "djui/alias-tips"
+zplugin ice lucid wait"1"
+zplugin light "djui/alias-tips"
 
 
 ##################
 #  cd backwards  #
 ##################
-zplug "Tarrasch/zsh-bd"
+zplugin ice lucid wait"1"
+zplugin light "Tarrasch/zsh-bd"
 
 
 ###########################
@@ -33,13 +32,14 @@ function zsh-autosuggestions-override() {
     ZSH_AUTOSUGGEST_STRATEGY=match_prev_cmd
     ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=vi-cmd-mode
 }
-zplug "zsh-users/zsh-autosuggestions", hook-load:zsh-autosuggestions-override
+zplugin ice lucid wait"0" atload"_zsh_autosuggest_start"
+zplugin light "zsh-users/zsh-autosuggestions"
 
 
 ###############
 #  Powerline  #
 ###############
-zplug "romkatv/powerlevel10k", use:powerlevel10k.zsh-theme
+zplugin light "romkatv/powerlevel10k" #, use:powerlevel10k.zsh-theme
 
 POWERLEVEL9K_MODE='awesome-fontconfig'
 
@@ -105,37 +105,48 @@ POWERLEVEL9K_TIME_FORMAT='%D{%l:%M%p}'
 #############
 MODE_CURSOR_VICMD="blinking block"
 MODE_CURSOR_VIINS="blinking bar"
-zplug "softmoth/zsh-vim-mode"
+zplugin light "softmoth/zsh-vim-mode"
 # viexchange messes up with syntax-highlighting. Make sure it loads after highlighting
-zplug "okapia/zsh-viexchange", on:"softmoth/zsh-vim-mode", defer:3
+zplugin ice lucid wait"2"
+zplugin light "okapia/zsh-viexchange"
 
 
 ##############################
 #  Substring history search  #
 ##############################
 # Load after vim-mode to prevent vim bindings to perform substring search
-zplug "zsh-users/zsh-history-substring-search", defer:1
+zplugin light "zsh-users/zsh-history-substring-search"
 
 
 ######################################
 #  Close matching paired characters  #
 ######################################
-zplug "hlissner/zsh-autopair", defer:2
+zplugin light "hlissner/zsh-autopair"
 
 
+##############
+#  Compinit  #
+##############
+# Custom compinit function, prevents unnecessary compinit, also compiles completions
+# See https://gist.github.com/ctechols/ca1035271ad134841284?source=post_page---------------------------#gistcomment-2894219
+_zcompinit_custom() {
+  setopt extendedglob
+  autoload -Uz compinit
+  local zcd=$ZSH_CACHE_DIR/.zcompdump
+  local zcdc="$zcd.zwc"
+  # Compile the completion dump to increase startup speed, if dump is newer or doesn't exist,
+  # in the background as this is doesn't affect the current session
+  if [[ -f "$zcd"(#qN.m+1) ]]; then
+    compinit -i -d "$zcd"
+    { rm -f "$zcdc" && zcompile "$zcd" } &!
+  else
+    compinit -C -d "$zcd"
+    { [[ ! -f "$zcdc" || "$zcd" -nt "$zcdc" ]] && rm -f "$zcdc" && zcompile "$zcd" } &!
+  fi
+  unsetopt extendedglob
+}
 ######################
 #  Syntax highlight  #
 ######################
-zplug "zdharma/fast-syntax-highlighting", defer:2
-
-
-# Install plugins if there are plugins that have not been installed
-if ! zplug check; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-
-# Then, source plugins and add commands to $PATH
-zplug load
+zplugin ice lucid wait"0" atinit"_zcompinit_custom; zpcdreplay"
+zplugin light "zdharma/fast-syntax-highlighting"

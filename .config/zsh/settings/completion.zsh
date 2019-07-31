@@ -75,7 +75,13 @@ fi
 
 # Load local zsh completions
 fpath+=$HOME/.zsh.compl.d
-compinit -d ~/.cache/zsh/zcompdump/$ZSH_VERSION
+# Create compdump dir if missing
+if [[ ! -d $HOME/.cache/zsh/zcompdump ]]; then
+  mkdir -p $HOME/.cache/zsh/zcompdump
+fi
+
+# compinit is performed in plugins.zsh after fast-syntax-highlighting plugin
+# to prevent blocking
 
 # Load local bash completions
 autoload bashcompinit -U +X && bashcompinit
