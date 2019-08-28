@@ -16,3 +16,4 @@ if type pygmentize >/dev/null 2>&1; then
   export LESSCOLORIZER='pygmentize'
 fi
 
+lesskey ${XDG_CONFIG_HOME:-$HOME/.config}/less/keys
