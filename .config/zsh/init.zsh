@@ -5,6 +5,10 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 export ZSH_CACHE_DIR="$HOME/.cache/zsh/"
+# Create cache dir if missing
+if [[ ! -d $HOME/.cache/zsh ]]; then
+  mkdir -p $HOME/.cache/zsh
+fi
 
 zsh_conf="$HOME/.config/zsh"
 
