@@ -5,7 +5,12 @@ zplugin snippet OMZ::plugins/git/git.plugin.zsh
 zplugin snippet OMZ::plugins/pip/pip.plugin.zsh
 zplugin ice as"completion"
 zplugin snippet OMZ::plugins/cargo/_cargo
+zplugin ice as"completion"
+zplugin snippet OMZ::plugins/httpie/_httpie
 zplugin light "zsh-users/zsh-completions"
+
+# Optional
+#zplugin snippet OMZ::plugins/jira/jira.plugin.zsh
 
 
 ##############################
