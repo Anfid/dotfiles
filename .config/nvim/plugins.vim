@@ -144,7 +144,8 @@ let g:ranger_replace_netrw = 1
 let g:loaded_netrwPlugin = 1
 
 " gutentags
-let g:gutentags_ctags_tagfile = './.tags'
+"let g:gutentags_ctags_tagfile = './.tags'
+let g:gutentags_cache_dir = '~/.cache/ctags'
 let g:gutentags_ctags_auto_set_tags = 0
 let g:gutentags_generate_on_empty_buffer = 1
 let g:gutentags_resolve_symlinks = 1
