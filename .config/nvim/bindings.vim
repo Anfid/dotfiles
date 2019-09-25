@@ -323,8 +323,8 @@ omap al <Plug>(textobj-line-a)|                xmap al <Plug>(textobj-line-a)|
 omap rl <Plug>(textobj-line-i)|                xmap rl <Plug>(textobj-line-i)|
 omap av <Plug>(textobj-variable-a)|            xmap av <Plug>(textobj-variable-a)
 omap rv <Plug>(textobj-variable-i)|            xmap rv <Plug>(textobj-variable-i)
-omap rh <Plug>GitGutterTextObjectInnerPending| xmap rh <Plug>GitGutterTextObjectInnerVisual
-omap ah <Plug>GitGutterTextObjectOuterPending| xmap ah <Plug>GitGutterTextObjectOuterVisual
+omap rh <Plug>(GitGutterTextObjectInnerPending)| xmap rh <Plug>(GitGutterTextObjectInnerVisual)
+omap ah <Plug>(GitGutterTextObjectOuterPending)| xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 omap <silent> ac :call TextObjWordBasedColumn("aw")<cr>| xmap <silent> ac :<C-u>call TextObjWordBasedColumn("aw")<cr>
 omap <silent> aC :call TextObjWordBasedColumn("aW")<cr>| xmap <silent> aC :<C-u>call TextObjWordBasedColumn("aW")<cr>
 omap <silent> rc :call TextObjWordBasedColumn("iw")<cr>| xmap <silent> rc :<C-u>call TextObjWordBasedColumn("iw")<cr>
@@ -378,11 +378,11 @@ nnoremap w<CR> :w<CR>
 " ------------------ Plugin keys ------------------
 " GitGutter
 let g:gitgutter_map_keys = 0
-nmap <Leader>hp <Plug>GitGutterPreviewHunk
-nmap <Leader>hs <Plug>GitGutterStageHunk
-nmap <Leader>hu <Plug>GitGutterUndoHunk
-nmap [c <Plug>GitGutterPrevHunk
-nmap ]c <Plug>GitGutterNextHunk
+nmap <Leader>hp <Plug>(GitGutterPreviewHunk)
+nmap <Leader>hs <Plug>(GitGutterStageHunk)
+nmap <Leader>hu <Plug>(GitGutterUndoHunk)
+nmap [c <Plug>(GitGutterPrevHunk)
+nmap ]c <Plug>(GitGutterNextHunk)
 
 " CtrlSpace
 nnoremap <silent> <C-Space> :CtrlSpace<CR>
