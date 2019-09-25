@@ -1,12 +1,11 @@
 # Dotfiles
 
 ## How to
-Clone this repository to the directory of your choise. Init script can be used to apply dotfiles on ubuntu. Type ./init.sh -h for details.
+Clone this repository to the directory of your choice. Init script can be used to apply dotfiles on Manjaro and Ubuntu. Type ./init.sh -h for details.
 On other distros init.sh can be used as a guideline. Dependencies may vary on different distributions. Proper installation of compiled applications can be specified on each project's github page.
 
 Local preferences for zsh can be kept at ~/.zshrclocal. If this file exists, .zshrc will load it.
 Local scripts can be stored in ~/.scripts/local. Git will ignore them.
-Preferences file is yet to be created
 
 ## Reminders
 
@@ -15,10 +14,10 @@ Preferences file is yet to be created
 #### rofi
 | Key               | Function                                                                   |
 |-------------------|----------------------------------------------------------------------------|
-| Alt+(H\|L)        | Switch to previous|next modi                                               |
+| Alt+(N\|O)        | Switch to previous|next modi                                               |
 | Ctrl+[Shift+]Tab  | See above                                                                  |
 | Shift+(Left\|Right)| See above                                                                 |
-| Alt+(J\|K)        | Switch to next|previous line                                               |
+| Alt+(E\|I)        | Switch to next|previous line                                               |
 | (Down\|Up)        | See above                                                                  |
 | [Shift+]Tab       | Switch to previous|next line. Tab autoselects entry if only one is left.   |
 | Ctrl+V            | Paste from clipboard                                                       |
@@ -33,9 +32,6 @@ Only main keys are listed. Others are default. Use `rofi -show keys` to get list
 | Meta+\`           | Show previous notification                                                 |
 | Meta+Esc          | Close notification                                                         |
 | Meta+Ctrl+Esc     | Close all notifications                                                    |
-
-#### neovim
-List will be to big. See .config/nvim/init.vim. Will be restructured one day for better readability
 
 ### VimWiki
 VimWiki is set up to use markdown syntax.
@@ -95,8 +91,5 @@ If this is not possible, create `.clang_complete` file with compilation flags in
 TODO. Xresources
 
 ## To do:
-* Make init script modular, so it is possible to choose what to install
-   * Apply zsh
-* Write own vim snippets instead of provided by plugin
 * Store wallpapers on different host. Consider google drive or dropbox
 * Store preferences in file, so desired behavior can be changed at will
