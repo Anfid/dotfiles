@@ -369,6 +369,8 @@ xmap gS  <Plug>VgSurround
 " ------------------ Free keys ------------------
 noremap <C-b>   <Nop>
 noremap ;       <Nop>
+let g:pandoc#keyboard#use_default_mappings = 0
+let g:fugitive_no_maps = 1
 
 
 " ------------------ Quality of life ------------------
@@ -462,8 +464,3 @@ nmap z <Plug>(RepeatUndo)
 if empty(mapcheck("<Plug>(RepeatUndo)"))
   nnoremap <Plug>(RepeatUndo) u
 endif
-
-augroup RemoveFugitiveMapping
-  autocmd!
-  autocmd BufEnter * silent! execute "nunmap <buffer> <silent> y<C-G>"
-augroup END
