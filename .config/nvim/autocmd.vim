@@ -30,7 +30,7 @@ autocmd filetype sh call ShFtConfig()
 
 " ------------------ Vimwiki
 function! VimwikiFtConfig()
-  setlocal tabstop=3 softtabstop=3 shiftwidth=3 expandtab wrap
+  setlocal tabstop=3 softtabstop=3 shiftwidth=3 expandtab breakindent wrap
 
   set syntax=pandoc
 
