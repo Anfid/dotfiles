@@ -26,7 +26,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-repeat'
-Plug 'vimwiki/vimwiki'
+"Plug 'vimwiki/vimwiki'
 Plug 'lyokha/vim-xkbswitch'
 Plug 'vim-airline/vim-airline'
 Plug 'gcavallanti/vim-noscrollbar'
@@ -54,6 +54,7 @@ Plug 'terryma/vim-expand-region'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
+Plug 'neovimhaskell/haskell-vim'
 Plug 'tbastos/vim-lua'
 Plug 'derekwyatt/vim-scala'
 Plug 'vim-pandoc/vim-pandoc'
@@ -79,7 +80,7 @@ Plug 'SirVer/ultisnips', { 'on': [] }
 Plug 'honza/vim-snippets'
 
 " colorschemes
-Plug 'morhetz/gruvbox'          " gruvbox
+Plug 'dkasak/gruvbox'          " gruvbox
 
 call plug#end()
 
