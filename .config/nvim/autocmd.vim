@@ -9,11 +9,12 @@ autocmd TermOpen * startinsert
 autocmd FileType qf map <buffer> dd :RemoveQFItem<cr>
 
 " ------------------ Rust
-au FileType rust nmap gd <Plug>(rust-def)
+au FileType rust nmap gd <Cmd>TagImposterAnticipateJump<CR><Plug>(rust-def)
 au FileType rust nmap gs <Plug>(rust-def-split)
 au FileType rust nmap gx <Plug>(rust-def-vertical)
-autocmd BufRead *.rs :setlocal tags=./.tags.rs;/,$RUST_SRC_PATH/rusty-tags.vi
-autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet -O=.tags.rs --start-dir=" . expand('%:p:h') . "&" | redraw!
+au FileType rust nmap <C-e> <Cmd>TagImposterAnticipateJump<CR><Plug>(rust-def)
+"autocmd BufRead *.rs :setlocal tags=./.tags.rs;/,$RUST_SRC_PATH/rusty-tags.vi
+"autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet -O=.tags.rs --start-dir=" . expand('%:p:h') . "&" | redraw!
 
 
 " ------------------ Vim

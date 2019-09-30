@@ -54,6 +54,7 @@ Plug 'terryma/vim-expand-region'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
+Plug 'idbrii/vim-tagimposter'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'tbastos/vim-lua'
 Plug 'derekwyatt/vim-scala'
@@ -146,6 +147,7 @@ let g:loaded_netrwPlugin = 1
 
 " gutentags
 "let g:gutentags_ctags_tagfile = './.tags'
+"let g:gutentags_ctags_executable_rust = 'rusty-tags vi'
 let g:gutentags_cache_dir = '~/.cache/ctags'
 let g:gutentags_ctags_auto_set_tags = 0
 let g:gutentags_generate_on_empty_buffer = 1
