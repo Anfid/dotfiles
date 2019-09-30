@@ -296,7 +296,7 @@ call s:MapNextFamily('t','tab')
 
 " Config editong
 nnoremap <silent> <Leader>sc <Cmd>tabedit ~/.config/nvim<CR>
-nnoremap <silent> <Leader>sr <Cmd>source ~/.config/nvim/init.vim<CR>
+nnoremap <Leader>sr <Cmd>source ~/.config/nvim/init.vim<Bar>source .nvimrc<CR>
 nnoremap <silent> <Leader>st <Cmd>source %<CR>
 
 
@@ -428,7 +428,7 @@ nnoremap <silent> <C-_> :BLines<CR>
 
 " git (VCS)
 nnoremap <silent> <Leader>vb <Cmd>Gblame<CR>
-nnoremap <silent> <Leader>vs <Cmd>Gstatus<CR>
+nnoremap <silent> <Leader>vs <Cmd>G<CR>
 nnoremap <silent> <Leader>vd <Cmd>Gdiff<CR>
 nnoremap <silent> <Leader>vc <Cmd>Commits<CR>
 nnoremap <silent> <Leader>vf <Cmd>BCommits<CR>
