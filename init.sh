@@ -199,9 +199,7 @@ function install_from_rep {
     export PATH="$HOME/.cargo/bin:$PATH"
 
     rustup toolchain add nightly
-    rustup component add rust-src
-    rustup component add rustfmt-preview
-    rustup component add clippy-preview
+    rustup component add rust-src rustfmt-preview clippy-preview rls rust-analysis
 
     cargo install fd-find
     cargo install ripgrep
@@ -271,6 +269,8 @@ function install_initial {
     sudo pacman -S \
       kitty ripgrep fd-find exa bat i3lock-color fzf python2-pip python-pip \
       python-pywal python-pygments mps-youtube mplayer rust-racer rustup
+
+    yay -S haskell-ide-engine bash-language-server
     ;;
   esac
 

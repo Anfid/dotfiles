@@ -51,6 +51,7 @@ Plug 'junegunn/vim-after-object'
 Plug 'terryma/vim-expand-region'
 
 " language support
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
@@ -255,6 +256,12 @@ let g:vimwiki_list = [
 \   'syntax': 'markdown',
 \   'ext': '.md' }]
 
+
+" Coc
+let g:coc_global_extensions = ['coc-git', 'coc-rls', 'coc-json']
+" https://github.com/neoclide/coc-tabnine
+" https://github.com/neoclide/coc-highlight
+" https://github.com/neoclide/coc-rls
 
 " Languages
 " cpp
