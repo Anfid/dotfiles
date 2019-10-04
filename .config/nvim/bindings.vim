@@ -161,6 +161,9 @@ nmap F <Plug>(clever-f-F)| xmap F <Plug>(clever-f-F)| omap F <Plug>(clever-f-F)
 nmap p <Plug>(clever-f-t)| xmap p <Plug>(clever-f-t)| omap p <Plug>(clever-f-t)
 nmap P <Plug>(clever-f-T)| xmap P <Plug>(clever-f-T)| omap P <Plug>(clever-f-T)
 
+nmap [c <Plug>(coc-git-prevchunk)
+nmap ]c <Plug>(coc-git-nextchunk)
+
 " Fall through to non-whitespace
 noremap <silent> <leader>e <Cmd>call JumpVertical('down')<CR>
 noremap <silent> <leader>i <Cmd>call JumpVertical('up')<CR>
@@ -366,6 +369,30 @@ xmap S   <Plug>VSurround
 xmap gS  <Plug>VgSurround
 
 
+" ------------------ LSP ------------------
+nmap <leader>lei <Plug>(coc-diagnostic-info)
+nmap <leader>len <Plug>(coc-diagnostic-next-error)
+nmap <leader>lep <Plug>(coc-diagnostic-prev-error)
+nmap <leader>lgd <Plug>(coc-definition)
+nmap <leader>lgc <Plug>(coc-declaration)
+nmap <leader>lgi <Plug>(coc-implementation)
+nmap <leader>lgr <Plug>(coc-references)
+nmap <leader>lr <Plug>(coc-rename)
+nmap <leader>lf <Plug>(coc-refactor)
+nmap <leader>ff <Plug>(coc-format)
+nmap <leader>f <Plug>(coc-format-selected)
+xmap <leader>f <Plug>(coc-format-selected)
+nnoremap <silent> <leader>d <Cmd>call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+
 " ------------------ Free keys ------------------
 noremap <C-b>   <Nop>
 noremap ;       <Nop>
@@ -383,8 +410,6 @@ let g:gitgutter_map_keys = 0
 nmap <Leader>hp <Plug>(GitGutterPreviewHunk)
 nmap <Leader>hs <Plug>(GitGutterStageHunk)
 nmap <Leader>hu <Plug>(GitGutterUndoHunk)
-nmap [c <Plug>(GitGutterPrevHunk)
-nmap ]c <Plug>(GitGutterNextHunk)
 
 " CtrlSpace
 nnoremap <silent> <C-Space> :CtrlSpace<CR>
@@ -437,6 +462,11 @@ autocmd User fugitive
  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
  \   nnoremap <buffer> <BS> :edit %:h<CR> |
  \ endif
+" experimental
+nmap <leader>vi <Plug>(coc-git-chunkinfo)
+nnoremap <silent> <space>vvs <Cmd>CocList --normal gstatus<CR>
+nnoremap <silent> <space>vp <Cmd>CocCommand git.chunkStage<CR>
+nnoremap <silent> <space>vz <Cmd>CocCommand git.chunkUndo<CR>
 
 " Ranger
 nnoremap - :Ranger<CR>

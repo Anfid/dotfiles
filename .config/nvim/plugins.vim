@@ -27,7 +27,6 @@ Plug 'majutsushi/tagbar'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-repeat'
 "Plug 'vimwiki/vimwiki'
-Plug 'lyokha/vim-xkbswitch'
 Plug 'vim-airline/vim-airline'
 Plug 'gcavallanti/vim-noscrollbar'
 Plug 'fisadev/FixedTaskList.vim'
@@ -55,6 +54,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
+Plug 'cespare/vim-toml'
 Plug 'idbrii/vim-tagimposter'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'tbastos/vim-lua'
@@ -63,19 +63,19 @@ Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 
 " completions
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
-Plug 'ncm2/ncm2-pyclang'
-Plug 'ncm2/ncm2-racer'
-Plug 'Shougo/neco-vim' " ncm2-vim
-Plug 'ncm2/ncm2-vim'
-Plug 'ncm2/ncm2-tagprefix'
-Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-github'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-ultisnips'
-Plug 'artur-shaik/vim-javacomplete2' " ncm2-jc2
-Plug 'ObserverOfTime/ncm2-jc2'
+"Plug 'ncm2/ncm2'
+"Plug 'roxma/nvim-yarp'
+"Plug 'ncm2/ncm2-pyclang'
+"Plug 'ncm2/ncm2-racer'
+"Plug 'Shougo/neco-vim' " ncm2-vim
+"Plug 'ncm2/ncm2-vim'
+"Plug 'ncm2/ncm2-tagprefix'
+"Plug 'ncm2/ncm2-path'
+"Plug 'ncm2/ncm2-github'
+"Plug 'ncm2/ncm2-bufword'
+"Plug 'ncm2/ncm2-ultisnips'
+"Plug 'artur-shaik/vim-javacomplete2' " ncm2-jc2
+"Plug 'ObserverOfTime/ncm2-jc2'
 
 " snippets
 Plug 'SirVer/ultisnips', { 'on': [] }
@@ -168,10 +168,6 @@ let g:tagbar_sort = 0
 " auto-pairs
 let g:AutoPairsFlyMode = 0
 
-" xkbswitch
-let g:XkbSwitchEnabled = 1
-let g:XkbSwitchNLayout = 'us'
-
 " airline
 let g:airline_inactive_collapse = 0
 let g:airline_powerline_fonts = 1
@@ -184,8 +180,8 @@ let g:airline#extensions#tabline#show_tab_nr = 0 " Disable tab numbers
 let g:airline#extensions#quickfix#quickfix_text = 'Quickfix'
 let g:airline#extensions#quickfix#location_text = 'Location'
 let g:airline#extensions#branch#sha1_len = 8
-let g:airline#extensions#nrrwrgn#enabled = 1
 let g:airline#extensions#ctrlspace#enabled = 1
+let g:airline#extensions#coc#enabled = 1
 let g:CtrlSpaceStatuslineFunction = "airline#extensions#ctrlspace#statusline()"
 " sections X and C are swapped as C gets highlighted on file modification
 let g:airline#extensions#default#layout = [
@@ -220,6 +216,7 @@ function! AirlineInit()
 autocmd User AirlineAfterInit call AirlineInit()
 
 " gitgutter
+let g:gitgutter_enabled = 0
 let g:gitgutter_max_signs               = 1500
 let g:gitgutter_sign_added              = '┃'
 let g:gitgutter_sign_modified           = '┃'
@@ -258,10 +255,9 @@ let g:vimwiki_list = [
 
 
 " Coc
-let g:coc_global_extensions = ['coc-git', 'coc-rls', 'coc-json']
+let g:coc_global_extensions = ['coc-git', 'coc-rls', 'coc-json', 'coc-tabnine', 'coc-marketplace']
 " https://github.com/neoclide/coc-tabnine
 " https://github.com/neoclide/coc-highlight
-" https://github.com/neoclide/coc-rls
 
 " Languages
 " cpp
@@ -290,15 +286,15 @@ let g:pandoc#syntax#conceal#urls = 1
 
 " Completion
 " ncm2
-let g:ncm2#filter="same_word"
-let g:ncm2#popup_limit=20
-autocmd BufEnter * call ncm2#enable_for_buffer()
+"let g:ncm2#filter="same_word"
+"let g:ncm2#popup_limit=20
+"autocmd BufEnter * call ncm2#enable_for_buffer()
 
-let g:ncm2_pyclang#library_path = '/usr/lib/llvm-6.0/lib'
-let g:ncm2_pyclang#database_path = [
-\ 'compile_commands.json',
-\ 'build/compile_commands.json' ]
-let g:ncm2_pyclang#args_file_path = ['.clang_complete']
+"let g:ncm2_pyclang#library_path = '/usr/lib/llvm-6.0/lib'
+"let g:ncm2_pyclang#database_path = [
+"\ 'compile_commands.json',
+"\ 'build/compile_commands.json' ]
+"let g:ncm2_pyclang#args_file_path = ['.clang_complete']
 
 " Snippets
 let g:UltiSnipsEditSplit="vertical"
