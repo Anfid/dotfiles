@@ -109,6 +109,7 @@ function update_symlink {
   [[ ! -d $HOME/.config ]] && mkdir "$HOME/.config"
 
   safe_link ".config/compton.conf"
+  safe_link ".config/compton-play.conf"
 
   for DOTFILES_CONF_DIR in $DOTFILES_DIR/.config/*/
   do
