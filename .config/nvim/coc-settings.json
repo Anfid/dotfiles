@@ -50,6 +50,11 @@
     "default": "\uf29c"
   },
 
+  "rust.build_on_save": true,
+  "rust.clippy_preference": "on",
+  "rust.jobs": 2,
+  "rust.full_docs": true,
+
   "languageserver": {
     "haskell": {
       "command": "hie-wrapper",
