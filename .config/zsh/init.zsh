@@ -49,6 +49,10 @@ if hash exa 2>/dev/null; then
     alias lti="noglob exa -Ta --group-directories-first -I" # ignore_glob
 fi
 
+if hash elm 2>/dev/null; then
+    alias elm="https_proxy=elm.dmy.fr:9999 elm"
+fi
+
 alias glog="nvim +ShowCommitsAndExit"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
