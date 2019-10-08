@@ -11,7 +11,7 @@ call plug#begin('~/.config/nvim/plugins/')
 Plug 'junegunn/vim-plug'
 Plug 'tpope/vim-rsi'
 Plug 'vim-ctrlspace/vim-ctrlspace'
-Plug 'w0rp/ale'
+Plug 'w0rp/ale', { 'for': ['c', 'cpp', 'haskell', 'lua', 'vim'] }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
@@ -22,14 +22,13 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'pseewald/vim-anyfold'
 Plug 'rhysd/clever-f.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'ludovicchabant/vim-gutentags', { 'for': ['c', 'cpp', 'haskell', 'lua', 'sh'] }
 Plug 'majutsushi/tagbar'
+Plug 'liuchengxu/vista.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-repeat'
-"Plug 'vimwiki/vimwiki'
 Plug 'vim-airline/vim-airline'
 Plug 'gcavallanti/vim-noscrollbar'
-Plug 'fisadev/FixedTaskList.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'yggdroot/indentline'
 Plug 'RRethy/vim-illuminate'
@@ -53,7 +52,6 @@ Plug 'terryma/vim-expand-region'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'rust-lang/rust.vim'
-Plug 'racer-rust/vim-racer'
 Plug 'cespare/vim-toml'
 Plug 'idbrii/vim-tagimposter'
 Plug 'neovimhaskell/haskell-vim'
@@ -82,6 +80,7 @@ Plug 'SirVer/ultisnips', { 'on': [] }
 Plug 'honza/vim-snippets'
 
 " colorschemes
+Plug 'luochen1990/rainbow'
 Plug 'dkasak/gruvbox'          " gruvbox
 
 call plug#end()
@@ -165,6 +164,17 @@ let g:clever_f_fix_key_direction = 1
 let g:tagbar_zoomwidth = 0
 let g:tagbar_sort = 0
 
+" Vista
+let g:vista_icon_indent = ["▸ ", ""]
+let g:vista_default_executive = 'ctags'
+let g:vista_executive_for = {
+  \ 'rust': 'coc',
+  \ 'lua': 'coc',
+  \ }
+" change to 'floating_win' once neovim is updated
+let g:vista_echo_cursor_strategy = 'echo'
+let g:vista_close_on_jump = 1
+
 " auto-pairs
 let g:AutoPairsFlyMode = 0
 
@@ -237,27 +247,9 @@ let g:neoterm_fixedsize = 1
 let g:neoterm_term_per_tab = 1
 
 
-" vimwiki
-let g:vimwiki_use_mouse = 1
-let g:vimwiki_folding = 'list'
-let g:vimwiki_dir_link = 'index'
-let g:vimwiki_ext2syntax = {
-\ '.md': 'markdown',
-\ '.mkd': 'markdown',
-\ '.wiki': 'media'}
-let g:vimwiki_list = [
-\ { 'path': '~/vimwiki/',
-\   'syntax': 'markdown',
-\   'ext': '.md' },
-\ { 'path': '~/.wiki/',
-\   'syntax': 'markdown',
-\   'ext': '.md' }]
-
-
 " Coc
-let g:coc_global_extensions = ['coc-git', 'coc-rls', 'coc-json', 'coc-tabnine', 'coc-marketplace']
-" https://github.com/neoclide/coc-tabnine
-" https://github.com/neoclide/coc-highlight
+let g:coc_global_extensions = ['coc-git', 'coc-rls', 'coc-lua', 'coc-json', 'coc-marketplace']
+
 
 " Languages
 " cpp
@@ -272,7 +264,7 @@ let g:rustfmt_autosave = 1
 let g:rust_conceal = 0
 let g:rust_conceal_mod_path = 0
 let g:rust_conceal_pub = 0
-let g:racer_experimental_completer = 1
+let g:racer_experimental_completer = 0
 let g:rustfmt_fail_silently = 0
 
 " lua
@@ -300,7 +292,12 @@ let g:pandoc#syntax#conceal#urls = 1
 let g:UltiSnipsEditSplit="vertical"
 
 " colorscheme
-let g:gruvbox_bold=1
-let g:gruvbox_italic=1
-let g:gruvbox_invert_selection=0
+let g:gruvbox_bold = 1
+let g:gruvbox_italic = 1
+let g:gruvbox_invert_selection = 0
 let g:gruvbox_italicize_strings=1
+
+let g:rainbow_active = 1
+let g:rainbow_conf = {
+\ 'guifgs': ['#98971a', 'darkorange3', '#cc241d', '#b16286', '#458588'],
+\ }

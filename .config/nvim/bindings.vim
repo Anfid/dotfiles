@@ -440,11 +440,8 @@ let g:CtrlSpaceKeys = {
   \ "i": "ctrlspace#keys#common#Up", },
 \ }
 
-" Tagbar
-nmap <silent> <C-o> :TagbarOpenAutoClose<CR>
-let g:tagbar_map_togglecaseinsensitive = "t"
-let g:tagbar_map_togglefold = ",a"
-let g:tagbar_map_jump = ["o", "<CR>"]
+" Vista
+nmap <silent> <C-o> :Vista<CR>
 
 " fuzzy
 nnoremap <silent> <C-f> :Files<CR>
