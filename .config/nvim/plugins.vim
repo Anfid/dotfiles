@@ -52,6 +52,7 @@ Plug 'terryma/vim-expand-region'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'rust-lang/rust.vim'
+Plug 'tikhomirov/vim-glsl'
 Plug 'cespare/vim-toml'
 Plug 'idbrii/vim-tagimposter'
 Plug 'neovimhaskell/haskell-vim'
