@@ -3,6 +3,9 @@ autocmd BufWinEnter,WinEnter term://* startinsert
 autocmd BufLeave term://* stopinsert
 autocmd TermOpen * startinsert
 
+" ------------------ Coc
+autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+
 " ------------------ QF List
 :command! RemoveQFItem :call RemoveQFItem()
 " Map function to dd in qf list buffer

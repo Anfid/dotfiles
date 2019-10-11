@@ -171,7 +171,7 @@ noremap <silent> <leader>i <Cmd>call JumpVertical('up')<CR>
 " Insert
 inoremap <expr> <Tab>   (pumvisible() ? "\<C-n>" : "\<Tab>")
 inoremap <expr> <S-tab> (pumvisible() ? "\<C-p>" : "\<S-Tab>")
-inoremap <expr> <CR>    (pumvisible() ? "\<c-y>" : "\<CR>")
+inoremap <expr> <CR>    (pumvisible() ? "\<C-y>" : "\<CR>")
 
 " Terminal
 tnoremap <expr> <A-r> '<C-\><C-n>"'.nr2char(getchar()).'pa'
@@ -479,9 +479,9 @@ nnoremap <silent> <Leader>gh :GitGutterLineHighlightsToggle<CR>
 
 
 " ------------------ UltiSnips ------------------
-let g:UltiSnipsExpandTrigger="<C-w>"
-let g:UltiSnipsJumpForwardTrigger="<C-n>"
-let g:UltiSnipsJumpBackwardTrigger="<C-p>"
+imap <C-w> <Plug>(coc-snippets-expand)
+let g:coc_snippet_next = '<C-e>'
+let g:coc_snippet_prev = '<C-y>'
 
 nnoremap <silent> <Leader>hs :call gruvbox#hls_toggle()<CR>
 

@@ -172,8 +172,7 @@ let g:vista_executive_for = {
   \ 'rust': 'coc',
   \ 'lua': 'coc',
   \ }
-" change to 'floating_win' once neovim is updated
-let g:vista_echo_cursor_strategy = 'echo'
+let g:vista_echo_cursor_strategy = 'floating_win'
 let g:vista_close_on_jump = 1
 
 " auto-pairs
@@ -249,7 +248,7 @@ let g:neoterm_term_per_tab = 1
 
 
 " Coc
-let g:coc_global_extensions = ['coc-git', 'coc-rls', 'coc-lua', 'coc-json', 'coc-marketplace']
+let g:coc_global_extensions = ['coc-snippets', 'coc-git', 'coc-rls', 'coc-lua', 'coc-json', 'coc-marketplace']
 
 
 " Languages
