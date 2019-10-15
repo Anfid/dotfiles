@@ -172,6 +172,7 @@ noremap <silent> <leader>i <Cmd>call JumpVertical('up')<CR>
 inoremap <expr> <Tab>   (pumvisible() ? "\<C-n>" : "\<Tab>")
 inoremap <expr> <S-tab> (pumvisible() ? "\<C-p>" : "\<S-Tab>")
 inoremap <expr> <CR>    (pumvisible() ? "\<C-y>" : "\<CR>")
+inoremap <silent> <A-Space> <Esc>
 
 " Terminal
 tnoremap <expr> <A-r> '<C-\><C-n>"'.nr2char(getchar()).'pa'
@@ -263,17 +264,20 @@ nnoremap <silent> <Leader>hs :call gruvbox#hls_toggle()<CR>
 
 " ------------------ Buffers ------------------
 " Splits
-noremap <silent> <A-n> <Esc><C-w>h| inoremap <silent> <A-n> <Esc><C-w>h| cnoremap <silent> <A-n> <Esc><C-w>h
-noremap <silent> <A-e> <Esc><C-w>j| inoremap <silent> <A-e> <Esc><C-w>j| cnoremap <silent> <A-e> <Esc><C-w>j
-noremap <silent> <A-i> <Esc><C-w>k| inoremap <silent> <A-i> <Esc><C-w>k| cnoremap <silent> <A-i> <Esc><C-w>k
-noremap <silent> <A-o> <Esc><C-w>l| inoremap <silent> <A-o> <Esc><C-w>l| cnoremap <silent> <A-o> <Esc><C-w>l
-tnoremap <silent> <A-n> <C-\><C-N><C-w>h
-tnoremap <silent> <A-e> <C-\><C-N><C-w>j
-tnoremap <silent> <A-i> <C-\><C-N><C-w>k
-tnoremap <silent> <A-o> <C-\><C-N><C-w>l
+noremap <silent> <A-n> <Esc><C-w>h| inoremap <silent> <A-n> <Esc><C-w>h| tnoremap <silent> <A-n> <C-\><C-N><C-w>h
+noremap <silent> <A-e> <Esc><C-w>j| inoremap <silent> <A-e> <Esc><C-w>j| tnoremap <silent> <A-e> <C-\><C-N><C-w>j
+noremap <silent> <A-i> <Esc><C-w>k| inoremap <silent> <A-i> <Esc><C-w>k| tnoremap <silent> <A-i> <C-\><C-N><C-w>k
+noremap <silent> <A-o> <Esc><C-w>l| inoremap <silent> <A-o> <Esc><C-w>l| tnoremap <silent> <A-o> <C-\><C-N><C-w>l
+nnoremap <silent> <C-w>N <C-w>H| inoremap <silent> <C-w>N <C-w>H| tnoremap <silent> <A-w>N <C-\><C-N><C-w>Ha
+nnoremap <silent> <C-w>E <C-w>J| inoremap <silent> <C-w>E <C-w>J| tnoremap <silent> <A-w>E <C-\><C-N><C-w>Ja
+nnoremap <silent> <C-w>I <C-w>K| inoremap <silent> <C-w>I <C-w>K| tnoremap <silent> <A-w>I <C-\><C-N><C-w>Ka
+nnoremap <silent> <C-w>O <C-w>L| inoremap <silent> <C-w>O <C-w>L| tnoremap <silent> <A-w>O <C-\><C-N><C-w>La
 
 nnoremap <silent> <C-w>r :resize <Bar> vertical resize<CR>
-tnoremap <silent> <C-w>r <C-\><C-n>:resize<CR>a
+tnoremap <silent> <A-w>r <C-\><C-n>:resize <Bar> vertical resize<CR>a
+tnoremap <silent> <A-w>o <C-\><C-n><C-w>oa
+tnoremap <silent> <A-w><Esc> <Nop>
+tnoremap <silent> <A-Space> <C-\><C-n>
 
 " Tabs
 nnoremap <silent> <Tab> gt
@@ -478,10 +482,22 @@ nnoremap <silent> <Leader>tl :TaskList<CR>
 nnoremap <silent> <Leader>gh :GitGutterLineHighlightsToggle<CR>
 
 
-" ------------------ UltiSnips ------------------
-imap <C-w> <Plug>(coc-snippets-expand)
+" ------------------ Snippets ------------------
+imap <silent><expr> <C-s>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
 let g:coc_snippet_next = '<C-e>'
 let g:coc_snippet_prev = '<C-y>'
+let g:UltiSnipsExpandTrigger = ''
+let g:UltiSnipsListSnippets  = ''
 
 nnoremap <silent> <Leader>hs :call gruvbox#hls_toggle()<CR>
 
