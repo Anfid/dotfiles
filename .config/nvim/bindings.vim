@@ -125,7 +125,7 @@ endfunction
 
 
 " ------------------ Leader ------------------
-noremap <Space> <Nop>
+nnoremap <Space> <Nop>| xnoremap <Space> <Nop>
 let mapleader = " "
 
 
@@ -181,8 +181,8 @@ tnoremap <expr> <A-r> '<C-\><C-n>"'.nr2char(getchar()).'pa'
 " Insert mode
 nnoremap a i
 nnoremap t a
-noremap <expr> A (&wrap == 1 ? "g^i" : "^i")
-noremap <expr> T (&wrap == 1 ? "g$a" : "$a")
+nnoremap <expr> A (&wrap == 1 ? "g^i" : "^i")| xnoremap <expr> A (&wrap == 1 ? "g^i" : "^i")
+nnoremap <expr> T (&wrap == 1 ? "g$a" : "$a")| xnoremap <expr> T (&wrap == 1 ? "g$a" : "$a")
 " Make insert/add work also in visual line mode like in visual block mode
 xnoremap <silent> <expr> A (mode() =~# "[V]" ? "\<C-V>1o$I" : "I")
 xnoremap <silent> <expr> A (mode() =~# "[V]" ? "\<C-V>0o$I" : "I")
