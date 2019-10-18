@@ -11,3 +11,4 @@ if (( $+commands[rustc] )); then
 fi
 
 export EDITOR='nvim'
+export WORDCHARS='~*-_.!?#$%^&\()[]{}<>"`'"'"
