@@ -148,6 +148,8 @@ _zcompinit_custom() {
     compinit -C -d "$zcd"
     { [[ ! -f "$zcdc" || "$zcd" -nt "$zcdc" ]] && rm -f "$zcdc" && zcompile "$zcd" } &!
   fi
+  _comp_options+=(globdots)
+
   unsetopt extendedglob
 }
 ######################
