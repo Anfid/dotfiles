@@ -18,12 +18,14 @@ if [[ "${terminfo[kcbt]}" != "" ]]; then
   bindkey "${terminfo[kcbt]}" reverse-menu-complete   # [Shift-Tab] - move through the completion menu backwards
 fi
 
+bindkey -s "" ". ranger\n"
+
 # VI-mode remaps
 # normal mode
-bindkey -M vicmd "H" vi-first-non-blank
-bindkey -M vicmd "L" vi-end-of-line
-bindkey -M vicmd "s" vi-backward-word
-bindkey -M vicmd "S" vi-backward-blank-word
+bindkey -M vicmd "N" vi-first-non-blank
+bindkey -M vicmd "O" vi-end-of-line
+bindkey -M vicmd "l" vi-backward-word
+bindkey -M vicmd "L" vi-backward-blank-word
 bindkey -M vicmd "*" history-substring-search-up
 bindkey -M vicmd "#" history-substring-search-down
 bindkey -M vicmd "b" history-substring-search-up
