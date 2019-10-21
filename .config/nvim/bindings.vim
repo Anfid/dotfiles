@@ -268,10 +268,10 @@ noremap <silent> <A-n> <Esc><C-w>h| inoremap <silent> <A-n> <Esc><C-w>h| tnorema
 noremap <silent> <A-e> <Esc><C-w>j| inoremap <silent> <A-e> <Esc><C-w>j| tnoremap <silent> <A-e> <C-\><C-N><C-w>j
 noremap <silent> <A-i> <Esc><C-w>k| inoremap <silent> <A-i> <Esc><C-w>k| tnoremap <silent> <A-i> <C-\><C-N><C-w>k
 noremap <silent> <A-o> <Esc><C-w>l| inoremap <silent> <A-o> <Esc><C-w>l| tnoremap <silent> <A-o> <C-\><C-N><C-w>l
-nnoremap <silent> <C-w>N <C-w>H| inoremap <silent> <C-w>N <C-w>H| tnoremap <silent> <A-w>N <C-\><C-N><C-w>Ha
-nnoremap <silent> <C-w>E <C-w>J| inoremap <silent> <C-w>E <C-w>J| tnoremap <silent> <A-w>E <C-\><C-N><C-w>Ja
-nnoremap <silent> <C-w>I <C-w>K| inoremap <silent> <C-w>I <C-w>K| tnoremap <silent> <A-w>I <C-\><C-N><C-w>Ka
-nnoremap <silent> <C-w>O <C-w>L| inoremap <silent> <C-w>O <C-w>L| tnoremap <silent> <A-w>O <C-\><C-N><C-w>La
+nnoremap <silent> <C-w>N <C-w>H| tnoremap <silent> <A-w>N <C-\><C-N><C-w>Ha
+nnoremap <silent> <C-w>E <C-w>J| tnoremap <silent> <A-w>E <C-\><C-N><C-w>Ja
+nnoremap <silent> <C-w>I <C-w>K| tnoremap <silent> <A-w>I <C-\><C-N><C-w>Ka
+nnoremap <silent> <C-w>O <C-w>L| tnoremap <silent> <A-w>O <C-\><C-N><C-w>La
 
 nnoremap <silent> <C-w>r :resize <Bar> vertical resize<CR>
 tnoremap <silent> <A-w>r <C-\><C-n>:resize <Bar> vertical resize<CR>a
