@@ -1,0 +1,104 @@
+eval %sh{
+    if ! [ -d $HOME/.config/kak ]; then
+      mkdir -p $HOME/.config/kak
+    fi
+}
+
+eval %sh{
+    if ! [ -d $HOME/.config/kak/plugins/plug.kak ]; then
+      mkdir -p $HOME/.config/kak/plugins/plug.kak
+      git clone https://github.com/andreyorst/plug.kak.git ~/.config/kak/plugins/plug.kak
+    fi
+}
+
+source "%val{config}/plugins/plug.kak/rc/plug.kak"
+plug "andreyorst/plug.kak" noload
+
+plug "ul/kak-lsp" do %{
+    cargo build --release --locked
+    cargo install --force --path .
+} config %{
+    set-option global lsp_completion_trigger "execute-keys 'h<a-h><a-k>\S[^\h\n,=;*(){}\[\]]\z<ret>'"
+    set-option global lsp_diagnostic_line_error_sign "!"
+    set-option global lsp_diagnostic_line_warning_sign "?"
+    hook global WinSetOption filetype=(c|cpp|rust) %{
+        map window user "l" ": enter-user-mode lsp<ret>" -docstring "LSP mode"
+        lsp-enable-window
+        lsp-auto-hover-enable
+        lsp-auto-hover-insert-mode-disable
+        set-option window lsp_hover_anchor true
+        set-face window DiagnosticError default+u
+        set-face window DiagnosticWarning default+u
+    }
+    hook global WinSetOption filetype=rust %{
+        set-option window lsp_server_configuration rust.clippy_preference="on"
+    }
+    hook global KakEnd .* lsp-exit
+}
+
+
+plug "andreyorst/fzf.kak" %{
+    map -docstring 'fzf mode' global normal '<c-p>' ': fzf-mode<ret>'
+    set-option global fzf_preview_width '65%'
+    evaluate-commands %sh{
+        if [ -n "$(command -v fd)" ]; then
+    	  echo "set-option global fzf_file_command %{fd . --no-ignore --type f --follow --hidden --exclude .git --exclude .svn}"
+    	else
+    	  echo "set-option global fzf_file_command %{find . \( -path '*/.svn*' -o -path '*/.git*' \) -prune -o -type f -follow -print}"
+    	fi
+    	[ -n "$(command -v bat)" ] && echo "set-option global fzf_highlighter bat"
+    	[ -n "$(command -v rg)" ] && echo "set-option global fzf_sk_grep_command %{$kak_opt_grepcmd}"
+    }
+}
+
+plug "delapouite/kakoune-text-objects"
+
+plug "alexherbo2/auto-pairs.kak" %{
+    map global user 's' ': auto-pairs-surround<ret>' -docstring "surround selection"
+}
+
+plug "andreyorst/base16-gruvbox.kak" theme config %{
+    colorscheme base16-gruvbox-dark-soft
+}
+
+plug "andreyorst/powerline.kak" defer powerline %{
+    set-option global powerline_format 'powerline-format git bufname filetype mode_info line_column position'
+    powerline-toggle line_column off
+    powerline-theme gruvbox
+} config %{
+    powerline-start
+}
+
+# Movement
+map global normal n 'h'
+map global normal e 'j'
+map global normal i 'k'
+map global normal o 'l'
+map global normal N 'H'
+map global normal E 'J'
+map global normal I 'K'
+map global normal O 'L'
+
+map global normal l 'b'
+map global normal u 'w'
+map global normal y 'e'
+map global normal L 'B'
+map global normal U 'W'
+map global normal Y 'E'
+
+# Editing
+map global normal a 'i'
+map global normal A 'I'
+map global normal t 'a'
+map global normal T 'A'
+map global normal h 'o'
+map global normal H 'O'
+map global normal z 'u'
+map global normal Z 'U'
+map global normal c 'y'
+map global normal v 'p'
+map global normal V 'P'
+map global normal w 'c'
+
+map global view e 'jjjjj'
+map global view i 'kkkkk'
