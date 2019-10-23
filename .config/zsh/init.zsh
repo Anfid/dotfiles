@@ -4,15 +4,20 @@ export TERM=xterm-256color
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-export ZSH_CACHE_DIR="$HOME/.cache/zsh/"
+zsh_conf="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
+
+export ZPLUGIN_HOME="$zsh_conf/zplugin"
+export ZSH_CACHE_DIR="$XDG_CACHE_HOME/zsh/"
+
+# Show prompt instantly
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Create cache dir if missing
 if [[ ! -d $HOME/.cache/zsh ]]; then
   mkdir -p $HOME/.cache/zsh
 fi
-
-zsh_conf="$HOME/.config/zsh"
-
-export ZPLUGIN_HOME=$zsh_conf/zplugin
 
 # Uncomment for profiling
 #zmodload zsh/zprof
