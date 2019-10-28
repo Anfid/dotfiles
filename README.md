@@ -14,12 +14,12 @@ Local scripts can be stored in ~/.scripts/local. Git will ignore them.
 #### rofi
 | Key               | Function                                                                   |
 |-------------------|----------------------------------------------------------------------------|
-| Alt+(N\|O)        | Switch to previous|next modi                                               |
+| Alt+(N\|O)        | Switch to previous\|next modi                                              |
 | Ctrl+[Shift+]Tab  | See above                                                                  |
 | Shift+(Left\|Right)| See above                                                                 |
-| Alt+(E\|I)        | Switch to next|previous line                                               |
+| Alt+(E\|I)        | Switch to next\|previous line                                              |
 | (Down\|Up)        | See above                                                                  |
-| [Shift+]Tab       | Switch to previous|next line. Tab autoselects entry if only one is left.   |
+| [Shift+]Tab       | Switch to previous\|next line. Tab autoselects entry if only one is left.  |
 | Ctrl+V            | Paste from clipboard                                                       |
 | Ctrl+S            | Paste from primary selection                                               |
 
@@ -52,10 +52,14 @@ Note: only destinaton files are updated.
 
 ### zsh
 Zsh can handle both zsh and bash completions, but they should be kept separately. To add completions to zsh you have to generate them and write into proper directory.
-* zsh completions
+* local zsh completions
   `<echo completion> > $HOME/.zsh.compl.d/_<command>`
-* bash completions
+* local bash completions
   `<echo completion> > $HOME/.bash.compl.d/_<command>`
+* global zsh completions
+  `<echo completion> > $ZDOTDIR/zsh.compl.d/_<command>`
+* global bash completions
+  `<echo completion> > $ZDOTDIR/bash.compl.d/_<command>`
 
 ### Projects
 

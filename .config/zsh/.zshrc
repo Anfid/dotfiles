@@ -4,10 +4,12 @@ export TERM=xterm-256color
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-zsh_conf="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
+if [ -z "$ZDOTDIR" ]; then
+  export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
+fi
 
-export ZPLUGIN_HOME="$zsh_conf/zplugin"
-export ZSH_CACHE_DIR="$XDG_CACHE_HOME/zsh/"
+export ZPLUGIN_HOME="$ZDOTDIR/zplugin"
+export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/"
 
 # Show prompt instantly
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -15,8 +17,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Create cache dir if missing
-if [[ ! -d $HOME/.cache/zsh ]]; then
-  mkdir -p $HOME/.cache/zsh
+if [[ ! -d $ZSH_CACHE_DIR ]]; then
+  mkdir -p $ZSH_CACHE_DIR
 fi
 
 # Uncomment for profiling
@@ -28,10 +30,10 @@ if [[ ! -a $ZPLUGIN_HOME/bin/zplugin.zsh ]]; then
 fi
 source $ZPLUGIN_HOME/bin/zplugin.zsh
 
-source $zsh_conf/plugins.zsh
+source $ZDOTDIR/plugins.zsh
 
 # Load basic settings
-for file in $zsh_conf/settings/*; do
+for file in $ZDOTDIR/settings/*; do
   source $file
 done
 

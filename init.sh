@@ -95,9 +95,10 @@ function safe_link_dir {
 }
 
 function update_symlink {
+  # TODO: unlink broken
+  shopt -s dotglob
+
   safe_link .xinitrc
-  safe_link .zshrc
-  safe_link .zprofile
   safe_link .zshenv
   safe_link ".gtkrc-2.0"
   ln -sf "$DOTFILES_DIR/.scripts" "$HOME"

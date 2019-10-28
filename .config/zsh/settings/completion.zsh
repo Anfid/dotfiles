@@ -71,19 +71,30 @@ if [[ $COMPLETION_WAITING_DOTS = true ]]; then
   bindkey "^I" expand-or-complete-with-dots
 fi
 
+# Load zsh completions
+if [ -d "$ZDOTDIR/zsh.compl.d" ]; then
+  fpath+=$ZDOTDIR/zsh.compl.d
+fi
+
 # Load local zsh completions
-fpath+=$HOME/.zsh.compl.d
+if [ -d "$HOME/.zsh.compl.d" ]; then
+  fpath+=$HOME/.zsh.compl.d
+fi
 
 # compinit is performed in plugins.zsh after fast-syntax-highlighting plugin
 # to prevent blocking
 
-# Load local bash completions
+# Load bash completions
 autoload bashcompinit -U +X && bashcompinit
-if [[ -d $HOME/.bash.compl.d ]]
-then
-  for bcompl in $HOME/.bash.compl.d/*
-  do
+if [[ -d $ZDOTDIR/bash.compl.d ]]; then
+  for bcompl in $ZDOTDIR/bash.compl.d/*; do
     source $bcompl
   done
 fi
 
+# Load local bash completions
+if [[ -d $HOME/.bash.compl.d ]]; then
+  for bcompl in $HOME/.bash.compl.d/*; do
+    source $bcompl
+  done
+fi
