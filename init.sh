@@ -71,6 +71,52 @@ function confirm {
   fi
 }
 
+function link_recursive {
+  shopt -s dotglob
+  set -o errexit
+
+  source="$1"
+  basedir="${2:-"$1"}"
+
+  if [ "$source" = "$basedir" ]; then
+    common=""
+  else
+    common=${source#"$basedir/"}
+  fi
+
+  target="$HOME/$common"
+
+  if [ -d "$source" ]; then
+    if [ ! -e "$target" ] && [ ! -L "$target" ]; then
+      mkdir "$target"
+    elif [ ! -d "$target" ] || [ -L "$target" ]; then
+      echo "${c_C}Note:${c_NO} Moving $target to $DOTFILES_DIR/old..."
+      mkdir -p "$(dirname "$DOTFILES_DIR/old/$common")"
+      mv -f "$target" "$DOTFILES_DIR/old/$common"
+      mkdir "$target"
+    fi
+
+    for entry in "$source"/*; do
+      link_recursive "$entry" "$basedir"
+    done
+
+  elif [ -f "$source" ]; then
+    if [ -f "$target" ] && [ ! -L "$target" ]; then
+      echo "${c_C}Note:${c_NO} Moving $target to $DOTFILES_DIR/old..."
+      mv -f "$target" "$DOTFILES_DIR/old/$common"
+    fi
+    ln -sf "$source" "$target"
+
+  else
+    echo "${c_R}Error:${c_NO} $source does not exist"
+    exit 1
+  fi
+
+  set +o errexit
+
+  echo Done!
+}
+
 # arg1 is relative to dotfiles file name
 # e.g. safe_link .config/nvim/init.vim will store old init.vim in $DOTFILES_DIR/old/.config/nvim/init.vim
 # and create a symbolic link from $DOTFILES_DIR/.config/nvim/init.vim to $HOME/.config/nvim/init.vim
@@ -343,6 +389,6 @@ fi
 
 if [[ $SYMLINK = yes ]]
 then
-  update_symlink
+  link_recursive $DOTFILES_DIR/home
   exit
 fi

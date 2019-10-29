@@ -26,7 +26,7 @@ plug "ul/kak-lsp" do %{
         lsp-enable-window
         lsp-auto-hover-enable
         lsp-auto-hover-insert-mode-disable
-        set-option window lsp_hover_anchor true
+        set-option window lsp_hover_anchor false
         set-face window DiagnosticError default+u
         set-face window DiagnosticWarning default+u
     }
@@ -54,10 +54,22 @@ plug "andreyorst/fzf.kak" %{
 plug "delapouite/kakoune-text-objects"
 
 plug "andreyorst/smarttab.kak" defer smarttab %{
+    set-option global tabstop 4
+    set-option global indentwidth 4
     set-option global softtabstop 4
-    set-option global expandtab 4
+    expandtab
 } config %{
-    hook global WinSetOption filetype=(sh) expandtab 2
+    hook global WinSetOption filetype=sh %{
+        set-option window tabstop 2
+        set-option window indentwidth 2
+        set-option window softtabstop 2
+    }
+    hook global WinSetOption filetype=markdown %{
+        set-option window tabstop 3
+        set-option window indentwidth 3
+        set-option window softtabstop 3
+    }
+    hook global WinSetOption filetype=(makefile|gas) noexpandtab
 }
 
 plug "alexherbo2/auto-pairs.kak" %{
@@ -84,14 +96,20 @@ plug "andreyorst/powerline.kak" defer powerline %{
     powerline-start
 }
 
+# TODO: setup
+plug "https://gitlab.com/Screwtapello/kakoune-cargo"
+
 set global ui_options ncurses_assistant=none
 hook global WinCreate .* %{
+    git show-diff
     add-highlighter global/ number-lines -hlcursor
 }
 
 # Modes
 map global normal "'" ':'
 map global normal <a-t> <a-i>
+map global normal B v
+map global normal b V
 #map global normal ' ' ','
 
 # Movement
@@ -122,7 +140,7 @@ map global normal <A-k> <A-n>
 map global normal K N
 map global normal <A-K> <A-N>
 
-map global normal <c-e> ': lsp-definition<ret>'
+map global normal <c-e> ': lsp-definition<ret>' -docstring "jump to definition (LSP)"
 
 # Editing
 map global normal a i
@@ -140,10 +158,66 @@ map global normal v p
 map global normal V P
 map global normal w c
 
+map global normal p z
+map global normal P Z
+map global normal <a-p> <a-z>
+map global normal <a-P> <a-Z>
+
+hook global InsertChar \t %{ try %{
+  execute-keys -draft "h<a-h><a-k>\A\h+\z<ret><a-;>;%opt{indentwidth}@"
+}}
+
+hook global InsertDelete ' ' %{ try %{
+  execute-keys -draft 'h<a-h><a-k>\A\h+\z<ret>i<space><esc><lt>'
+}}
+
+# Readline bindings
+map global insert <c-b> <esc>hi          -docstring "move the cursor one character to the left"
+map global insert <c-f> <esc>li          -docstring "move the cursor one character to the right"
+map global insert <a-b> <esc>b\;i        -docstring "move the cursor one word to the left"
+map global insert <a-f> <esc>e\;i        -docstring "move the cursor one word to the right"
+map global insert <c-a> <esc>I           -docstring "move the cursor to the start of the line"
+map global insert <c-e> <esc>gli         -docstring "move the cursor to the end of the line"
+
+map global insert <c-d> <esc>c           -docstring "delete the character under the anchor"
+map global insert <c-u> <esc>Ghc         -docstring "delete from the anchor to the start of the line"
+map global insert <c-k> <esc>Glc         -docstring "delete from the anchor to the end of the line"
+map global insert <a-d> <esc>ec          -docstring "delete until the next word boundary"
+map global insert <c-w> <esc>bc          -docstring "delete until the previous word boundary"
+
+map global insert <c-t> %{
+    <esc>:try 'exec H<lt>a-k>[^\n][^\n]<lt>ret>\;dp'<ret>i
+}                                        -docstring "exchange the char before cursor with the character at cursor"
+map global insert <a-t> %{
+    <esc>:try 'exec <lt>a-k>\s<lt>ret>e' catch 'exec <lt>a-i>w'<ret><a-;>BS\s+<ret><a-">\;<space>i
+}                                        -docstring "exchange the word before cursor with the word at cursor"
+map global insert <a-u> <esc>e<a-i>w~\;i -docstring "uppercase the current or following word"
+map global insert <a-l> <esc>e<a-i>w`\;i -docstring "lowercase the current or following word"
+map global insert <a-c> <esc>e<a-i>w\;~i -docstring "capitalize the current or following word"
+
+map global insert <c-y> <esc>pi          -docstring "paste after the anchor"
+
+# Tab completion
+hook global InsertCompletionShow .* %{
+    try %{
+        # this command temporarily removes cursors preceded by whitespace;
+        # if there are no cursors left, it raises an error, does not
+        # continue to execute the mapping commands, and the error is eaten
+        # by the `try` command so no warning appears.
+        execute-keys -draft 'h<a-K>\h<ret>'
+        map window insert <tab> <c-n>
+        map window insert <s-tab> <c-p>
+    }
+}
+hook global InsertCompletionHide .* %{
+    unmap window insert <tab> <c-n>
+    unmap window insert <s-tab> <c-p>
+}
+
 # View
-map global goto n h
-map global goto o l
+map global goto n h       -docstring "line begin"
+map global goto o l       -docstring "line end"
 unmap global goto h
 unmap global goto l
-map global view e 'jjjjj'
-map global view i 'kkkkk'
+map global view e 'jjjjj' -docstring "scroll up 5 lines"
+map global view i 'kkkkk' -docstring "scroll up 5 lines"
