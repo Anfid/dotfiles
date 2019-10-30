@@ -75,16 +75,16 @@ function link_recursive {
   shopt -s dotglob
   set -o errexit
 
-  source="$1"
-  basedir="${2:-"$1"}"
+  local source="$1"
+  local basedir="${2:-"$1"}"
 
   if [ "$source" = "$basedir" ]; then
-    common=""
+    local common=""
   else
-    common=${source#"$basedir/"}
+    local common=${source#"$basedir/"}
   fi
 
-  target="$HOME/$common"
+  local target="$HOME/$common"
 
   if [ -d "$source" ]; then
     if [ ! -e "$target" ] && [ ! -L "$target" ]; then
@@ -112,9 +112,11 @@ function link_recursive {
     exit 1
   fi
 
-  set +o errexit
+  if [ "$source" = "$basedir" ]; then
+    echo Done!
+  fi
 
-  echo Done!
+  set +o errexit
 }
 
 # arg1 is relative to dotfiles file name
