@@ -34,7 +34,7 @@ conky.config = {
 
     use_xft = true,
 
-    lua_load = "~/.conky/cava.lua",
+    lua_load = "~/.config/conky/cava.lua",
     lua_draw_hook_pre = "conky_cava"
 };
 

@@ -48,7 +48,7 @@ conky.config = {
     default_color = "#FFFFFF",
 
     -- Lua Load --
-    lua_load = "~/.conky/rings.lua",
+    lua_load = "~/.config/conky/rings.lua",
     lua_draw_hook_pre = "conky_rings",
 }
 
