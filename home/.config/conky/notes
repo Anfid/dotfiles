@@ -50,5 +50,5 @@ conky.config = {
 conky.text = [[
 ${font Santana:size=14}${alignc}TODO list${alignr}
 ${font Iosevka:size=11}${stippled_hr}
-${voffset 10}${execp ~/.conky/viewnotes.sh}
+${voffset 10}${execp ~/.config/conky/viewnotes.sh}
 ]]

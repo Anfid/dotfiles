@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cat ~/vimwiki/TODO.wiki
+cat ~/NOTES.md | sed -e 's/#/\\#/g'
