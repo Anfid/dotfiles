@@ -38,7 +38,7 @@ plug "ul/kak-lsp" do %{
 
 
 plug "andreyorst/fzf.kak" %{
-    map -docstring 'fzf mode' global normal '<c-p>' ': fzf-mode<ret>'
+    map global normal '<c-p>' ': fzf-mode<ret>' -docstring 'fzf mode'
     set-option global fzf_preview_width '65%'
     evaluate-commands %sh{
         if [ -n "$(command -v fd)" ]; then
@@ -81,7 +81,7 @@ plug "alexherbo2/auto-pairs.kak" %{
 
 plug 'delapouite/kakoune-buffers' %{
     map global normal <c-space> ': enter-buffers-mode<ret>' -docstring 'buffer list'
-    map global normal <a-space> ': enter-user-mode -lock buffers<ret>' -docstring 'buffers (persistent)'
+    map global normal <a-space> ': fzf-mode<ret>b' -docstring 'buffers (persistent)'
 }
 
 plug 'andreyorst/base16-gruvbox.kak' theme config %{
@@ -221,3 +221,7 @@ unmap global goto h
 unmap global goto l
 map global view e 'jjjjj' -docstring "scroll up 5 lines"
 map global view i 'kkkkk' -docstring "scroll up 5 lines"
+
+hook global BufWritePost .* %{
+    git update-diff
+}
