@@ -111,6 +111,7 @@ map global normal <a-t> <a-i>
 map global normal B v
 map global normal b V
 #map global normal ' ' ','
+map global normal <a-r> <a-i>
 
 # Movement
 map global normal n h
@@ -136,9 +137,9 @@ map global normal <a-U> <a-W>
 map global normal <a-Y> <a-E>
 
 map global normal k n
-map global normal <A-k> <A-n>
 map global normal K N
-map global normal <A-K> <A-N>
+map global normal <a-k> <a-n>
+map global normal <a-K> <a-N>
 
 map global normal <a-n> gi
 map global normal <a-o> gl
@@ -152,18 +153,29 @@ map global normal <c-e> ': lsp-definition<ret>' -docstring "jump to definition (
 # Editing
 map global normal a i
 map global normal A I
+
 map global normal t a
 map global normal T A
+
 map global normal h o
 map global normal H O
-map global normal <A-h> <A-o>
-map global normal <A-H> <A-O>
+map global normal <a-h> <a-o>
+map global normal <a-H> <a-O>
+
 map global normal z u
 map global normal Z U
+map global normal <a-z> <a-u>
+map global normal <a-Z> <a-U>
+
 map global normal c y
+
 map global normal v p
 map global normal V P
+map global normal <a-v> <a-p>
+map global normal <a-V> <a-P>
+
 map global normal w c
+map global normal <a-w> <a-c>
 
 map global normal p z
 map global normal P Z
