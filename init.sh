@@ -246,7 +246,7 @@ function install_initial {
       kitty ripgrep fd exa bat i3lock-color fzf python2-pip python-pip \
       python-pywal python-pygments mps-youtube mplayer rust-racer rustup
 
-    yay -S bash-language-server
+    yay -S bash-language-server cquery bear
     ;;
   esac
 

@@ -21,7 +21,7 @@ plug "ul/kak-lsp" do %{
     set-option global lsp_completion_trigger "execute-keys 'h<a-h><a-k>\S[^\h\n,=;*(){}\[\]]\z<ret>'"
     set-option global lsp_diagnostic_line_error_sign "✗"
     set-option global lsp_diagnostic_line_warning_sign "⚠"
-    hook global WinSetOption filetype=(c|cpp|rust) %{
+    hook global WinSetOption filetype=(c|cpp|rust|sh) %{
         map window user "l" ": enter-user-mode lsp<ret>" -docstring "LSP mode"
         lsp-enable-window
         lsp-auto-hover-enable
