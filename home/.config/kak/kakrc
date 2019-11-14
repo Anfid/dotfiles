@@ -140,6 +140,13 @@ map global normal <A-k> <A-n>
 map global normal K N
 map global normal <A-K> <A-N>
 
+map global normal <a-n> gi
+map global normal <a-o> gl
+map global normal <a-N> Gi
+map global normal <a-O> Gl
+map global normal <a-e> Vjjjjj<esc>
+map global normal <a-i> Vkkkkk<esc>
+
 map global normal <c-e> ': lsp-definition<ret>' -docstring "jump to definition (LSP)"
 
 # Editing
@@ -219,7 +226,7 @@ map global goto n h       -docstring "line begin"
 map global goto o l       -docstring "line end"
 unmap global goto h
 unmap global goto l
-map global view e 'jjjjj' -docstring "scroll up 5 lines"
+map global view e 'jjjjj' -docstring "scroll down 5 lines"
 map global view i 'kkkkk' -docstring "scroll up 5 lines"
 
 hook global BufWritePost .* %{
