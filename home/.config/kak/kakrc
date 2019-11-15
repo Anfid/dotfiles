@@ -101,10 +101,10 @@ plug "https://gitlab.com/Screwtapello/kakoune-cargo"
 
 set global ui_options ncurses_assistant=none
 hook global WinCreate .* %{
-    git show-diff
     add-highlighter window/ number-lines -hlcursor
     add-highlighter window/ show-whitespaces -lf ' '
     add-highlighter window/ show-matching
+    git show-diff
 }
 
 # Modes
