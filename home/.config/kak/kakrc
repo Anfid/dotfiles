@@ -84,8 +84,8 @@ plug 'delapouite/kakoune-buffers' %{
     map global normal <a-space> ': fzf-mode<ret>b' -docstring 'buffers (persistent)'
 }
 
-plug 'andreyorst/base16-gruvbox.kak' theme config %{
-    colorscheme base16-gruvbox-dark-medium
+plug 'Anfid/cosy-gruvbox.kak' theme config %{
+    colorscheme cosy-gruvbox
 }
 
 plug "andreyorst/powerline.kak" defer powerline %{
