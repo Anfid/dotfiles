@@ -79,11 +79,6 @@ plug "alexherbo2/auto-pairs.kak" %{
     }
 }
 
-plug 'delapouite/kakoune-buffers' %{
-    map global normal <c-space> ': enter-buffers-mode<ret>' -docstring 'buffer list'
-    map global normal <a-space> ': fzf-mode<ret>b' -docstring 'buffers (persistent)'
-}
-
 plug 'Anfid/cosy-gruvbox.kak' theme config %{
     colorscheme cosy-gruvbox
 }
@@ -110,9 +105,8 @@ hook global WinCreate .* %{
 # Modes
 map global normal "'" ':'
 map global normal <a-t> <a-i>
-map global normal B v
-map global normal b V
-#map global normal ' ' ','
+map global normal b v
+map global normal B V
 map global normal <a-r> <a-i>
 
 # Movement
