@@ -177,6 +177,10 @@ function install_from_rep {
     rustup toolchain default stable
     rustup toolchain add nightly
     rustup component add rust-src rustfmt-preview clippy-preview rls
+    sudo luarocks install luaposix
+    sudo luarocks --lua-version 5.1 install luaposix
+    sudo luarocks install luafilesystem
+    sudo luarocks --lua-version 5.1 install luafilesystem
     ;;
   Ubuntu)
     curl https://sh.rustup.rs -sSf | sh
@@ -244,7 +248,8 @@ function install_initial {
   ManjaroLinux)
     sudo pacman -Syy \
       kitty ripgrep fd exa bat i3lock-color fzf python2-pip python-pip \
-      python-pywal python-pygments mps-youtube mplayer rust-racer rustup
+      python-pywal python-pygments mps-youtube mplayer rust-racer rustup \
+      luajit lua51 lua luarocks
 
     yay -S bash-language-server cquery bear
     ;;
