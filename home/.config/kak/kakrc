@@ -37,18 +37,13 @@ plug "ul/kak-lsp" do %{
 }
 
 
-plug "andreyorst/fzf.kak" %{
-    map global normal '<c-p>' ': fzf-mode<ret>' -docstring 'fzf mode'
+map global normal '<c-p>' ': fzf-mode<ret>' -docstring 'fzf mode'
+plug "andreyorst/fzf.kak" defer fzf %{
     set-option global fzf_preview_width '65%'
-    evaluate-commands %sh{
-        if [ -n "$(command -v fd)" ]; then
-          echo "set-option global fzf_file_command %{fd . --no-ignore --type f --follow --hidden --exclude .git --exclude .svn}"
-        else
-          echo "set-option global fzf_file_command %{find . \( -path '*/.svn*' -o -path '*/.git*' \) -prune -o -type f -follow -print}"
-        fi
-        [ -n "$(command -v bat)" ] && echo "set-option global fzf_highlighter bat"
-        [ -n "$(command -v rg)" ] && echo "set-option global fzf_sk_grep_command %{$kak_opt_grepcmd}"
-    }
+    set-option global fzf_file_command "fd"
+    set-option global fzf_highlight_command "bat"
+    set-option global fzf_grep_command "rg"
+    set-option global fzf_window_map "ctrl-t"
 }
 
 plug "delapouite/kakoune-text-objects"
