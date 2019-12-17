@@ -34,6 +34,11 @@ plug "ul/kak-lsp" do %{
     hook global WinSetOption filetype=rust %{
         set-option window lsp_server_configuration rust.clippy_preference="on"
     }
+
+    hook global WinSetOption filetype=lua %{
+        set-option global lsp_server_configuration lua.command="lua-lsp"
+    }
+
     hook global KakEnd .* lsp-exit
 }
 
