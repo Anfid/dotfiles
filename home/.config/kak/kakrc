@@ -40,9 +40,9 @@ plug "ul/kak-lsp" do %{
 map global normal '<c-p>' ': fzf-mode<ret>' -docstring 'fzf mode'
 plug "andreyorst/fzf.kak" defer fzf %{
     set-option global fzf_preview_width '65%'
-    set-option global fzf_file_command "fd"
+    set-option global fzf_file_command "fd --hidden --type f --follow"
     set-option global fzf_highlight_command "bat"
-    set-option global fzf_grep_command "rg"
+    set-option global fzf_grep_command "rg --hidden --line-number --no-column --no-heading --color=never ''"
     set-option global fzf_window_map "ctrl-t"
 }
 
