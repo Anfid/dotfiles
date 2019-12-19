@@ -26,6 +26,7 @@ plug "ul/kak-lsp" do %{
         lsp-enable-window
         lsp-auto-hover-enable
         lsp-auto-hover-insert-mode-disable
+        lsp-auto-signature-help-enable
         set-option window lsp_hover_anchor false
         set-face window DiagnosticError default+u
         set-face window DiagnosticWarning default+u
@@ -37,7 +38,7 @@ plug "ul/kak-lsp" do %{
 }
 
 
-map global normal '<c-p>' ': fzf-mode<ret>' -docstring 'fzf mode'
+map global normal '<c-f>' ': fzf-mode<ret>' -docstring 'fzf mode'
 plug "andreyorst/fzf.kak" defer fzf %{
     set-option global fzf_preview_width '65%'
     set-option global fzf_file_command "fd --hidden --type f --follow"
@@ -86,8 +87,11 @@ plug "andreyorst/powerline.kak" defer powerline %{
     powerline-start
 }
 
-# TODO: setup
-plug "https://gitlab.com/Screwtapello/kakoune-cargo"
+plug "https://gitlab.com/Screwtapello/kakoune-cargo" config %{
+    hook global WinSetOption filetype=rust %{
+        map window user "c" ": enter-user-mode cargo<ret>" -docstring "cargo mode"
+    }
+}
 
 set global ui_options ncurses_assistant=none
 hook global WinCreate .* %{
@@ -231,6 +235,30 @@ unmap global goto h
 unmap global goto l
 map global view e 'jjjjj' -docstring "scroll down 5 lines"
 map global view i 'kkkkk' -docstring "scroll up 5 lines"
+
+# Git
+
+declare-user-mode git
+map global user v ': enter-user-mode git<ret>' -docstring 'git mode'
+
+map global git s  ': git status<ret>'          -docstring 'status'
+map global git l  ': git log<ret>'             -docstring 'log'
+map global git n  ': git next-hunk<ret>vc'     -docstring 'jump to next hunk'
+map global git p  ': git prev-hunk<ret>vc'     -docstring 'jump to previous hunk'
+
+define-command -hidden git-status-jump %{
+    try %{
+        execute-keys '<a-x>s^\s+(?:modified:|added:)\s+([^\n]+)<ret>'
+        evaluate-commands -try-client %opt{jumpclient} -verbatim -- edit -existing %reg{1}
+        try %{ focus %opt{jumpclient} }
+    }
+}
+
+hook global WinSetOption filetype=git-status %{
+    map buffer normal <ret> ': git-status-jump<ret>'   -docstring 'Jump to file'
+    map buffer normal <c-n> '/<c-v><c-i><ret>gi'       -docstring 'Next changed file'
+    map buffer normal <c-p> 'gh<a-/><c-v><c-i><ret>gi' -docstring 'Previous changed file'
+}
 
 hook global BufWritePost .* %{
     git update-diff
