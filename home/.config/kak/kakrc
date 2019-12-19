@@ -85,9 +85,8 @@ plug 'Anfid/cosy-gruvbox.kak' theme config %{
 }
 
 plug "andreyorst/powerline.kak" defer powerline %{
-    set-option global powerline_format 'powerline-format git bufname filetype mode_info line_column position'
-    powerline-toggle line_column off
-    powerline-theme gruvbox
+    set-option global powerline_format 'git filetype bufname line_column position'
+    powerline-theme base16-gruvbox
 } config %{
     powerline-start
 }
