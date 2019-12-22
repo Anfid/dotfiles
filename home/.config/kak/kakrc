@@ -272,10 +272,59 @@ define-command -hidden diff-prev-change %{
     execute-keys -save-regs / 'kgh<a-/>@@\s+-\d+,\d+\s\+\d+.\d+\s+@@<ret>jgh'
 }
 define-command -hidden diff-jump-to-line %{
-    execute-keys -draft '<a-?>diff<ret>: nop %sh{ echo "$kak_selection" > /tmp/kak-hunk-desc-${kak_session} }<ret>'
+    try %{ execute-keys -draft ';<a-?>^diff<ret>: nop %sh{ echo "$kak_selection" > /tmp/kak-git-show-${kak_session} }<ret>' }
     evaluate-commands %sh{
-        #todo
-        rm /tmp/kak-hunk-desc-${kak_session}
+        file="/tmp/kak-git-show-${kak_session}"
+        last=$(awk 'END { print substr($0, 1, 1) }' $file)
+        col=$(awk 'END { print length }' $file)
+        if [ "$last" = "-" ] || [ "$last" = " " ]; then
+            index=$(head -2 $file | awk '
+                /^index/ {
+                    split($2, idx, ".")
+                    print idx[1]
+                }
+            ')
+            line=$(awk '
+                /^[@[:space:]-]/ {
+                    if (substr($0, 1, 2) == "@@")
+                        { lines=substr($2, 2) - 1 }
+                    else
+                        { lines++ }
+                } END {
+                    print lines
+                }' $file)
+            parent=$(head -4 $file | awk '
+                /^--- a/ { file=substr($2, 3) }
+                END { print file }')
+            git show $index > $file
+            echo "edit! -scratch $index#$parent"
+            echo "execute-keys !cat<space>${file}<ret>${line}g"
+        elif [ "$last" = "+" ]; then
+            index=$(head -2 $file | awk '
+                /^index/ {
+                    split($2, idx, ".")
+                    print idx[3]
+                }
+            ')
+            line=$(awk '
+                /^[@[:space:]\+]/ {
+                    if (substr($0, 1, 2) == "@@")
+                        { lines=substr($3, 2) - 1 }
+                    else
+                        { lines++ }
+                } END {
+                    print lines
+                }' $file)
+            child=$(head -4 $file | awk '
+                /^\+\+\+ b/ { file=substr($2, 3) }
+                END { print file }')
+            git show $index > $file
+            echo "edit! -scratch $index#$child"
+            echo "execute-keys !cat<space>${file}<ret>gk${line}g"
+        fi
+    }
+    nop %sh{
+        rm /tmp/kak-git-show-$kak_session
     }
 }
 
