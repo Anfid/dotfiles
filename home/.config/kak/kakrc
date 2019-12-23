@@ -272,59 +272,52 @@ define-command -hidden diff-prev-change %{
     execute-keys -save-regs / 'kgh<a-/>@@\s+-\d+,\d+\s\+\d+.\d+\s+@@<ret>jgh'
 }
 define-command -hidden diff-jump-to-line %{
-    try %{ execute-keys -draft ';<a-?>^diff<ret>: nop %sh{ echo "$kak_selection" > /tmp/kak-git-show-${kak_session} }<ret>' }
+    try %{ execute-keys -draft ';<a-?>^diff<ret>: nop %sh{ printf "%s" "$kak_selection" > /tmp/kak-git-show-${kak_session} }<ret>' }
     evaluate-commands %sh{
-        file="/tmp/kak-git-show-${kak_session}"
-        last=$(awk 'END { print substr($0, 1, 1) }' $file)
-        col=$(awk 'END { print length }' $file)
-        if [ "$last" = "-" ] || [ "$last" = " " ]; then
-            index=$(head -2 $file | awk '
-                /^index/ {
-                    split($2, idx, ".")
-                    print idx[1]
+        parse_diff_segment() {
+            perl -e '
+                foreach $line (<>) {
+                    if ($line =~ /^@@ -(\d+)(?:,\d+)? \+(\d+)(?:,\d+)?/) {
+                        $last = "-";
+                        $src_lines = $1 - 1;
+                        $dst_lines = $2 - 1;
+                    } elsif ($line =~ /^--- a\/(.+)/) {
+                        $src_file = $1;
+                    } elsif ($line =~ /^\+\+\+ b\/(.+)/) {
+                        $dst_file = $1;
+                    } elsif ($line =~ /^\s/) {
+                        $last = " ";
+                        $src_lines += 1;
+                        $dst_lines += 1;
+                    } elsif ($line =~ /^\+/) {
+                        $last = "+";
+                        $dst_lines += 1;
+                    } elsif ($line =~ /^-/) {
+                        $last = "-";
+                        $src_lines += 1;
+                    } elsif ($line =~ /^index (\w+)\.\.(\w+)/) {
+                        $src_idx = $1;
+                        $dst_idx = $2;
+                    }
+                    $char = length($line) - 1;
                 }
-            ')
-            line=$(awk '
-                /^[@[:space:]-]/ {
-                    if (substr($0, 1, 2) == "@@")
-                        { lines=substr($2, 2) - 1 }
-                    else
-                        { lines++ }
-                } END {
-                    print lines
-                }' $file)
-            parent=$(head -4 $file | awk '
-                /^--- a/ { file=substr($2, 3) }
-                END { print file }')
-            git show $index > $file
-            echo "edit! -scratch $index#$parent"
-            echo "execute-keys !cat<space>${file}<ret>${line}g"
-        elif [ "$last" = "+" ]; then
-            index=$(head -2 $file | awk '
-                /^index/ {
-                    split($2, idx, ".")
-                    print idx[3]
+                if ($char < 1) { $char = 1 }
+
+                if ($last eq "+") {
+                    print "$dst_idx $dst_file $dst_lines $char\n"
+                } else {
+                    print "$src_idx $dst_file $src_lines $char\n"
                 }
-            ')
-            line=$(awk '
-                /^[@[:space:]\+]/ {
-                    if (substr($0, 1, 2) == "@@")
-                        { lines=substr($3, 2) - 1 }
-                    else
-                        { lines++ }
-                } END {
-                    print lines
-                }' $file)
-            child=$(head -4 $file | awk '
-                /^\+\+\+ b/ { file=substr($2, 3) }
-                END { print file }')
-            git show $index > $file
-            echo "edit! -scratch $index#$child"
-            echo "execute-keys !cat<space>${file}<ret>gk${line}g"
-        fi
-    }
-    nop %sh{
+            ' $1
+        }
+        read idx file line col <<< $(parse_diff_segment /tmp/kak-git-show-${kak_session})
         rm /tmp/kak-git-show-$kak_session
+
+        output="$(mktemp -d -t kak-git-show-XXXXXXXX)/fifo"
+        mkfifo ${output}
+        ( git show $idx > ${output} 2>&1 && rm -r $(dirname ${output}) ) > /dev/null 2>&1 < /dev/null &
+        echo "edit! -fifo ${output} $idx#$file
+              hook buffer BufCloseFifo .* %{ evaluate-commands -client $kak_client select ${line}.${col},${line}.${col} }"
     }
 }
 
