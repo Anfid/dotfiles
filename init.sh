@@ -177,10 +177,17 @@ function install_from_rep {
     rustup toolchain default stable
     rustup toolchain add nightly
     rustup component add rust-src rustfmt-preview clippy-preview rls
+
+    sudo luarocks install lua-lsp
     sudo luarocks install luaposix
     sudo luarocks --lua-version 5.1 install luaposix
     sudo luarocks install luafilesystem
     sudo luarocks --lua-version 5.1 install luafilesystem
+
+    cd /tmp && \
+    git clone https://github.com/rust-analyzer/rust-analyzer && \
+    cd rust-analyzer && \
+    cargo xtask install --server
     ;;
   Ubuntu)
     curl https://sh.rustup.rs -sSf | sh

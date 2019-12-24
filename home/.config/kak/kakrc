@@ -21,22 +21,15 @@ plug "ul/kak-lsp" do %{
     set-option global lsp_completion_trigger "execute-keys 'h<a-h><a-k>\S[^\h\n,=;*(){}\[\]]\z<ret>'"
     set-option global lsp_diagnostic_line_error_sign "✗"
     set-option global lsp_diagnostic_line_warning_sign "⚠"
-    hook global WinSetOption filetype=(c|cpp|rust|sh) %{
+    hook global WinSetOption filetype=(c|cpp|rust|sh|lua) %{
         map window user "l" ": enter-user-mode lsp<ret>" -docstring "LSP mode"
         lsp-enable-window
-        lsp-auto-hover-enable
+        lsp-auto-hover-disable
         lsp-auto-hover-insert-mode-disable
         lsp-auto-signature-help-enable
         set-option window lsp_hover_anchor false
         set-face window DiagnosticError default+u
         set-face window DiagnosticWarning default+u
-    }
-    hook global WinSetOption filetype=rust %{
-        set-option window lsp_server_configuration rust.clippy_preference="on"
-    }
-
-    hook global WinSetOption filetype=lua %{
-        set-option global lsp_server_configuration lua.command="lua-lsp"
     }
 
     hook global KakEnd .* lsp-exit
