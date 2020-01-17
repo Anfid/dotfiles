@@ -24,7 +24,7 @@ plug "ul/kak-lsp" do %{
     hook global WinSetOption filetype=(c|cpp|rust|sh|lua) %{
         map window user "l" ": enter-user-mode lsp<ret>" -docstring "LSP mode"
         lsp-enable-window
-        lsp-auto-hover-disable
+        lsp-auto-hover-enable
         lsp-auto-hover-insert-mode-disable
         lsp-auto-signature-help-enable
         set-option window lsp_hover_anchor false
@@ -96,6 +96,10 @@ hook global WinCreate .* %{
     add-highlighter window/ show-whitespaces -lf ' '
     add-highlighter window/ show-matching
     git show-diff
+}
+
+hook global WinSetOption filetype=rust %{
+    set buffer formatcmd rustfmt
 }
 
 # Modes
@@ -174,6 +178,9 @@ map global normal P Z
 map global normal <a-p> <a-z>
 map global normal <a-P> <a-Z>
 
+# Navigation
+map global normal -- - ': x11-terminal ranger<ret>'
+
 hook global InsertChar \t %{ try %{
   execute-keys -draft "h<a-h><a-k>\A\h+\z<ret><a-;>;%opt{indentwidth}@"
 }}
@@ -228,8 +235,6 @@ hook global InsertCompletionHide .* %{
 # View
 map global goto n h       -docstring "line begin"
 map global goto o l       -docstring "line end"
-unmap global goto h
-unmap global goto l
 map global view e 'jjjjj' -docstring "scroll down 5 lines"
 map global view i 'kkkkk' -docstring "scroll up 5 lines"
 
