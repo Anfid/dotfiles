@@ -102,6 +102,17 @@ hook global WinSetOption filetype=rust %{
     set buffer formatcmd rustfmt
 }
 
+define-command -params 0..1 -file-completion split %{
+    evaluate-commands %sh{
+        file="$1"
+        if [ -z "$file" ]; then
+          printf 'x11-terminal kak -c "%s"\n' "$kak_session"
+        else
+          printf 'x11-terminal kak -c "%s" -e edit "%s"\n' "$kak_session" "$file"
+        fi
+    }
+}
+
 # Modes
 map global normal "'" ':'
 map global normal <a-t> <a-i>
@@ -238,8 +249,12 @@ map global goto o l       -docstring "line end"
 map global view e 'jjjjj' -docstring "scroll down 5 lines"
 map global view i 'kkkkk' -docstring "scroll up 5 lines"
 
-# Git
+# Clients
+declare-user-mode client
+map global normal <c-w> ': enter-user-mode client<ret>' -docstring 'client mode'
+map global client s ': split<ret>'
 
+# Git
 declare-user-mode git
 map global user v ': enter-user-mode git<ret>' -docstring 'git mode'
 
