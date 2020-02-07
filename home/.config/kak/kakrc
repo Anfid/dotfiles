@@ -99,7 +99,7 @@ hook global WinCreate .* %{
 }
 
 hook global WinSetOption filetype=rust %{
-    set buffer formatcmd rustfmt
+    set buffer formatcmd "rustfmt --edition=2018"
 }
 
 define-command -params 0..1 -file-completion split %{
@@ -206,7 +206,7 @@ map global insert <c-f> <esc>li          -docstring "move the cursor one charact
 map global insert <a-b> <esc>b\;i        -docstring "move the cursor one word to the left"
 map global insert <a-f> <esc>e\;i        -docstring "move the cursor one word to the right"
 map global insert <c-a> <esc>I           -docstring "move the cursor to the start of the line"
-map global insert <c-e> <esc>gli         -docstring "move the cursor to the end of the line"
+map global insert <c-e> <esc>A           -docstring "move the cursor to the end of the line"
 
 map global insert <c-d> <esc>c           -docstring "delete the character under the anchor"
 map global insert <c-u> <esc>Ghc         -docstring "delete from the anchor to the start of the line"
