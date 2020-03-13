@@ -66,11 +66,13 @@ plug "andreyorst/smarttab.kak" defer smarttab %{
     hook global WinSetOption filetype=(makefile|gas) noexpandtab
 }
 
-plug "alexherbo2/auto-pairs.kak" %{
-    map global user 's' ': auto-pairs-surround<ret>' -docstring "surround selection"
-    hook global WinCreate .* %{
-        auto-pairs-enable
-    }
+plug "alexherbo2/auto-pairs.kak"
+
+plug "alexherbo2/surround.kak" %{
+    map global user 's' ': surround<ret>'         -docstring "surround selection"
+    map global user 'S' ': surround _ _ * *<ret>' -docstring 'Enter surround mode with extra surrounding pairs'
+    set-option global surround_begin auto-pairs-disable
+    set-option global surround_end auto-pairs-enable
 }
 
 plug 'Anfid/cosy-gruvbox.kak' theme config %{
