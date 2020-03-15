@@ -269,7 +269,7 @@ map global git p  ': git prev-hunk<ret>vc'     -docstring 'jump to previous hunk
 define-command -hidden git-status-jump %{
     try %{
         # some inspiration: execute-keys '<a-:><a-x>1s^(?:[ !\?acdmrtuacdmrtu]{2}|\t(?:(?:both )?modified:|added:|new file:|deleted(?: by \w+)?:|renamed:|copied:))?\h+(?:[^\n]+ -> )?([^\n]+)<ret>'
-        execute-keys '<a-x>s^\s+(?:modified:|new file:)\s+([^\n]+)<ret>'
+        execute-keys '<a-x>s^\t(?:modified:|new file:|renamed:\s+.*\s->)?\s+([^\n]+)<ret>'
         evaluate-commands -try-client %opt{jumpclient} -verbatim -- edit -existing %reg{1}
         try %{ focus %opt{jumpclient} }
     }
@@ -344,8 +344,8 @@ define-command -hidden diff-jump-to-line %{
 }
 
 hook global WinSetOption filetype=diff %{
-    map buffer normal <c-n> ": diff-next-change<ret>" -docstring 'Next change'
-    map buffer normal <c-p> ": diff-prev-change<ret>" -docstring 'Previous change'
+    map buffer normal <c-n> ": diff-next-change<ret>"  -docstring 'Next change'
+    map buffer normal <c-p> ": diff-prev-change<ret>"  -docstring 'Previous change'
     map buffer normal <ret> ": diff-jump-to-line<ret>" -docstring 'Jump to changed line'
 }
 
