@@ -1,30 +1,30 @@
 ########################################
 #  Utilities, completions and aliases  #
 ########################################
-zplugin snippet OMZ::plugins/git/git.plugin.zsh
-zplugin snippet OMZ::plugins/pip/pip.plugin.zsh
-zplugin ice as"completion"
-zplugin snippet OMZ::plugins/cargo/_cargo
-zplugin ice as"completion"
-zplugin snippet OMZ::plugins/httpie/_httpie
-zplugin light "zsh-users/zsh-completions"
+zinit snippet OMZ::plugins/git/git.plugin.zsh
+zinit snippet OMZ::plugins/pip/pip.plugin.zsh
+zinit ice as"completion"
+zinit snippet OMZ::plugins/cargo/_cargo
+zinit ice as"completion"
+zinit snippet OMZ::plugins/httpie/_httpie
+zinit light "zsh-users/zsh-completions"
 
 # Optional
-#zplugin snippet OMZ::plugins/jira/jira.plugin.zsh
+#zinit snippet OMZ::plugins/jira/jira.plugin.zsh
 
 
 ##############################
 #  Remind available aliases  #
 ##############################
-zplugin ice lucid wait"1"
-zplugin light "djui/alias-tips"
+zinit ice lucid wait"1"
+zinit light "djui/alias-tips"
 
 
 ##################
 #  cd backwards  #
 ##################
-zplugin ice lucid wait"1"
-zplugin light "Tarrasch/zsh-bd"
+zinit ice lucid wait"1"
+zinit light "Tarrasch/zsh-bd"
 
 
 ###########################
@@ -37,14 +37,14 @@ function zsh-autosuggestions-override() {
     ZSH_AUTOSUGGEST_STRATEGY=match_prev_cmd
     ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=vi-cmd-mode
 }
-zplugin ice lucid wait"0" atload"_zsh_autosuggest_start"
-zplugin light "zsh-users/zsh-autosuggestions"
+zinit ice lucid wait"0" atload"_zsh_autosuggest_start"
+zinit light "zsh-users/zsh-autosuggestions"
 
 
 ###############
 #  Powerline  #
 ###############
-zplugin light "romkatv/powerlevel10k" #, use:powerlevel10k.zsh-theme
+zinit light "romkatv/powerlevel10k" #, use:powerlevel10k.zsh-theme
 
 POWERLEVEL9K_MODE='awesome-fontconfig'
 
@@ -110,23 +110,23 @@ POWERLEVEL9K_TIME_FORMAT='%D{%l:%M%p}'
 #############
 MODE_CURSOR_VICMD="blinking block"
 MODE_CURSOR_VIINS="blinking bar"
-zplugin light "softmoth/zsh-vim-mode"
+zinit light "softmoth/zsh-vim-mode"
 # viexchange messes up with syntax-highlighting. Make sure it loads after highlighting
-zplugin ice lucid wait"2"
-zplugin light "okapia/zsh-viexchange"
+zinit ice lucid wait"2"
+zinit light "okapia/zsh-viexchange"
 
 
 ##############################
 #  Substring history search  #
 ##############################
 # Load after vim-mode to prevent vim bindings to perform substring search
-zplugin light "zsh-users/zsh-history-substring-search"
+zinit light "zsh-users/zsh-history-substring-search"
 
 
 ######################################
 #  Close matching paired characters  #
 ######################################
-zplugin light "hlissner/zsh-autopair"
+zinit light "hlissner/zsh-autopair"
 
 
 ##############
@@ -155,5 +155,5 @@ _zcompinit_custom() {
 ######################
 #  Syntax highlight  #
 ######################
-zplugin ice lucid wait"0" atinit"_zcompinit_custom; zpcdreplay"
-zplugin light "zdharma/fast-syntax-highlighting"
+zinit ice lucid wait"0" atinit"_zcompinit_custom; zpcdreplay"
+zinit light "zdharma/fast-syntax-highlighting"

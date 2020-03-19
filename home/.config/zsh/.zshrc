@@ -8,7 +8,7 @@ if [ -z "$ZDOTDIR" ]; then
   export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 fi
 
-export ZPLUGIN_HOME="$ZDOTDIR/zplugin"
+export ZINIT_HOME="$ZDOTDIR/zinit"
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/"
 
 # Show prompt instantly
@@ -24,11 +24,11 @@ fi
 # Uncomment for profiling
 #zmodload zsh/zprof
 
-# load zplugin or download if missing
-if [[ ! -a $ZPLUGIN_HOME/bin/zplugin.zsh ]]; then
-  git clone https://github.com/zdharma/zplugin.git $ZPLUGIN_HOME/bin
+# load zinit or download if missing
+if [[ ! -a $ZINIT_HOME/bin/zinit.zsh ]]; then
+  git clone https://github.com/zdharma/zinit.git $ZINIT_HOME/bin
 fi
-source $ZPLUGIN_HOME/bin/zplugin.zsh
+source $ZINIT_HOME/bin/zinit.zsh
 
 source $ZDOTDIR/plugins.zsh
 
