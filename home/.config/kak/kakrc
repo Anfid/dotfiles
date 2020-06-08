@@ -269,7 +269,7 @@ map global git p  ': git prev-hunk<ret>vc'     -docstring 'jump to previous hunk
 define-command -hidden git-status-jump %{
     try %{
         # some inspiration: execute-keys '<a-:><a-x>1s^(?:[ !\?acdmrtuacdmrtu]{2}|\t(?:(?:both )?modified:|added:|new file:|deleted(?: by \w+)?:|renamed:|copied:))?\h+(?:[^\n]+ -> )?([^\n]+)<ret>'
-        execute-keys '<a-x>s^\t(?:modified:|new file:|renamed:\s+.*\s->)?\s+([^\n]+)<ret>'
+        execute-keys '<a-x>s^\t(?:(?:both )?modified:|added:|new file:|copied:|deleted(?: by \w+)?:|renamed:\s+.*\s->)?\s+([^\n]+)<ret>'
         evaluate-commands -try-client %opt{jumpclient} -verbatim -- edit -existing %reg{1}
         try %{ focus %opt{jumpclient} }
     }
@@ -279,6 +279,18 @@ hook global WinSetOption filetype=git-status %{
     map buffer normal <ret> ': git-status-jump<ret>'   -docstring 'Jump to file'
     map buffer normal <c-n> '/<c-v><c-i><ret>gi'       -docstring 'Next changed file'
     map buffer normal <c-p> 'gh<a-/><c-v><c-i><ret>gi' -docstring 'Previous changed file'
+}
+
+define-command -hidden git-log-jump %{
+    try %{
+        execute-keys -save-regs 'c/' 'j<a-/>^commit<ret> <a-x> s^commit\s+\K[0-9a-f]+<ret> "cy :<space>git<space>show<space><c-r>c<ret>'
+    }
+}
+
+hook global WinSetOption filetype=git-log %{
+    map buffer normal <ret> ': git-log-jump<ret>' -docstring 'Jump to commit'
+    map buffer normal <c-n> '/^commit<ret>gi'     -docstring 'Next commit'
+    map buffer normal <c-p> '<a-/>^commit<ret>gi' -docstring 'Previous commit'
 }
 
 define-command -hidden diff-next-change %{
@@ -335,7 +347,7 @@ define-command -hidden diff-jump-to-line %{
         output="$(mktemp -d -t kak-git-show-XXXXXXXX)/fifo"
         mkfifo ${output}
         ( git show $idx > ${output} 2>&1 && rm -r $(dirname ${output}) ) > /dev/null 2>&1 < /dev/null &
-        echo "edit! -fifo ${output} $idx#$file
+        echo "edit! -fifo ${output} $idx:$file
               hook buffer BufCloseFifo .* %{
                   evaluate-commands -client ${kak_client} select ${line}.${col},${line}.${col}
                   execute-keys -client ${kak_client} vt${offset}vk
