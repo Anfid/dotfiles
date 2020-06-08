@@ -9,8 +9,8 @@ timeout = 1800 # seconds = 30 minutes
 
 [language.rust]
 filetypes = ["rust"]
-roots = [".git"]
-command = "rls"
+roots = [".git", "Cargo.toml"]
+command = "rust-analyzer"
 clippy_preference="on"
 
 [language.lua]
