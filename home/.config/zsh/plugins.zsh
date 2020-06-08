@@ -12,6 +12,8 @@ zinit light "zsh-users/zsh-completions"
 # Optional
 #zinit snippet OMZ::plugins/jira/jira.plugin.zsh
 
+zinit snippet https://github.com/junegunn/fzf/raw/master/shell/key-bindings.zsh
+
 
 ##############################
 #  Remind available aliases  #
@@ -20,24 +22,16 @@ zinit ice lucid wait"1"
 zinit light "djui/alias-tips"
 
 
-##################
-#  cd backwards  #
-##################
-zinit ice lucid wait"1"
-zinit light "Tarrasch/zsh-bd"
-
-
 ###########################
 #  Fish-like suggestions  #
 ###########################
 function zsh-autosuggestions-override() {
-    # ignore commands in vi-mode
     ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(forward-char end-of-line)
     ZSH_AUTOSUGGEST_USE_ASYNC=true
-    ZSH_AUTOSUGGEST_STRATEGY=match_prev_cmd
-    ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=vi-cmd-mode
+    ZSH_AUTOSUGGEST_EXECUTE_WIDGETS=(menu-complete)
+    ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion)
 }
-zinit ice lucid wait"0" atload"_zsh_autosuggest_start"
+zinit ice lucid wait"0" atload"zsh-autosuggestions-override && _zsh_autosuggest_start"
 zinit light "zsh-users/zsh-autosuggestions"
 
 
@@ -49,23 +43,16 @@ zinit light "romkatv/powerlevel10k" #, use:powerlevel10k.zsh-theme
 POWERLEVEL9K_MODE='awesome-fontconfig'
 
 # elements
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vi_mode dir dir_writable vcs)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir dir_writable vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time background_jobs time)
-
-# vi_mode
-POWERLEVEL9K_VI_INSERT_MODE_STRING='I'
-POWERLEVEL9K_VI_COMMAND_MODE_STRING='N'
-POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND='blue'
-POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND='black'
-POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND='green'
-POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND='black'
 
 # dir
 POWERLEVEL9K_HOME_ICON=''
 POWERLEVEL9K_HOME_SUB_ICON=''
 POWERLEVEL9K_FOLDER_ICON=''
 POWERLEVEL9K_ETC_ICON=''
-POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_last
+POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_unique
+POWERLEVEL9K_SHORTEN_DELIMITER=""
 POWERLEVEL9K_DIR_ETC_BACKGROUND='cyan'
 POWERLEVEL9K_DIR_ETC_FOREGROUND='black'
 POWERLEVEL9K_DIR_HOME_BACKGROUND='cyan'
@@ -105,21 +92,9 @@ POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND='black'
 POWERLEVEL9K_TIME_FORMAT='%D{%l:%M%p}'
 
 
-#############
-#  VI-mode  #
-#############
-MODE_CURSOR_VICMD="blinking block"
-MODE_CURSOR_VIINS="blinking bar"
-zinit light "softmoth/zsh-vim-mode"
-# viexchange messes up with syntax-highlighting. Make sure it loads after highlighting
-zinit ice lucid wait"2"
-zinit light "okapia/zsh-viexchange"
-
-
 ##############################
 #  Substring history search  #
 ##############################
-# Load after vim-mode to prevent vim bindings to perform substring search
 zinit light "zsh-users/zsh-history-substring-search"
 
 

@@ -19,14 +19,3 @@ if [[ "${terminfo[kcbt]}" != "" ]]; then
 fi
 
 bindkey -s "" ". ranger\n"
-
-# VI-mode remaps
-# normal mode
-bindkey -M vicmd "N" vi-first-non-blank
-bindkey -M vicmd "O" vi-end-of-line
-bindkey -M vicmd "l" vi-backward-word
-bindkey -M vicmd "L" vi-backward-blank-word
-bindkey -M vicmd "*" history-substring-search-up
-bindkey -M vicmd "#" history-substring-search-down
-bindkey -M vicmd "b" history-substring-search-up
-bindkey -M vicmd "B" history-substring-search-down
