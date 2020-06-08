@@ -63,7 +63,7 @@ function confirm {
   echo $1 '[y/N]'
   read -n1 -sr response
   response=${response,,}    # tolower
-  if [[ $response = "y" ]]
+  if [[ "$response" = "y" ]]
   then
     return 0
   else
@@ -183,11 +183,6 @@ function install_from_rep {
     sudo luarocks --lua-version 5.1 install luaposix
     sudo luarocks install luafilesystem
     sudo luarocks --lua-version 5.1 install luafilesystem
-
-    cd /tmp && \
-    git clone https://github.com/rust-analyzer/rust-analyzer && \
-    cd rust-analyzer && \
-    cargo xtask install --server
     ;;
   Ubuntu)
     curl https://sh.rustup.rs -sSf | sh
@@ -256,9 +251,9 @@ function install_initial {
     sudo pacman -Syy \
       kitty ripgrep fd exa bat i3lock-color fzf python2-pip python-pip \
       python-pywal python-pygments mps-youtube mplayer rust-racer rustup \
-      luajit lua51 lua luarocks
+      luajit lua51 lua luarocks bash-language-server flameshot
 
-    yay -S bash-language-server cquery bear
+    yay -S rust-analyzer-bin cquery bear
     ;;
   esac
 
