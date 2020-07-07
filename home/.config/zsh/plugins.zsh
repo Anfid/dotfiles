@@ -40,7 +40,7 @@ zinit light "zsh-users/zsh-autosuggestions"
 ###############
 zinit light "romkatv/powerlevel10k" #, use:powerlevel10k.zsh-theme
 
-POWERLEVEL9K_MODE='awesome-fontconfig'
+POWERLEVEL9K_MODE='nerdfont-complete'
 
 # elements
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir dir_writable vcs)
