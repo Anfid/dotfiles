@@ -253,7 +253,7 @@ function install_initial {
       python-pywal python-pygments mps-youtube mplayer rust-racer rustup \
       luajit lua51 lua luarocks bash-language-server flameshot
 
-    yay -S rust-analyzer-bin cquery bear
+    yay -S picom-tryone-git rust-analyzer-bin cquery bear
     ;;
   esac
 
