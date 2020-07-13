@@ -67,7 +67,7 @@ plug "andreyorst/smarttab.kak" defer smarttab %{
 
 plug "alexherbo2/auto-pairs.kak" config %{
     hook global WinSetOption filetype=rust %{
-        set-option buffer auto_pairs '( ) { } [ ] " " ` ` “ ” ‘ ’ « » ‹ ›'
+        set-option buffer auto_pairs ( ) { } [ ] '"' '"' ` ` “ ” ‘ ’ « » ‹ ›
     }
 }
 
@@ -271,7 +271,6 @@ map global git p  ': git prev-hunk<ret>vc'     -docstring 'jump to previous hunk
 
 define-command -hidden git-status-jump %{
     try %{
-        # some inspiration: execute-keys '<a-:><a-x>1s^(?:[ !\?acdmrtuacdmrtu]{2}|\t(?:(?:both )?modified:|added:|new file:|deleted(?: by \w+)?:|renamed:|copied:))?\h+(?:[^\n]+ -> )?([^\n]+)<ret>'
         execute-keys '<a-x>s^\t(?:(?:both )?modified:|added:|new file:|copied:|deleted(?: by \w+)?:|renamed:\s+.*\s->)?\s+([^\n]+)<ret>'
         evaluate-commands -try-client %opt{jumpclient} -verbatim -- edit -existing %reg{1}
         try %{ focus %opt{jumpclient} }
@@ -367,20 +366,3 @@ hook global WinSetOption filetype=diff %{
 hook global BufWritePost .* %{
     git update-diff
 }
-
-# TODO: Move away
-define-command espeak -params ..1 -docstring 'pronounce selections or argument' %{
-  exec -draft %arg{1}': nop %sh{ killall espeak; espeak "$kak_selections" <gt> /dev/null 2<gt>&1 <lt> /dev/null & }<ret>'
-}
-
-declare-user-mode espeak
-
-map global espeak b ':nop %sh{espeak $kak_bufname}<ret>'        -docstring 'buffer name'
-map global espeak c ':nop %sh{espeak $kak_selection_desc}<ret>' -docstring 'coordinates'
-map global espeak e ':espeak<ret>'                              -docstring 'selections'
-map global espeak p ':espeak <lt>a-i>p<ret>'                    -docstring 'paragraph'
-map global espeak s ':espeak <lt>a-i>s<ret>'                    -docstring 'sentence'
-map global espeak w ':espeak <lt>a-i>w<ret>'                    -docstring 'word'
-map global espeak x ':espeak x<ret>'                            -docstring 'line'
-
-map global user 'e' ': enter-user-mode espeak<ret>' -docstring 'text to speech'
