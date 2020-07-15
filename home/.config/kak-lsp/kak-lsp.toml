@@ -18,6 +18,18 @@ filetypes = ["lua"]
 roots = [".git"]
 command = "lua-lsp"
 
+[language.c_cpp]
+filetypes = ["c", "cpp"]
+roots = ["compile_commands.json", ".cquery"]
+command = "clangd"
+args = ["-log=verbose", "-pretty"]
+
+[language.bash]
+filetypes = ["sh"]
+roots = [".git", ".hg"]
+command = "bash-language-server"
+args = ["start"]
+
 [language.crystal]
 filetypes = ["crystal"]
 roots = ["shard.yml"]
@@ -65,12 +77,6 @@ roots = ["requirements.txt", "setup.py", ".git", ".hg"]
 command = "pyls"
 offset_encoding = "utf-8"
 
-[language.c_cpp]
-filetypes = ["c", "cpp"]
-roots = ["compile_commands.json", ".cquery"]
-command = "cquery"
-args = ["--init={\"cacheDirectory\":\"/tmp/cquery\",\"highlight\":{\"enabled\":true}}"]
-
 [language.haskell]
 filetypes = ["haskell"]
 roots = ["Setup.hs", "stack.yaml", "*.cabal"]
@@ -82,12 +88,6 @@ filetypes = ["go"]
 roots = ["Gopkg.toml", "go.mod", ".git", ".hg"]
 command = "gopls"
 offset_encoding = "utf-8"
-
-[language.bash]
-filetypes = ["sh"]
-roots = [".git", ".hg"]
-command = "bash-language-server"
-args = ["start"]
 
 [language.dart]
 filetypes = ["dart"]
