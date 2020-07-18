@@ -65,13 +65,13 @@ plug "andreyorst/smarttab.kak" defer smarttab %{
     hook global WinSetOption filetype=(makefile|gas) noexpandtab
 }
 
-plug "alexherbo2/auto-pairs.kak" config %{
+plug "alexherbo2/auto-pairs.kak" commit "3e529e8002fe07e952c3a895f50dc749eb2b40de" config %{
     hook global WinSetOption filetype=rust %{
         set-option buffer auto_pairs ( ) { } [ ] '"' '"' ` ` “ ” ‘ ’ « » ‹ ›
     }
 }
 
-plug "alexherbo2/surround.kak" %{
+plug "alexherbo2/surround.kak" commit "f13b0ad8dfc9cca07fce25ca753139882a3acb69" %{
     map global user 's' ': surround<ret>'         -docstring "surround selection"
     map global user 'S' ': surround _ _ * *<ret>' -docstring 'Enter surround mode with extra surrounding pairs'
     set-option global surround_begin auto-pairs-disable
@@ -93,6 +93,10 @@ plug "https://gitlab.com/Screwtapello/kakoune-cargo" config %{
     hook global WinSetOption filetype=rust %{
         map window user "c" ": enter-user-mode cargo<ret>" -docstring "cargo mode"
     }
+}
+
+plug chambln/kakoune-readline config %{
+    hook global WinCreate .* readline-enable
 }
 
 set global ui_options ncurses_assistant=none
@@ -204,32 +208,6 @@ hook global InsertChar \t %{ try %{
 hook global InsertDelete ' ' %{ try %{
   execute-keys -draft 'h<a-h><a-k>\A\h+\z<ret>i<space><esc><lt>'
 }}
-
-# Readline bindings
-map global insert <c-b> <esc>hi          -docstring "move the cursor one character to the left"
-map global insert <c-f> <esc>li          -docstring "move the cursor one character to the right"
-map global insert <a-b> <esc>b\;i        -docstring "move the cursor one word to the left"
-map global insert <a-f> <esc>e\;i        -docstring "move the cursor one word to the right"
-map global insert <c-a> <esc>I           -docstring "move the cursor to the start of the line"
-map global insert <c-e> <esc>A           -docstring "move the cursor to the end of the line"
-
-map global insert <c-d> <esc>c           -docstring "delete the character under the anchor"
-map global insert <c-u> <esc>Ghc         -docstring "delete from the anchor to the start of the line"
-map global insert <c-k> <esc>Glc         -docstring "delete from the anchor to the end of the line"
-map global insert <a-d> <esc>ec          -docstring "delete until the next word boundary"
-map global insert <c-w> <esc>bc          -docstring "delete until the previous word boundary"
-
-map global insert <c-t> %{
-    <esc>:try 'exec H<lt>a-k>[^\n][^\n]<lt>ret>\;dp'<ret>i
-}                                        -docstring "exchange the char before cursor with the character at cursor"
-map global insert <a-t> %{
-    <esc>:try 'exec <lt>a-k>\s<lt>ret>e' catch 'exec <lt>a-i>w'<ret><a-;>BS\s+<ret><a-">\;<space>i
-}                                        -docstring "exchange the word before cursor with the word at cursor"
-map global insert <a-u> <esc>e<a-i>w~\;i -docstring "uppercase the current or following word"
-map global insert <a-l> <esc>e<a-i>w`\;i -docstring "lowercase the current or following word"
-map global insert <a-c> <esc>e<a-i>w\;~i -docstring "capitalize the current or following word"
-
-map global insert <c-y> <esc>pi          -docstring "paste after the anchor"
 
 # Tab completion
 hook global InsertCompletionShow .* %{
