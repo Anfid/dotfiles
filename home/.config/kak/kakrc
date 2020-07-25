@@ -20,7 +20,7 @@ plug "ul/kak-lsp" do %{
     set-option global lsp_completion_trigger "execute-keys 'h<a-h><a-k>\S[^\h\n,=;*(){}\[\]]\z<ret>'"
     set-option global lsp_diagnostic_line_error_sign "✗"
     set-option global lsp_diagnostic_line_warning_sign "⚠"
-    hook global WinSetOption filetype=(c|cpp|rust|sh|lua) %{
+    hook global WinSetOption filetype=(c|cpp|rust|sh|lua|elm) %{
         map window user "l" ": enter-user-mode lsp<ret>" -docstring "LSP mode"
         lsp-enable-window
         lsp-auto-hover-disable
@@ -52,7 +52,7 @@ plug "andreyorst/smarttab.kak" defer smarttab %{
     set-option global softtabstop 4
     expandtab
 } config %{
-    hook global WinSetOption filetype=sh %{
+    hook global WinSetOption filetype=(css|sh) %{
         set-option window tabstop 2
         set-option window indentwidth 2
         set-option window softtabstop 2
@@ -95,7 +95,7 @@ plug "https://gitlab.com/Screwtapello/kakoune-cargo" config %{
     }
 }
 
-plug chambln/kakoune-readline config %{
+plug "chambln/kakoune-readline" config %{
     hook global WinCreate .* %{
         readline-enable
         unmap window normal <c-e> i
@@ -112,6 +112,11 @@ hook global WinCreate .* %{
 
 hook global WinSetOption filetype=rust %{
     set buffer formatcmd "rustfmt --edition=2018"
+}
+
+hook global WinSetOption filetype=elm %{
+    set buffer matching_pairs ( ) { } [ ]
+    set buffer formatcmd "elm-format"
 }
 
 define-command -params 0..1 -file-completion split %{
