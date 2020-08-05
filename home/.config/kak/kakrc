@@ -193,6 +193,7 @@ map global normal <a-z> <a-u>
 map global normal <a-Z> <a-U>
 
 map global normal c y
+map global normal <a-c> ': copy-primary-to-clipboard<ret>'
 
 map global normal v p
 map global normal V P
@@ -206,6 +207,11 @@ map global normal p z
 map global normal P Z
 map global normal <a-p> <a-z>
 map global normal <a-P> <a-Z>
+
+define-command copy-primary-to-clipboard %{
+    execute-keys -draft '<space><a-|> xclip -selection clipboard<ret>'
+    echo -markup "{Information}Copied %val[selection_length] characters to clipboard"
+} -docstring 'Copy primary selection to clipboard'
 
 # Navigation
 map global normal -- - ': x11-terminal ranger<ret>'
