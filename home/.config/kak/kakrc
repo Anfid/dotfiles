@@ -42,6 +42,7 @@ plug "andreyorst/fzf.kak" defer fzf %{
     set-option global fzf_highlight_command "bat"
     set-option global fzf_grep_command "rg --hidden --glob '!/.git/' --line-number --no-column --no-heading --color=never ''"
     set-option global fzf_window_map "ctrl-t"
+    set-option global fzf_use_main_selection false
 }
 
 plug "delapouite/kakoune-text-objects"
