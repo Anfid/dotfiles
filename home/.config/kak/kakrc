@@ -335,20 +335,29 @@ define-command -hidden diff-jump-to-line %{
                 }
             ' $1
         }
-        read idx file line col <<< $(parse_diff_segment /tmp/kak-git-show-${kak_session})
+        read hash file line col <<< $(parse_diff_segment /tmp/kak-git-show-${kak_session})
         rm /tmp/kak-git-show-$kak_session
 
         top_line=${kak_window_range%% *}
         offset=$(($kak_cursor_line - $top_line - 1))
 
-        output="$(mktemp -d -t kak-git-show-XXXXXXXX)/fifo"
-        mkfifo ${output}
-        ( git show $idx > ${output} 2>&1 && rm -r $(dirname ${output}) ) > /dev/null 2>&1 < /dev/null &
-        echo "edit! -fifo ${output} $idx:$file
-              hook buffer BufCloseFifo .* %{
-                  evaluate-commands -client ${kak_client} select ${line}.${col},${line}.${col}
-                  execute-keys -client ${kak_client} vt${offset}vk
-              }"
+        case $(git hash-object $file) in
+            "$hash"*)
+                echo "edit! $file
+                      evaluate-commands -client ${kak_client} select ${line}.${col},${line}.${col}
+                      execute-keys -client ${kak_client} vt${offset}vk"
+                ;;
+            *)
+                output="$(mktemp -d -t kak-git-show-XXXXXXXX)/fifo"
+                mkfifo ${output}
+                ( git show $hash > ${output} 2>&1 && rm -r $(dirname ${output}) ) > /dev/null 2>&1 < /dev/null &
+                echo "edit! -fifo ${output} $hash:$file
+                      hook buffer BufCloseFifo .* %{
+                          evaluate-commands -client ${kak_client} select ${line}.${col},${line}.${col}
+                          execute-keys -client ${kak_client} vt${offset}vk
+                      }"
+                ;;
+        esac
     }
 }
 
