@@ -63,7 +63,5 @@ fi
 
 alias glog="nvim +ShowCommitsAndExit"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # source local zshrc
 [[ -f $HOME/.zshrclocal ]] && source $HOME/.zshrclocal
