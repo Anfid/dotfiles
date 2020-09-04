@@ -249,11 +249,12 @@ function install_initial {
     ;;
   ManjaroLinux)
     sudo pacman -Syy \
-      kitty ripgrep fd exa bat i3lock-color fzf python2-pip python-pip \
-      python-pywal python-pygments mps-youtube mplayer rust-racer rustup \
-      luajit lua51 lua luarocks bash-language-server flameshot
+      kitty ripgrep fd exa bat i3lock-color fzf playerctl python2-pip \
+      python-pip python-pywal python-pygments mplayer rust-analyzer \
+      rust-racer rustup luajit lua51 lua luarocks bash-language-server \
+      flameshot
 
-    yay -S picom-tryone-git rust-analyzer-bin cquery bear
+    yay -S picom-tryone-git cquery bear
     ;;
   esac
 
