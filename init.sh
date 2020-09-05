@@ -226,8 +226,8 @@ function install_from_rep {
     ;;
   esac
 
+  cargo install evcxr_repl
   cargo install cargo-update
-  cargo install rusty-tags
 }
 
 function update_from_rep {

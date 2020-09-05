@@ -49,6 +49,8 @@ alias unmnt="sudo umount" # mount_point
 alias c='noglob calculate'
 calculate() luajit -e "print($*)"
 
+alias rustr=evcxr
+
 if hash exa 2>/dev/null; then
     alias ls="exa"
     alias ll="exa -lah --git --group-directories-first"
