@@ -254,7 +254,7 @@ function install_initial {
       rust-racer rustup luajit lua51 lua luarocks bash-language-server \
       flameshot
 
-    yay -S picom-tryone-git cquery bear
+    yay -S picom-tryone-git cquery bear lua-language-server-git
     ;;
   esac
 

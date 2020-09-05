@@ -16,7 +16,7 @@ clippy_preference="on"
 [language.lua]
 filetypes = ["lua"]
 roots = [".git"]
-command = "lua-lsp"
+command = "lua-language-server"
 
 [language.c_cpp]
 filetypes = ["c", "cpp"]
