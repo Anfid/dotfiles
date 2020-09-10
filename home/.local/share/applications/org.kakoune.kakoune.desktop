@@ -1,0 +1,9 @@
+[Desktop Entry]
+  Name=Kakoune
+  Comment=Kakoune Text Editor
+  Exec=kak %U
+  Icon=kakoune
+  Terminal=true
+  Type=Application
+  Categories=Development;Office;
+  MimeType=text/plain;text/*;

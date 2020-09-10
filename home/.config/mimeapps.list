@@ -1,2 +1,9 @@
 [Default Applications]
 inode/directory=ranger.desktop;
+text/plain=org.kakoune.kakoune.desktop;
+text/markdown=org.kakoune.kakoune.desktop;
+text/x-shellscript=org.kakoune.kakoune.desktop;
+text/x-c=org.kakoune.kakoune.desktop;
+application/pdf=org.pwmt.zathura-pdf-mupdf.desktop;
+
+[Added Associations]
