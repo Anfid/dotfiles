@@ -162,7 +162,7 @@ function install_initial {
     kitty ripgrep fd exa bat i3lock-color fzf playerctl python2-pip \
     python-pip python-pywal python-pygments mplayer rust-analyzer \
     rust-racer rustup luajit lua51 lua luarocks bash-language-server \
-    flameshot
+    flameshot neomutt
 
   yay -S picom-tryone-git cquery bear lua-language-server-git
 

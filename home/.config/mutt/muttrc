@@ -1,0 +1,3 @@
+lua package.path = package.path..";"..(os.getenv("XDG_CONFIG_HOME") or os.getenv("HOME").."/.config").."/mutt/?.lua"
+
+lua dofile((os.getenv("XDG_CONFIG_HOME") or os.getenv("HOME").."/.config").."/mutt/rc.lua")
