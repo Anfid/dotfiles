@@ -103,6 +103,10 @@ plug "chambln/kakoune-readline" config %{
     }
 }
 
+plug "TeddyDD/kakoune-wiki" config %{
+    wiki-setup %sh{ echo "$HOME/documents/wiki" }
+}
+
 plug 'delapouite/kakoune-livedown'
 
 set global ui_options ncurses_assistant=none
