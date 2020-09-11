@@ -1,6 +1,8 @@
 local option = require("dsl.options")
 
-account = {
+local mutt = _G.mutt
+
+local account = {
     accounts = {}
 }
 
@@ -20,13 +22,18 @@ end
 function account.set(self, email)
     local user = self.accounts[email]
 
+    mutt.command.unmailboxes("*")
+
+    mutt.command.unset("imap_passive")
+
     option.imap_user = user.email
+    option.imap_pass = ""
     option.folder = "imaps://"..user.email.."@"..user.imap
     option.smtp_url = "smtps://"..user.email.."@"..user.smtp
     option.from = user.email
     option.realname = user.name
 
-    option.spoolfile = "+INBOX"
+    option.spoolfile = "+Inbox"
     option.postponed = "+[Gmail]/Drafts"
     mutt.command.mailboxes("+INBOX")
 end
