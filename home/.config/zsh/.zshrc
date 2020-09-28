@@ -4,6 +4,15 @@ export TERM=xterm-256color
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
+# Run tmux if within WSL
+case $(uname -r) in
+  *Microsoft*)
+    if [ -z "$TMUX" ]; then
+      tmux && exit
+    fi
+    ;;
+esac
+
 if [ -z "$ZDOTDIR" ]; then
   export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 fi
