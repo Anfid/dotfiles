@@ -5,13 +5,11 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 # Run tmux if within WSL
-case $(uname -r) in
-  *Microsoft*)
-    if [ -z "$TMUX" ]; then
-      tmux && exit
-    fi
-    ;;
-esac
+if grep -iq "microsoft" /proc/sys/kernel/osrelease; then
+  if [ -z "$TMUX" ]; then
+    tmux && exit
+  fi
+fi
 
 if [ -z "$ZDOTDIR" ]; then
   export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
@@ -68,10 +66,6 @@ if hash exa 2>/dev/null; then
     alias la="exa -a"
     alias lt="exa -Ta --group-directories-first"
     alias lti="noglob exa -Ta --group-directories-first -I" # ignore_glob
-fi
-
-if hash elm 2>/dev/null; then
-    alias elm="https_proxy=elm.dmy.fr:9999 elm"
 fi
 
 alias glog="nvim +ShowCommitsAndExit"
