@@ -11,7 +11,7 @@ if [[ -d "$HOME/.cargo/bin" ]]; then
 fi
 
 if (( $+commands[rustc] )); then
-  export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src/
+  export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/library/
 fi
 
 export EDITOR='kak'
