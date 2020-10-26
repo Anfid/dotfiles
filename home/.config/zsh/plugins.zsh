@@ -27,11 +27,16 @@ zinit light "djui/alias-tips"
 ###########################
 function zsh-autosuggestions-override() {
     ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(forward-char end-of-line)
+    ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS=(forward-word)
     ZSH_AUTOSUGGEST_USE_ASYNC=true
     ZSH_AUTOSUGGEST_EXECUTE_WIDGETS=(menu-complete)
     ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion)
 }
-zinit ice lucid wait"0" atload"zsh-autosuggestions-override && _zsh_autosuggest_start"
+# TODO: Move compinit to syntax highlighting. ATM conflict between z-asug and z-sy-h can be worked
+# around by disabling async on z-sy-h
+# See https://github.com/zsh-users/zsh-autosuggestions/issues/483
+# and https://github.com/zdharma/fast-syntax-highlighting/issues/177
+zinit ice lucid wait"0" atload"zsh-autosuggestions-override && _zsh_autosuggest_start; _zcompinit_custom; zpcdreplay"
 zinit light "zsh-users/zsh-autosuggestions"
 
 
@@ -130,5 +135,6 @@ _zcompinit_custom() {
 ######################
 #  Syntax highlight  #
 ######################
-zinit ice lucid wait"0" atinit"_zcompinit_custom; zpcdreplay"
+# TODO: See line 35
+#zinit ice lucid wait"0" atinit"_zcompinit_custom; zpcdreplay"
 zinit light "zdharma/fast-syntax-highlighting"
