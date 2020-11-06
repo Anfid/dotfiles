@@ -248,7 +248,7 @@ let g:neoterm_term_per_tab = 1
 
 
 " Coc
-let g:coc_global_extensions = ['coc-snippets', 'coc-git', 'coc-rls', 'coc-lua', 'coc-json', 'coc-marketplace']
+let g:coc_global_extensions = ['coc-snippets', 'coc-git', 'coc-rust-analyzer', 'coc-lua', 'coc-json', 'coc-marketplace']
 
 
 " Languages
