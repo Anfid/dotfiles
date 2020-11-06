@@ -48,7 +48,7 @@ done
 alias sd="shutdown" # [options]
 alias q="exit"
 alias e="$EDITOR"
-alias wiki="kak -e 'wiki index.md'"
+alias wiki="kak -e 'cd %opt[wiki_path]; wiki index.md'"
 alias mutt="neomutt"
 
 alias mntrw="sudo mount -o rw,gid=users,fmask=113,dmask=002" # device mount_point
