@@ -58,11 +58,6 @@ plug "andreyorst/smarttab.kak" defer smarttab %{
         set-option window indentwidth 2
         set-option window softtabstop 2
     }
-    hook global WinSetOption filetype=markdown %{
-        set-option window tabstop 3
-        set-option window indentwidth 3
-        set-option window softtabstop 3
-    }
     hook global WinSetOption filetype=(makefile|gas) noexpandtab
 }
 
