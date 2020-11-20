@@ -112,8 +112,13 @@ hook global WinCreate .* %{
     git show-diff
 }
 
+# Rust autoformatting
 hook global WinSetOption filetype=rust %{
     set buffer formatcmd "rustfmt --edition=2018"
+
+    hook -group rustfmt buffer BufWritePre .* %{
+        format-buffer
+    }
 }
 
 hook global WinSetOption filetype=elm %{
