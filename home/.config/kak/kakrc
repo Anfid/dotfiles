@@ -123,7 +123,11 @@ hook global WinSetOption filetype=rust %{
 
 hook global WinSetOption filetype=elm %{
     set buffer matching_pairs ( ) { } [ ]
-    set buffer formatcmd "elm-format"
+    set buffer formatcmd "elm-format --stdin"
+
+    hook -group elmfmt buffer BufWritePre .* %{
+        format-buffer
+    }
 }
 
 define-command -params 0..1 -file-completion split %{
