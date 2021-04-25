@@ -112,7 +112,7 @@ function link_recursive {
   fi
 
   if [ "$source" = "$basedir" ]; then
-    echo Done!
+    echo "Done!"
   fi
 
   set +o errexit
@@ -143,33 +143,46 @@ function update_dotfiles {
 
 function install_from_rep {
   export PATH="$HOME/.cargo/bin:$PATH"
+
   rustup toolchain default stable
   rustup toolchain add nightly
   rustup component add rust-src rustfmt-preview clippy-preview rls
 
   sudo luarocks install lua-lsp
-  sudo luarocks install luaposix
   sudo luarocks --lua-version 5.1 install luaposix
-  sudo luarocks install luafilesystem
   sudo luarocks --lua-version 5.1 install luafilesystem
+  sudo luarocks --lua-version 5.1 install bit32
 
   cargo install evcxr_repl
   cargo install cargo-update
 }
 
 function install_initial {
-  sudo pacman -Syy \
-    kitty ripgrep fd exa bat i3lock-color fzf playerctl python2-pip \
+  sudo pacman -Syy --needed \
+    git base-devel xclip \
+    kitty ripgrep fd exa bat fzf rofi picom playerctl python2-pip \
     python-pip python-pywal python-pygments mplayer rust-analyzer \
     rust-racer rustup luajit lua51 lua luarocks bash-language-server \
     flameshot neomutt
 
-  yay -S picom-tryone-git cquery bear lua-language-server-git
+  if ! hash yay 2>/dev/null; then
+    echo
+    echo "yay not found, installing..."
+    echo
+    cd /tmp
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    makepkg -si
+  fi
+
+  yay -S --needed cquery bear lua-language-server-git i3lock-color picom-git
 
   if hash update-alternatives 2>/dev/null; then
     if hash kak 2>/dev/null; then
       kak_path=$(which kak)
+      echo
       echo "Yes to all to use kakoune instead of vim"
+      echo
       sudo update-alternatives --install /usr/bin/vi vi $kak_path 60
       sudo update-alternatives --config vi
       sudo update-alternatives --install /usr/bin/vim vim $kak_path 60
