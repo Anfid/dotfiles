@@ -175,7 +175,7 @@ function install_initial {
     makepkg -si
   fi
 
-  yay -S --needed cquery bear lua-language-server-git i3lock-color picom-git
+  yay -S --needed cquery bear lua-language-server-git i3lock-color picom-git cava
 
   if hash update-alternatives 2>/dev/null; then
     if hash kak 2>/dev/null; then
