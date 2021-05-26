@@ -56,7 +56,17 @@ alias mntro="sudo mount -o ro,gid=users,fmask=333,dmask=222" # device mount_poin
 alias unmnt="sudo umount" # mount_point
 
 alias c='noglob calculate'
-calculate() luajit -e "print($*)"
+calculate() {
+  if [ "$#" -eq 0 ]
+  then
+    while read line
+    do
+      luajit -e "print($line)"
+    done
+  else
+    luajit -e "print($*)"
+  fi
+}
 
 alias rustr=evcxr
 
