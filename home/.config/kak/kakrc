@@ -25,7 +25,6 @@ plug "ul/kak-lsp" do %{
         lsp-enable-window
         lsp-auto-hover-disable
         lsp-auto-hover-insert-mode-disable
-        lsp-auto-signature-help-enable
         set-option window lsp_hover_anchor false
         set-face window DiagnosticError default+u
         set-face window DiagnosticWarning default+u
@@ -36,13 +35,15 @@ plug "ul/kak-lsp" do %{
 
 
 map global normal '<c-f>' ': fzf-mode<ret>' -docstring 'fzf mode'
-plug "andreyorst/fzf.kak" defer fzf %{
+plug "andreyorst/fzf.kak" defer "fzf" %{
     set-option global fzf_preview_width '65%'
-    set-option global fzf_file_command "fd --hidden --exclude '/.git/' --type f --follow"
-    set-option global fzf_highlight_command "bat"
-    set-option global fzf_grep_command "rg --hidden --glob '!/.git/' --line-number --no-column --no-heading --color=never ''"
     set-option global fzf_window_map "ctrl-t"
     set-option global fzf_use_main_selection false
+} defer "fzf-file" %{
+    set-option global fzf_file_command "fd --hidden --exclude '/.git/' --type f --follow"
+    set-option global fzf_highlight_command "bat"
+} defer "fzf-grep" %{
+    set-option global fzf_grep_command "rg --hidden --glob '!/.git/' --line-number --no-column --no-heading --color=never ''"
 }
 
 plug "delapouite/kakoune-text-objects"
@@ -80,6 +81,7 @@ plug 'Anfid/cosy-gruvbox.kak' theme config %{
 
 plug "andreyorst/powerline.kak" defer powerline %{
     set-option global powerline_format 'git filetype bufname line_column position'
+} defer "powerline_base16_gruvbox" %{
     powerline-theme base16-gruvbox
 } config %{
     powerline-start
