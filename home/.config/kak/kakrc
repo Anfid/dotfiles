@@ -132,13 +132,17 @@ hook global WinSetOption filetype=elm %{
     }
 }
 
+hook global WinSetOption filetype=(css|json|yaml|html) %sh{
+    echo "set buffer formatcmd \"prettier --parser $kak_filetype\""
+}
+
 define-command -params 0..1 -file-completion split %{
     evaluate-commands %sh{
         file="$1"
         if [ -z "$file" ]; then
           printf 'x11-terminal kak -c "%s"\n' "$kak_session"
         else
-          printf 'x11-terminal kak -c "%s" -e edit "%s"\n' "$kak_session" "$file"
+          printf 'x11-terminal kak -c "%s" "%s"\n' "$kak_session" "$file"
         fi
     }
 }

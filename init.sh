@@ -163,7 +163,7 @@ function install_initial {
     kitty ripgrep fd exa bat fzf rofi picom playerctl python2-pip \
     python-pip python-pywal python-pygments mplayer rust-analyzer \
     rust-racer rustup luajit lua51 lua luarocks bash-language-server \
-    flameshot neomutt
+    flameshot neomutt prettier
 
   if ! hash yay 2>/dev/null; then
     echo
