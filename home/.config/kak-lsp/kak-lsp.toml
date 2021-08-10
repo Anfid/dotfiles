@@ -11,7 +11,7 @@ timeout = 1800 # seconds = 30 minutes
 filetypes = ["rust"]
 roots = ["Cargo.toml"]
 command = "sh"
-args = ["-c", "if command -v rustup >/dev/null; then $(rustup which rust-analyzer); else rust-analyzer; fi"]
+args = ["-c", "if command -v rustup >/dev/null; then $(rustup which rust-analyzer) || rust-analyzer; else rust-analyzer; fi"]
 clippy_preference="on"
 
 [language.rust.initialization_options]
