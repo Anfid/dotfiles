@@ -196,6 +196,9 @@ function install_initial {
 
   confirm 'Do symlink update? (Old files will be stored in dotfiles/old in case of conflicts)' && \
     link_recursive
+
+  confirm 'Set colemak as default keyboard layout?' && \
+    localectl set-keymap colemak
 }
 
 if [[ $UPDATE = yes ]]
