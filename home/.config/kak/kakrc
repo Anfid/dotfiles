@@ -106,7 +106,9 @@ plug "TeddyDD/kakoune-wiki" config %{
 
 plug 'delapouite/kakoune-livedown'
 
-set global ui_options ncurses_assistant=none
+plug 'occivink/kakoune-sudo-write'
+
+set global ui_options terminal_assistant=none
 hook global WinCreate .* %{
     add-highlighter window/ number-lines -hlcursor
     add-highlighter window/ show-whitespaces -lf ' '
@@ -134,6 +136,15 @@ hook global WinSetOption filetype=elm %{
 
 hook global WinSetOption filetype=(css|json|yaml|html) %sh{
     echo "set buffer formatcmd \"prettier --parser $kak_filetype\""
+}
+
+hook global WinSetOption filetype=rust %{
+  hook window -group semantic-tokens BufReload .* lsp-semantic-tokens
+  hook window -group semantic-tokens NormalIdle .* lsp-semantic-tokens
+  hook window -group semantic-tokens InsertIdle .* lsp-semantic-tokens
+  hook -once -always window WinSetOption filetype=.* %{
+    remove-hooks window semantic-tokens
+  }
 }
 
 define-command -params 0..1 -file-completion split %{
@@ -190,6 +201,7 @@ map global normal <a-e> Vjjjjj<esc>
 map global normal <a-i> Vkkkkk<esc>
 
 map global normal <c-e> ': lsp-definition<ret>' -docstring "jump to definition (LSP)"
+map global normal <c-i> <tab>
 
 # Editing
 map global normal a i
