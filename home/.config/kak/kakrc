@@ -108,7 +108,11 @@ plug 'delapouite/kakoune-livedown'
 
 plug 'occivink/kakoune-sudo-write'
 
-set global ui_options terminal_assistant=none
+require-module x11
+set-option global termcmd 'kitty -1 sh -c'
+
+set-option global ui_options terminal_assistant=none
+
 hook global WinCreate .* %{
     add-highlighter window/ number-lines -hlcursor
     add-highlighter window/ show-whitespaces -lf ' '
