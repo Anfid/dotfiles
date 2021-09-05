@@ -108,8 +108,10 @@ plug 'delapouite/kakoune-livedown'
 
 plug 'occivink/kakoune-sudo-write'
 
-require-module x11
-set-option global termcmd 'kitty -1 sh -c'
+try %{
+    require-module x11
+    set-option global termcmd 'kitty -1 sh -c'
+}
 
 set-option global ui_options terminal_assistant=none
 
