@@ -7,6 +7,8 @@
 # invoke global xinit
 . /etc/X11/xinit/xinitrc
 
+udiskie --tray
+
 [[ -f ~/.cache/wal/colors.Xresources ]] && xrdb -merge ~/.cache/wal/colors.Xresources
 
 exec awesome

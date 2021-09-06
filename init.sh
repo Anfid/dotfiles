@@ -159,7 +159,7 @@ function install_from_rep {
 
 function install_initial {
   sudo pacman -Syy --needed \
-    git base-devel xclip \
+    git base-devel xclip udisks2 udiskie \
     kitty ripgrep fd exa bat fzf rofi picom playerctl python2-pip \
     python-pip python-pywal python-pygments mplayer rust-analyzer \
     rust-racer rustup luajit lua51 lua luarocks bash-language-server \
