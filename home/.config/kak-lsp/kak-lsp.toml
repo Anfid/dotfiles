@@ -7,10 +7,6 @@ face = "documentation"
 modifiers = ["documentation"]
 
 [[semantic_tokens]]
-token = "comment"
-face = "comment"
-
-[[semantic_tokens]]
 token = "function"
 face = "function"
 
@@ -59,9 +55,9 @@ filetypes = ["rust"]
 roots = ["Cargo.toml"]
 command = "sh"
 args = ["-c", "if command -v rustup >/dev/null; then $(rustup which rust-analyzer) || rust-analyzer; else rust-analyzer; fi"]
-clippy_preference="on"
+settings_section = "rust-analyzer"
 
-[language.rust.initialization_options]
+[language.rust.settings.rust-analyzer]
 # If you get 'unresolved proc macro' warnings, you have two options
 # 1. The safe choice is two disable the warning:
 # diagnostics.disabled = ["unresolved-proc-macro"]
@@ -92,17 +88,13 @@ filetypes = ["elm"]
 roots = ["elm.json"]
 command = "elm-language-server"
 args = ["--stdio"]
+settings_section = "elm-language-server"
 
-[language.elm.initialization_options]
+[language.elm.settings.elm-language-server]
 runtime = "node"
 elmPath = "elm"
 elmFormatPath = "elm-format"
 elmTestPath = "elm-test"
-
-[language.crystal]
-filetypes = ["crystal"]
-roots = ["shard.yml"]
-command = "scry"
 
 [language.javascript]
 filetypes = ["javascript"]
@@ -128,18 +120,6 @@ roots = ["package.json"]
 command = "html-languageserver"
 args = ["--stdio"]
 
-[language.ocaml]
-filetypes = ["ocaml"]
-roots = ["Makefile", "opam", "*.opam"]
-command = "ocaml-language-server"
-args = ["--stdio"]
-
-[language.reason]
-filetypes = ["reason"]
-roots = ["package.json", "Makefile", ".git", ".hg"]
-command = "ocaml-language-server"
-args = ["--stdio"]
-
 [language.python]
 filetypes = ["python"]
 roots = ["requirements.txt", "setup.py", ".git", ".hg"]
@@ -157,27 +137,3 @@ filetypes = ["go"]
 roots = ["Gopkg.toml", "go.mod", ".git", ".hg"]
 command = "gopls"
 offset_encoding = "utf-8"
-
-[language.dart]
-filetypes = ["dart"]
-roots = ["pubspec.yaml", ".git"]
-command = "dart_language_server"
-
-[language.d]
-filetypes = ["d", "di"]
-roots = [".git", "dub.sdl", "dub.json"]
-command = "dls"
-
-[language.php]
-filetypes = ["php"]
-roots = [".htaccess", "composer.json"]
-command = "intelephense"
-args = ["--stdio"]
-
-[language.php.initialization_options]
-storagePath = "/tmp/intelephense"
-
-[language.nim]
-filetypes = ["nim"]
-roots = ["*.nimble", ".git"]
-command = "nimlsp"
