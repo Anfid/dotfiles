@@ -68,7 +68,7 @@ plug "alexherbo2/auto-pairs.kak" commit "3e529e8002fe07e952c3a895f50dc749eb2b40d
     }
 }
 
-plug "alexherbo2/surround.kak" commit "f13b0ad8dfc9cca07fce25ca753139882a3acb69" %{
+plug "maximbaz/surround.kak.git" commit "f13b0ad8dfc9cca07fce25ca753139882a3acb69" %{
     map global user 's' ': surround<ret>'         -docstring "surround selection"
     map global user 'S' ': surround _ _ * *<ret>' -docstring 'Enter surround mode with extra surrounding pairs'
     set-option global surround_begin auto-pairs-disable
@@ -242,6 +242,9 @@ map global normal P Z
 map global normal <a-p> <a-z>
 map global normal <a-P> <a-Z>
 
+map global normal <space> ,
+map global normal , <space>
+
 define-command copy-primary-to-clipboard %{
     execute-keys -draft '<space><a-|> xclip -selection clipboard<ret>'
     echo -markup "{Information}Copied %val[selection_length] characters to clipboard"
@@ -298,7 +301,7 @@ map global git p  ': git prev-hunk<ret>vc'     -docstring 'jump to previous hunk
 
 define-command -hidden git-status-jump %{
     try %{
-        execute-keys '<a-x>s^\t(?:(?:both )?modified:|added:|new file:|copied:|deleted(?: by \w+)?:|renamed:\s+.*\s->)?\s+([^\n]+)<ret>'
+        execute-keys 'xs^\t(?:(?:both )?modified:|added:|new file:|copied:|deleted(?: by \w+)?:|renamed:\s+.*\s->)?\s+([^\n]+)<ret>'
         evaluate-commands -try-client %opt{jumpclient} -verbatim -- edit -existing %reg{1}
         try %{ focus %opt{jumpclient} }
     }
@@ -306,13 +309,13 @@ define-command -hidden git-status-jump %{
 
 hook global WinSetOption filetype=git-status %{
     map buffer normal <ret> ': git-status-jump<ret>'   -docstring 'Jump to file'
-    map buffer normal <c-n> '/<c-v><c-i><ret>gi'       -docstring 'Next changed file'
-    map buffer normal <c-p> 'gh<a-/><c-v><c-i><ret>gi' -docstring 'Previous changed file'
+    map buffer normal <c-n> ': execute-keys /<lt>c-v<gt><lt>c-i<gt><lt>ret<gt>gi<ret>'             -docstring 'Next changed file'
+    map buffer normal <c-p> ': execute-keys gh<lt>a-/<gt><lt>c-v<gt><lt>c-i<gt><lt>ret<gt>gi<ret>' -docstring 'Previous changed file'
 }
 
 define-command -hidden git-log-jump %{
     try %{
-        execute-keys -save-regs 'c/' 'j<a-/>^commit<ret> <a-x> s^commit\s+\K[0-9a-f]+<ret> "cy :<space>git<space>show<space><c-r>c<ret>'
+        execute-keys -save-regs 'c/' 'j<a-/>^commit<ret> x s^commit\s+\K[0-9a-f]+<ret> "cy :<space>git<space>show<space><c-r>c<ret>'
     }
 }
 
