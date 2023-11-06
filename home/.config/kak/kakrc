@@ -20,7 +20,7 @@ plug "ul/kak-lsp" do %{
     set-option global lsp_completion_trigger "execute-keys 'h<a-h><a-k>\S[^\h\n,=;*(){}\[\]]\z<ret>'"
     set-option global lsp_diagnostic_line_error_sign "✗"
     set-option global lsp_diagnostic_line_warning_sign "⚠"
-    hook global WinSetOption filetype=(c|cpp|rust|sh|lua|elm) %{
+    hook global WinSetOption filetype=(c|cpp|rust|sh|lua|elm|go) %{
         map window user "l" ": enter-user-mode lsp<ret>" -docstring "LSP mode"
         lsp-enable-window
         lsp-auto-hover-disable
@@ -52,14 +52,27 @@ plug "andreyorst/smarttab.kak" defer smarttab %{
     set-option global tabstop 4
     set-option global indentwidth 4
     set-option global softtabstop 4
-    expandtab
 } config %{
+    hook global WinSetOption filetype=(rust|elm) %{
+        set-option window tabstop 4
+        set-option window indentwidth 4
+        set-option window softtabstop 4
+        expandtab
+    }
+
     hook global WinSetOption filetype=(css|sh) %{
         set-option window tabstop 2
         set-option window indentwidth 2
         set-option window softtabstop 2
+        expandtab
     }
-    hook global WinSetOption filetype=(makefile|gas) noexpandtab
+
+    hook global WinSetOption filetype=(go|makefile|gas) %{
+        set-option window tabstop 4
+        set-option window indentwidth 0
+        set-option window softtabstop 4
+        smarttab
+    }
 }
 
 plug "alexherbo2/auto-pairs.kak" commit "3e529e8002fe07e952c3a895f50dc749eb2b40de" config %{
@@ -93,6 +106,8 @@ plug "https://gitlab.com/Screwtapello/kakoune-cargo" config %{
     }
 }
 
+plug "chriswalker/golang.kak"
+
 plug "chambln/kakoune-readline" config %{
     hook global WinCreate .* %{
         readline-enable
@@ -122,26 +137,28 @@ hook global WinCreate .* %{
     git show-diff
 }
 
-# Rust autoformatting
+# Autoformatting
 hook global WinSetOption filetype=rust %{
     set buffer formatcmd "rustfmt --edition=2018"
-
-    hook -group rustfmt buffer BufWritePre .* %{
-        format-buffer
-    }
 }
 
 hook global WinSetOption filetype=elm %{
     set buffer matching_pairs ( ) { } [ ]
     set buffer formatcmd "elm-format --stdin"
+}
 
-    hook -group elmfmt buffer BufWritePre .* %{
-        format-buffer
-    }
+hook global WinSetOption filetype=go %{
+    set buffer formatcmd "gofmt"
 }
 
 hook global WinSetOption filetype=(css|json|yaml|html) %sh{
-    echo "set buffer formatcmd \"prettier --parser $kak_filetype\""
+    set buffer formatcmd "prettier --parser %opt[filetype]"
+}
+
+hook global WinSetOption filetype=(rust|elm|go) %{
+    hook -group autofmt buffer BufWritePre .* %{
+        format-buffer
+    }
 }
 
 hook global WinSetOption filetype=rust %{
