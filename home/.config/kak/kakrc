@@ -298,6 +298,7 @@ map global git d  ': git diff<ret>'            -docstring 'diff'
 map global git l  ': git log<ret>'             -docstring 'log'
 map global git n  ': git next-hunk<ret>vc'     -docstring 'jump to next hunk'
 map global git p  ': git prev-hunk<ret>vc'     -docstring 'jump to previous hunk'
+map global git a  ': git-add-hunk<ret>'        -docstring 'stage all hunks in the primary selection'
 
 define-command -hidden git-status-jump %{
     try %{
@@ -394,6 +395,63 @@ define-command -hidden diff-jump-to-line %{
                 ;;
         esac
     }
+}
+
+define-command -hidden git-add-hunk %{
+    evaluate-commands %sh{
+        git diff -U0 --inter-hunk-context=0 "$kak_buffile" | \
+        perl -e '
+            if ($ARGV[0] =~ /^(\d+)\.\d+,(\d+)\.\d+$/) {
+                $selection_from = ($1<$2?$1:$2);
+                $selection_to = ($1>$2?$1:$2);
+            } else {
+                exit 1;
+            }
+            $unstaged_correction = 0;
+            $in_header = 1;
+            $header = "";
+            $found = 0;
+            while ($line = <STDIN>) {
+                if (rindex($line, "@@", 0) == 0) {
+                    $in_header = 0;
+                    if ($line =~ /^@@ -(\d+,?\d*) \+(\d+),?(\d+)?(.*)/) {
+                        $from = $2;
+                        $count = $3;
+                        if ($from == 0) { $from = 1 }
+                        if ($count == 0) { $count = 1 }
+                        if ($selection_to >= $from && $selection_from < $from + $count) {
+                            $found = 1;
+                            print $header;
+                            $corrected_line = $2 - $unstaged_correction;
+                            print "@@ -$1 +$corrected_line";
+                            if ($3 ne "") { print ",$3" }
+                            print "$4\n";
+                        } elsif ($found) {
+                            last
+                        }
+                    }
+                    next
+                }
+
+                if ($in_header) {
+                    $header = $header.$line;
+                } elsif (!$found) {
+                    $first_char = substr($line, 0, 1);
+                    if ($first_char eq "+") {
+                        $unstaged_correction += 1;
+                    } elsif ($first_char eq "-") {
+                        $unstaged_correction -= 1;
+                    }
+                } else {
+                    print "$line";
+                }
+            }
+            if (!$found) { exit 1 }
+        ' "$kak_selection_desc" | \
+        git apply --unidiff-zero --cached - || \
+        echo "fail 'unable to stage git hunk'"
+    }
+    git update-diff
 }
 
 hook global WinSetOption filetype=diff %{
