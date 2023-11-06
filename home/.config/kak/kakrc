@@ -389,7 +389,7 @@ define-command -hidden diff-jump-to-line %{
                 } else {
                     print "$src_idx $dst_file $src_lines $char\n"
                 }
-            ' $1
+            ' "$1"
         }
         read hash file line col <<< $(parse_diff_segment /tmp/kak-git-show-${kak_session})
         rm /tmp/kak-git-show-$kak_session
