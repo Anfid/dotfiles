@@ -162,12 +162,15 @@ hook global WinSetOption filetype=(rust|elm|go) %{
 }
 
 hook global WinSetOption filetype=rust %{
-  hook window -group semantic-tokens BufReload .* lsp-semantic-tokens
-  hook window -group semantic-tokens NormalIdle .* lsp-semantic-tokens
-  hook window -group semantic-tokens InsertIdle .* lsp-semantic-tokens
-  hook -once -always window WinSetOption filetype=.* %{
-    remove-hooks window semantic-tokens
-  }
+    evaluate-commands %sh{
+        # Substrate projects take insanely long time to build, so it's better to avoid enabling lsp-semantic-tokens
+        # for such projects
+        if [ ! -d "./pallets" ]; then
+          printf '%s\n' 'hook buffer -group semantic-tokens BufReload .* lsp-semantic-tokens'
+          printf '%s\n' 'hook buffer -group semantic-tokens NormalIdle .* lsp-semantic-tokens'
+          printf '%s\n' 'hook buffer -group semantic-tokens InsertIdle .* lsp-semantic-tokens'
+        fi
+    }
 }
 
 define-command -params 0..1 -file-completion split %{
