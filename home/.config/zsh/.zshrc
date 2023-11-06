@@ -5,7 +5,7 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 # Run tmux if within WSL
-if grep -iq "microsoft" /proc/sys/kernel/osrelease; then
+if [ -f "/proc/sys/kernel/osrelease" ] && grep -iq "microsoft" /proc/sys/kernel/osrelease; then
   if [ -z "$TMUX" ]; then
     tmux && exit
   fi
@@ -33,7 +33,7 @@ fi
 
 # load zinit or download if missing
 if [[ ! -a $ZINIT_HOME/bin/zinit.zsh ]]; then
-  git clone https://github.com/zdharma/zinit.git $ZINIT_HOME/bin
+  git clone https://github.com/zdharma-continuum/zinit.git $ZINIT_HOME/bin
 fi
 source $ZINIT_HOME/bin/zinit.zsh
 
@@ -81,4 +81,4 @@ fi
 alias glog="nvim +ShowCommitsAndExit"
 
 # source local zshrc
-[[ -f $HOME/.zshrclocal ]] && source $HOME/.zshrclocal
+if [[ -f $HOME/.zshrclocal ]]; then source $HOME/.zshrclocal; fi

@@ -4,8 +4,6 @@
 zinit snippet OMZ::plugins/git/git.plugin.zsh
 zinit snippet OMZ::plugins/pip/pip.plugin.zsh
 zinit ice as"completion"
-zinit snippet OMZ::plugins/cargo/_cargo
-zinit ice as"completion"
 zinit snippet OMZ::plugins/httpie/_httpie
 zinit light "zsh-users/zsh-completions"
 
@@ -133,4 +131,4 @@ _zcompinit_custom() {
 ######################
 # TODO: See line 35
 #zinit ice lucid wait"0" atinit"_zcompinit_custom; zpcdreplay"
-zinit light "zdharma/fast-syntax-highlighting"
+zinit light "zdharma-continuum/fast-syntax-highlighting"
