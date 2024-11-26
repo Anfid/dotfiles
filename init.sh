@@ -84,7 +84,12 @@ function link_recursive {
 
   local target="$HOME/$common"
 
-  if [ -d "$source" ]; then
+  if [ "$(basename "$source")" = ".DS_Store" ]; then
+    echo "Ignoring '$source'"
+    # ignore
+    true
+
+  elif [ -d "$source" ]; then
     if [ ! -e "$target" ] && [ ! -L "$target" ]; then
       mkdir "$target"
     elif [ ! -d "$target" ] || [ -L "$target" ]; then

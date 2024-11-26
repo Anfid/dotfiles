@@ -71,6 +71,11 @@ if [[ $COMPLETION_WAITING_DOTS = true ]]; then
   bindkey "^I" expand-or-complete-with-dots
 fi
 
+# Load macOS homebrew zsh completions
+if [ -d "/opt/homebrew/share/zsh/site-functions" ]; then
+  fpath+=/opt/homebrew/share/zsh/site-functions
+fi
+
 # Load zsh completions
 if [ -d "$ZDOTDIR/zsh.compl.d" ]; then
   fpath+=$ZDOTDIR/zsh.compl.d

@@ -128,7 +128,9 @@ try %{
     set-option global termcmd 'kitty -1 sh -c'
 }
 
-set-option global ui_options terminal_assistant=none
+set-option global ui_options terminal_assistant=none terminal_set_title=false terminal_wheel_scroll_amount=1
+set-option global autoreload yes
+set-option global windowing_placement vertical
 
 hook global WinCreate .* %{
     add-highlighter window/ number-lines -hlcursor
@@ -177,9 +179,9 @@ define-command -params 0..1 -file-completion split %{
     evaluate-commands %sh{
         file="$1"
         if [ -z "$file" ]; then
-          printf 'x11-terminal kak -c "%s"\n' "$kak_session"
+          printf 'terminal kak -c "%s"\n' "$kak_session"
         else
-          printf 'x11-terminal kak -c "%s" "%s"\n' "$kak_session" "$file"
+          printf 'terminal kak -c "%s" "%s"\n' "$kak_session" "$file"
         fi
     }
 }
@@ -269,17 +271,6 @@ define-command copy-primary-to-clipboard %{
     execute-keys -draft '<space><a-|> xclip -selection clipboard<ret>'
     echo -markup "{Information}Copied %val[selection_length] characters to clipboard"
 } -docstring 'Copy primary selection to clipboard'
-
-# Navigation
-map global normal -- - ': x11-terminal ranger<ret>'
-
-hook global InsertChar \t %{ try %{
-  execute-keys -draft "h<a-h><a-k>\A\h+\z<ret><a-;>;%opt{indentwidth}@"
-}}
-
-hook global InsertDelete ' ' %{ try %{
-  execute-keys -draft 'h<a-h><a-k>\A\h+\z<ret>i<space><esc><lt>'
-}}
 
 # Tab completion
 hook global InsertCompletionShow .* %{
