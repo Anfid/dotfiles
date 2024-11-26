@@ -1,0 +1,87 @@
+theme = "gruvbox"
+
+[editor]
+cursorline = true
+
+[editor.cursor-shape]
+insert = "bar"
+
+[keys.normal]
+# Movement
+n = "move_char_left"
+e = "move_visual_line_down"
+i = "move_visual_line_up"
+o = "move_char_right"
+l = "move_prev_word_start"
+u = "move_next_word_start"
+y = "move_next_word_end"
+L = "move_prev_long_word_start"
+U = "move_next_long_word_start"
+Y = "move_next_long_word_end"
+"A-e" = "shrink_selection"
+"A-i" = "expand_selection"
+"A-n" = "select_prev_sibling"
+"A-o" = "select_next_sibling"
+
+# Changes
+a = "insert_mode"
+t = "append_mode"
+A = "insert_at_line_start"
+T = "insert_at_line_end"
+h = "open_below"
+H = "open_above"
+z = "undo"
+Z = "redo"
+c = "yank"
+v = "paste_after"
+V = "paste_before"
+w = "change_selection"
+"A-w" = "change_selection_noyank"
+
+# Search
+k = "search_next"
+K = "search_prev"
+
+# Modes
+"'" = "command_mode"
+p = "select_mode"
+
+[keys.select]
+# Movement
+n = "extend_char_left"
+e = "extend_visual_line_down"
+i = "extend_visual_line_up"
+o = "extend_char_right"
+l = "extend_prev_word_start"
+u = "extend_next_word_start"
+y = "extend_next_word_end"
+L = "extend_prev_long_word_start"
+U = "extend_next_long_word_start"
+Y = "extend_next_long_word_end"
+"A-e" = "shrink_selection"
+"A-i" = "expand_selection"
+"A-n" = "select_prev_sibling"
+"A-o" = "select_next_sibling"
+
+# Changes
+a = "insert_mode"
+t = "append_mode"
+A = "insert_at_line_start"
+T = "insert_at_line_end"
+h = "open_below"
+H = "open_above"
+z = "undo"
+Z = "redo"
+c = "yank"
+v = "paste_after"
+V = "paste_before"
+w = "change_selection"
+"A-w" = "change_selection_noyank"
+
+# Search
+k = "search_next"
+K = "search_prev"
+
+# Modes
+"'" = "command_mode"
+p = "select_mode"

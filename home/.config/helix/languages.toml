@@ -1,0 +1,6 @@
+[[language]]
+name = "python"
+roots = [".git"]
+language-servers = ["pyright"]
+auto-format = true
+formatter = {command = "black", args = ["--quiet", "-"]}
