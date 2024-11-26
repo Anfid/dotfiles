@@ -319,6 +319,11 @@ declare-user-mode client
 map global normal <c-w> ': enter-user-mode client<ret>' -docstring 'client mode'
 map global client s ': split<ret>'
 
+# Shortcuts
+map global user f ': require-module fzf-file; fzf-file<ret>' -docstring 'open file'
+map global user g ': require-module fzf-grep; fzf-grep<ret>' -docstring 'grep files'
+map global user h ': lsp-hover<ret>' -docstring 'LSP hover'
+
 # Git
 declare-user-mode git
 map global user v ': enter-user-mode git<ret>' -docstring 'git mode'
