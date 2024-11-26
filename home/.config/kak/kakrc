@@ -16,11 +16,16 @@ plug "andreyorst/plug.kak" noload
 
 plug "kakoune-lsp/kakoune-lsp" do %{
     cargo install --force --path .
+    cargo clean
 } config %{
+    # Logs for debugging purposes
+    #set-option global lsp_cmd "kak-lsp -s %val{session} -vvv --log /tmp/kak-lsp.log"
+    #set-option global lsp_debug true
+
     set-option global lsp_completion_trigger "execute-keys 'h<a-h><a-k>\S[^\h\n,=;*(){}\[\]]\z<ret>'"
-    set-option global lsp_diagnostic_line_error_sign "✗"
-    set-option global lsp_diagnostic_line_warning_sign "⚠"
-    hook global WinSetOption filetype=(c|cpp|rust|sh|lua|elm|go) %{
+    set-option global lsp_diagnostic_line_error_sign "✗ "
+    set-option global lsp_diagnostic_line_warning_sign "⚠ "
+    hook global WinSetOption filetype=(c|cpp|rust|sh|lua|elm|go|python|haskell|wgsl|swift) %{
         map window user "l" ": enter-user-mode lsp<ret>" -docstring "LSP mode"
         lsp-enable-window
         lsp-auto-hover-disable
@@ -33,6 +38,13 @@ plug "kakoune-lsp/kakoune-lsp" do %{
     hook global KakEnd .* lsp-exit
 }
 
+plug "your-tools/kak-subvert" do %{
+    cargo install --force --path .
+    cargo clean
+} config %{
+    unmap global user y ':enter-user-mode subvert<ret>'
+    map global user c ':enter-user-mode subvert<ret>' -docstring 'enter subvert user mode'
+}
 
 map global normal '<c-f>' ': fzf-mode<ret>' -docstring 'fzf mode'
 plug "andreyorst/fzf.kak" defer "fzf" %{
@@ -40,10 +52,10 @@ plug "andreyorst/fzf.kak" defer "fzf" %{
     set-option global fzf_window_map "ctrl-t"
     set-option global fzf_use_main_selection false
 } defer "fzf-file" %{
-    set-option global fzf_file_command "fd --hidden --exclude '/.git/' --type f --follow"
+    set-option global fzf_file_command "fd --hidden --exclude '/.git/' --exclude '/.mypy_cache/' --exclude '/__pycache__/' --type f --follow"
     set-option global fzf_highlight_command "bat"
 } defer "fzf-grep" %{
-    set-option global fzf_grep_command "rg --hidden --glob '!/.git/' --line-number --no-column --no-heading --color=never ''"
+    set-option global fzf_grep_command "rg --hidden --glob '!/.git/' --glob '!/.mypy_cache/' --glob '!/__pycache__/' --line-number --no-column --no-heading --color=never ''"
 }
 
 plug "delapouite/kakoune-text-objects"
@@ -90,12 +102,6 @@ plug "andreyorst/powerline.kak" defer powerline %{
     powerline-start
 }
 
-plug "https://gitlab.com/Screwtapello/kakoune-cargo" config %{
-    hook global WinSetOption filetype=rust %{
-        map window user "c" ": enter-user-mode cargo<ret>" -docstring "cargo mode"
-    }
-}
-
 plug "chriswalker/golang.kak"
 
 plug "chambln/kakoune-readline" config %{
@@ -103,10 +109,6 @@ plug "chambln/kakoune-readline" config %{
         readline-enable
         unmap window normal <c-e> i
     }
-}
-
-plug "TeddyDD/kakoune-wiki" config %{
-    wiki-setup %sh{ echo "$HOME/documents/wiki" }
 }
 
 plug 'delapouite/kakoune-livedown'
@@ -131,7 +133,7 @@ hook global WinCreate .* %{
 
 # Autoformatting
 hook global WinSetOption filetype=rust %{
-    set buffer formatcmd "rustfmt --edition=2018"
+    set buffer formatcmd "rustfmt --edition=2021"
 }
 
 hook global WinSetOption filetype=elm %{
@@ -145,6 +147,14 @@ hook global WinSetOption filetype=go %{
 
 hook global WinSetOption filetype=(css|json|yaml|html) %{
     set buffer formatcmd "prettier --parser %opt[filetype]"
+}
+
+hook global WinSetOption filetype=python %{
+    set buffer formatcmd "ruff format -"
+}
+
+hook global WinSetOption filetype=markdown %{
+    set buffer formatcmd "mdformat --number --wrap 120 -"
 }
 
 hook global WinSetOption filetype=(rust|elm|go) %{
@@ -165,6 +175,10 @@ hook global WinSetOption filetype=rust %{
           printf '%s\n' 'hook buffer -group semantic-tokens InsertIdle .* lsp-semantic-tokens'
         fi
     }
+}
+
+hook global BufCreate .+\.(wgsl) %{
+    set-option buffer filetype wgsl
 }
 
 define-command -params 0..1 -file-completion split %{

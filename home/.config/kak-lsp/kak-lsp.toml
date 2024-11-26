@@ -58,12 +58,14 @@ args = ["-c", "if command -v rustup >/dev/null; then $(rustup which rust-analyze
 settings_section = "rust-analyzer"
 
 [language.rust.settings.rust-analyzer]
+completion.autoimport.enable = false
 # If you get 'unresolved proc macro' warnings, you have two options
 # 1. The safe choice is two disable the warning:
 # diagnostics.disabled = ["unresolved-proc-macro"]
 # 2. Or you can opt-in for proc macro support
 procMacro.enable = true
 cargo.loadOutDirsFromCheck = true
+#cargo.target = "wasm32-unknown-unknown"
 # See https://github.com/rust-analyzer/rust-analyzer/issues/6448
 
 [language.lua]
@@ -96,6 +98,16 @@ elmPath = "elm"
 elmFormatPath = "elm-format"
 elmTestPath = "elm-test"
 
+[language.wgsl]
+filetypes = ["wgsl"]
+roots = [".git"]
+command = "wgsl_analyzer"
+
+[language.swift]
+filetypes = ["swift"]
+roots = [".git"]
+command = "sourcekit-lsp"
+
 [language.javascript]
 filetypes = ["javascript"]
 roots = ["package.json"]
@@ -123,13 +135,17 @@ args = ["--stdio"]
 [language.python]
 filetypes = ["python"]
 roots = ["requirements.txt", "setup.py", ".git", ".hg"]
-command = "pyls"
+command = "pylsp"
 offset_encoding = "utf-8"
+
+[language.python.settings.pylsp]
+pylsp.plugins.pylint.enabled = true
+pylsp.plugins.pylint.executable = "pylint"
 
 [language.haskell]
 filetypes = ["haskell"]
 roots = ["Setup.hs", "stack.yaml", "*.cabal"]
-command = "hie"
+command = "haskell-language-server-wrapper"
 args = ["--lsp"]
 
 [language.go]
