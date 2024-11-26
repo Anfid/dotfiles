@@ -14,7 +14,7 @@ eval %sh{
 source "%val{config}/plugins/plug.kak/rc/plug.kak"
 plug "andreyorst/plug.kak" noload
 
-plug "ul/kak-lsp" do %{
+plug "kakoune-lsp/kakoune-lsp" do %{
     cargo install --force --path .
 } config %{
     set-option global lsp_completion_trigger "execute-keys 'h<a-h><a-k>\S[^\h\n,=;*(){}\[\]]\z<ret>'"
@@ -52,25 +52,15 @@ plug "andreyorst/smarttab.kak" defer smarttab %{
     set-option global tabstop 4
     set-option global indentwidth 4
     set-option global softtabstop 4
+    expandtab
 } config %{
-    hook global WinSetOption filetype=(rust|elm) %{
-        set-option window tabstop 4
-        set-option window indentwidth 4
-        set-option window softtabstop 4
-        expandtab
-    }
-
     hook global WinSetOption filetype=(css|sh) %{
         set-option window tabstop 2
         set-option window indentwidth 2
         set-option window softtabstop 2
-        expandtab
     }
 
     hook global WinSetOption filetype=(go|makefile|gas) %{
-        set-option window tabstop 4
-        set-option window indentwidth 0
-        set-option window softtabstop 4
         smarttab
     }
 }
@@ -153,13 +143,15 @@ hook global WinSetOption filetype=go %{
     set buffer formatcmd "gofmt"
 }
 
-hook global WinSetOption filetype=(css|json|yaml|html) %sh{
+hook global WinSetOption filetype=(css|json|yaml|html) %{
     set buffer formatcmd "prettier --parser %opt[filetype]"
 }
 
 hook global WinSetOption filetype=(rust|elm|go) %{
     hook -group autofmt buffer BufWritePre .* %{
-        format-buffer
+        try %{
+            format-buffer
+        }
     }
 }
 
@@ -264,9 +256,6 @@ map global normal P Z
 map global normal <a-p> <a-z>
 map global normal <a-P> <a-Z>
 
-map global normal <space> ,
-map global normal , <space>
-
 define-command copy-primary-to-clipboard %{
     execute-keys -draft '<space><a-|> xclip -selection clipboard<ret>'
     echo -markup "{Information}Copied %val[selection_length] characters to clipboard"
@@ -307,6 +296,7 @@ map global user v ': enter-user-mode git<ret>' -docstring 'git mode'
 map global git s  ': git status<ret>'          -docstring 'status'
 map global git d  ': git diff<ret>'            -docstring 'diff'
 map global git l  ': git log<ret>'             -docstring 'log'
+map global git b  ': git blame<ret>'           -docstring 'toggle blame'
 map global git n  ': git next-hunk<ret>vc'     -docstring 'jump to next hunk'
 map global git p  ': git prev-hunk<ret>vc'     -docstring 'jump to previous hunk'
 map global git a  ': git-add-hunk<ret>'        -docstring 'stage all hunks in the primary selection'
@@ -327,7 +317,7 @@ hook global WinSetOption filetype=git-status %{
 
 define-command -hidden git-log-jump %{
     try %{
-        execute-keys -save-regs 'c/' 'j<a-/>^commit<ret> x s^commit\s+\K[0-9a-f]+<ret> "cy :<space>git<space>show<space><c-r>c<ret>'
+        execute-keys -draft -save-regs 'c/' 'j<a-/>^commit<ret>xs^commit\s+\K[0-9a-f]+<ret>"cy: git show <c-r>c<ret>'
     }
 }
 
@@ -465,7 +455,7 @@ define-command -hidden git-add-hunk %{
     git update-diff
 }
 
-hook global WinSetOption filetype=diff %{
+hook global WinSetOption filetype=git-diff %{
     map buffer normal <c-n> ": diff-next-change<ret>"  -docstring 'Next change'
     map buffer normal <c-p> ": diff-prev-change<ret>"  -docstring 'Previous change'
     map buffer normal <ret> ": diff-jump-to-line<ret>" -docstring 'Jump to changed line'
