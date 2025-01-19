@@ -4,3 +4,9 @@ roots = [".git"]
 language-servers = ["pyright"]
 auto-format = true
 formatter = {command = "black", args = ["--quiet", "-"]}
+
+[language-server.rust-analyzer.config]
+cargo = { allFeatures = true }
+check.command = "clippy"
+procMacro = { enable = true }
+checkOnSave = { command = "clippy", features = "all", workspace = true }

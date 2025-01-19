@@ -1,0 +1,91 @@
+"attribute" = "yellow"
+"type" = "light-yellow"
+"type.enum.variant" = "light-magenta"
+"constructor" = { fg = "light-magenta", modifiers = ["bold"] }
+"constant" = "light-magenta"
+"string"  = { fg = "light-green", modifiers = ["italic"] }
+"string.regexp"  = { fg = "light-yellow" }
+"string.special"  = { fg = "light-yellow", modifiers = ["italic"] }
+"comment" = { fg = "light-gray", modifiers = ["italic", "dim"] }
+"comment.block.documentation" = { fg = "light-gray" }
+"variable" = "light-blue"
+"variable.builtin" = "light-magenta"
+"label" = "light-cyan"
+"keyword" = "light-red"
+"keyword.storage.modifier" = { fg = "light-red", modifiers = ["italic"] }
+"operator" = "light-blue"
+"function" = { fg = "light-green", modifiers = ["bold"] }
+"function.macro" = { fg = "light-cyan" }
+"function.special" = { fg = "light-cyan" }
+"tag" = "light-red"
+"namespace" = "yellow"
+"special" = "light-blue"
+
+"markup.heading" = { fg = "blue", modifiers = ["bold"] }
+"markup.list" = "light-blue"
+"markup.list.unchecked" = { fg = "light-blue", modifiers = ["bold"] }
+"markup.bold" = { fg = "light-gray", modifiers = ["bold"] }
+"markup.italic" = { modifiers = ["italic"] }
+"markup.strikethrough" = { modifiers = ["crossed_out"] }
+"markup.link.url" = { fg = "yellow", modifiers = ["underlined"] }
+"markup.link.label" = { fg = "light-blue", modifiers = ["bold"] }
+"markup.quote" = "light-magenta"
+"markup.raw" = "light-green"
+
+# Diff
+"diff.plus" = "light-green"
+"diff.delta" = "light-yellow"
+"diff.minus" = "light-red"
+"diff.plus.gutter" = "green"
+"diff.delta.gutter" = "yellow"
+"diff.minus.gutter" = "red"
+
+# UI
+"ui.cursor" = { fg = "black", bg = "light-gray" }
+"ui.cursor.normal" = { fg = "black", bg = "light-gray" }
+"ui.cursor.insert" = { fg = "black", bg = "green" }
+"ui.cursor.select" = { fg = "black", bg = "yellow" }
+"ui.cursor.match" = { fg = "cyan", modifiers = ["bold"] }
+"ui.cursor.primary" = { fg = "black", bg = "white" }
+"ui.cursor.primary.normal" = { fg = "black", bg = "white" }
+"ui.cursor.primary.insert" = { fg = "black", bg = "light-green" }
+"ui.cursor.primary.select" = { fg = "black", bg = "light-yellow" }
+"ui.selection" = { bg = "gray" }
+"ui.menu" = { fg = "light-gray", bg = "gray" }
+"ui.menu.selected" = { modifiers = ["bold", "reversed"] }
+"ui.linenr" = { fg = "light-gray", bg = "black" }
+"ui.popup" = { bg = "gray" }
+"ui.popup.info" = { bg = "black" }
+"ui.picker.header.column" = { underline.style = "line" }
+"ui.picker.header.column.active" = { underline.style = "line", modifiers = ["bold"] }
+"ui.window" = { bg = "black" }
+"ui.gutter" = { bg = "black" }
+"ui.linenr.selected" = { fg = "yellow", bg = "black", modifiers = ["bold"] }
+"ui.statusline" = { fg = "white", bg = "gray" }
+"ui.statusline.inactive" = { fg = "white", bg = "gray", modifiers = ["dim"] }
+"ui.statusline.normal" = { fg = "white" }
+"ui.statusline.insert" = { fg = "light-green" }
+"ui.statusline.select" = { fg = "light-yellow" }
+"ui.bufferline" = { bg = "gray" }
+"ui.bufferline.active" = { fg = "black", bg = "light-gray", modifiers = ["bold"] }
+"ui.help" = { fg = "white", bg = "black" }
+"ui.text.focus" = { modifiers = ["bold"] }
+"ui.text.inactive" = { fg = "light-gray", modifiers = ["italic", "dim"] }
+"ui.virtual" = { fg = "gray", modifiers = ["dim"] }
+"ui.virtual.indent-guide" = { fg = "light-gray", modifiers = ["dim"] }
+"ui.virtual.jump-label" = { fg = "cyan", modifiers = ["bold", "underlined"] }
+"ui.virtual.ruler" = { bg = "black" }
+
+# Diagnostics and errors
+"diagnostic.info" = { underline = { style = "line", color = "light-blue" } }
+"diagnostic.warning" = { underline = { style = "curl", color = "yellow" } }
+"diagnostic.error" = { underline = { style = "curl", color = "red" } }
+"diagnostic.hint" = { underline = { style = "curl", color = "light-gray" } }
+"diagnostic.unnecessary" = { underline = { style = "curl", color = "light-gray" }, modifiers = ["dim"] }
+"diagnostic.deprecated" = { modifiers = ["crossed_out"] }
+"diagnostic" = { underline = { style = "line", color = "gray" } }
+"info" = "light-blue"
+"hint" = "gray"
+"debug" = "gray"
+"warning" = "yellow"
+"error" = "red"

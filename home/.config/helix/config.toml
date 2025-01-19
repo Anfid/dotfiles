@@ -1,10 +1,32 @@
-theme = "gruvbox"
+theme = "cosy_termcolors"
 
 [editor]
-cursorline = true
+color-modes = true
+file-picker = { hidden = false }
+scroll-lines = 1
+popup-border = "all"
+jump-label-alphabet = "ntesirufhdoalpmcywkvb"
+end-of-line-diagnostics = "hint"
 
-[editor.cursor-shape]
-insert = "bar"
+[editor.inline-diagnostics]
+cursor-line = "hint"
+other-lines = "warning"
+
+[editor.lsp]
+goto-reference-include-declaration = false
+display-messages = true
+
+[editor.whitespace.render]
+space = "all"
+tab = "all"
+nbsp = "all"
+nnbsp = "all"
+newline = "none"
+
+[editor.indent-guides]
+render = true
+character = "▏"
+skip-levels = 1
 
 [keys.normal]
 # Movement
@@ -18,10 +40,15 @@ y = "move_next_word_end"
 L = "move_prev_long_word_start"
 U = "move_next_long_word_start"
 Y = "move_next_long_word_end"
+"A-l" = "move_prev_sub_word_start"
+"A-u" = "move_next_sub_word_start"
+"A-y" = "move_next_sub_word_end"
 "A-e" = "shrink_selection"
 "A-i" = "expand_selection"
 "A-n" = "select_prev_sibling"
 "A-o" = "select_next_sibling"
+N = "goto_first_nonwhitespace"
+O = "goto_line_end"
 
 # Changes
 a = "insert_mode"
@@ -30,13 +57,20 @@ A = "insert_at_line_start"
 T = "insert_at_line_end"
 h = "open_below"
 H = "open_above"
+"A-h" = "add_newline_below"
+"A-H" = "add_newline_above"
 z = "undo"
 Z = "redo"
+"A-z" = "earlier"
+"A-Z" = "later"
 c = "yank"
 v = "paste_after"
 V = "paste_before"
 w = "change_selection"
 "A-w" = "change_selection_noyank"
+
+# Selections
+# TODO: k and "A-k" remap (keep_selections, remove_selections
 
 # Search
 k = "search_next"
@@ -45,6 +79,10 @@ K = "search_prev"
 # Modes
 "'" = "command_mode"
 p = "select_mode"
+
+# View
+E = ["scroll_down", "scroll_down", "scroll_down", "scroll_down", "scroll_down"]
+I = ["scroll_up", "scroll_up", "scroll_up", "scroll_up", "scroll_up"]
 
 [keys.select]
 # Movement
@@ -58,10 +96,15 @@ y = "extend_next_word_end"
 L = "extend_prev_long_word_start"
 U = "extend_next_long_word_start"
 Y = "extend_next_long_word_end"
+"A-l" = "extend_prev_sub_word_start"
+"A-u" = "extend_next_sub_word_start"
+"A-y" = "extend_next_sub_word_end"
 "A-e" = "shrink_selection"
 "A-i" = "expand_selection"
 "A-n" = "select_prev_sibling"
 "A-o" = "select_next_sibling"
+N = "extend_to_first_nonwhitespace"
+O = "extend_to_line_end"
 
 # Changes
 a = "insert_mode"
@@ -70,8 +113,12 @@ A = "insert_at_line_start"
 T = "insert_at_line_end"
 h = "open_below"
 H = "open_above"
+"A-h" = "add_newline_below"
+"A-H" = "add_newline_above"
 z = "undo"
 Z = "redo"
+"A-z" = "earlier"
+"A-Z" = "later"
 c = "yank"
 v = "paste_after"
 V = "paste_before"
@@ -79,9 +126,47 @@ w = "change_selection"
 "A-w" = "change_selection_noyank"
 
 # Search
-k = "search_next"
-K = "search_prev"
+k = "extend_search_next"
+K = "extend_search_prev"
 
 # Modes
 "'" = "command_mode"
-p = "select_mode"
+p = "normal_mode"
+
+# View
+E = ["scroll_down", "scroll_down", "scroll_down", "scroll_down", "scroll_down"]
+I = ["scroll_up", "scroll_up", "scroll_up", "scroll_up", "scroll_up"]
+
+[keys.normal.b]
+n = "jump_view_left"
+e = "jump_view_down"
+i = "jump_view_up"
+o = "jump_view_right"
+N = "swap_view_left"
+E = "swap_view_down"
+I = "swap_view_up"
+O = "swap_view_right"
+v = "vsplit"
+s = "vsplit"
+h = "hsplit"
+f = "goto_file_vsplit"
+F = "goto_file_hsplit"
+q = "wclose"
+x = "wonly"
+
+[keys.select.b]
+n = "jump_view_left"
+e = "jump_view_down"
+i = "jump_view_up"
+o = "jump_view_right"
+N = "swap_view_left"
+E = "swap_view_down"
+I = "swap_view_up"
+O = "swap_view_right"
+v = "vsplit"
+s = "vsplit"
+h = "hsplit"
+f = "goto_file_vsplit"
+F = "goto_file_hsplit"
+q = "wclose"
+x = "wonly"
