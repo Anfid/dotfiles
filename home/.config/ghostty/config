@@ -1,0 +1,11 @@
+theme = dark:cosy-gruvbox-dark,light:cosy-gruvbox-light
+
+bold-is-bright = false
+font-size = 16
+
+quick-terminal-position = bottom
+quick-terminal-animation-duration = 0
+
+macos-option-as-alt = left
+keybind = global:cmd+enter=toggle_quick_terminal
+keybind = ctrl+m=text:\r
