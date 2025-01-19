@@ -13,14 +13,19 @@ if test -d "$HOME/.ghcup/bin"
     fish_add_path -gp "$HOME/.ghcup/bin"
 end
 
-set --global EDITOR kak
+set --global EDITOR hx
 set --global WORDCHARS '~*-_.!?#$%^&\()[]{}<>"`'"'"
 
-test -x /opt/homebrew/bin/brew && /opt/homebrew/bin/brew shellenv | source
+if test -x /opt/homebrew/bin/brew
+    /opt/homebrew/bin/brew shellenv | source
+
+    if test -d "$HOMEBREW_PREFIX/opt/llvm/bin"
+        fish_add_path --global --append "$HOMEBREW_PREFIX/opt/llvm/bin"
+    end
+end
 
 status is-interactive || exit
 
 if command -q rustc
     set --global RUST_SRC_PATH (rustc --print sysroot)/lib/rustlib/src/rust/library/
 end
-
