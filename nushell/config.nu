@@ -110,7 +110,7 @@ def git-main-branch [] {
   "refs/{heads,remotes/{origin,upstream}}/{main,trunk,mainline,default,stable,master}" | str expand
     | filter {|ref| (^git show-ref -q --verify $ref | complete | get exit_code) == 0 }
     | first
-    | basename $in
+    | path basename
     | default "master"
 }
 
