@@ -9,3 +9,7 @@ quick-terminal-animation-duration = 0
 macos-option-as-alt = left
 keybind = global:cmd+enter=toggle_quick_terminal
 keybind = ctrl+m=text:\r
+
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
