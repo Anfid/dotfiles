@@ -19,7 +19,8 @@
 "function.special" = { fg = "light-cyan" }
 "tag" = "light-red"
 "namespace" = "yellow"
-"special" = "light-blue"
+"special" = "light-cyan"
+"punctuation" = "light-gray"
 
 "markup.heading" = { fg = "blue", modifiers = ["bold"] }
 "markup.list" = "light-blue"

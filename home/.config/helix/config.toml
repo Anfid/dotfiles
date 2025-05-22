@@ -10,7 +10,6 @@ end-of-line-diagnostics = "hint"
 
 [editor.inline-diagnostics]
 cursor-line = "hint"
-other-lines = "warning"
 
 [editor.lsp]
 goto-reference-include-declaration = false
