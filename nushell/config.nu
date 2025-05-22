@@ -7,6 +7,7 @@ $env.WORDCHARS = r#'~*-_.!?#$%^&()[]{}<>'"`'#
 $env.BAT_THEME = "base16"
 
 use std/util "path add"
+use fzf.nu *
 
 let extra_path = [
   "~/.local/bin"
