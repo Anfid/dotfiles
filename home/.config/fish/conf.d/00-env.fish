@@ -13,7 +13,11 @@ if test -d "$HOME/.ghcup/bin"
     fish_add_path -gp "$HOME/.ghcup/bin"
 end
 
-set --global EDITOR hx
+if type -q hx
+    set --global EDITOR hx
+else if type -q helix
+    set --global EDITOR helix
+end
 set --global WORDCHARS '~*-_.!?#$%^&\()[]{}<>"`'"'"
 
 if test -x /opt/homebrew/bin/brew
