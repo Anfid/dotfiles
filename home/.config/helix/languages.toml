@@ -5,8 +5,56 @@ language-servers = ["pyright"]
 auto-format = true
 formatter = {command = "black", args = ["--quiet", "-"]}
 
+[[language]]
+name = "html"
+formatter = { command = 'prettier', args = ["--parser", "html"] }
+
+[[language]]
+name = "css"
+formatter = { command = 'prettier', args = ["--parser", "css"] }
+
+[[language]]
+name = "typescript"
+formatter = { command = "prettier", args = [ "--parser", "typescript" ] }
+auto-format = true
+
+[[language]]
+name = "tsx"
+formatter = { command = "prettier", args = [ "--parser", "typescript" ] }
+auto-format = true
+
+[[language]]
+name = "javascript"
+formatter = { command = "prettier", args = [ "--parser", "typescript" ] }
+auto-format = true
+
+[[language]]
+name = "jsx"
+formatter = { command = "prettier", args = [ "--parser", "typescript" ] }
+auto-format = true
+
+[[language]]
+name = "json"
+formatter = { command = "prettier", args = [ "--parser", "json" ] }
+auto-format = true
+
+[[language]]
+name = "html"
+formatter = { command = 'prettier', args = ["--parser", "html"] }
+auto-format = true
+
+[[language]]
+name = "css"
+formatter = { command = 'prettier', args = ["--parser", "css"] }
+auto-format = true
+
 [language-server.rust-analyzer.config]
-cargo = { allFeatures = true }
-check.command = "clippy"
-procMacro = { enable = true }
-checkOnSave = { command = "clippy", features = "all", workspace = true }
+cargo.features = "all"
+# Uncomment for WASM development
+# rust-analyzer.cargo.target = "wasm32-unknown-unknown"
+
+[language-server.rust-analyzer.config.check]
+allTargets = true
+command = "clippy"
+features = "all"
+workspace = true
