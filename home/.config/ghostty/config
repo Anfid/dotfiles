@@ -6,8 +6,18 @@ font-size = 16
 quick-terminal-position = bottom
 quick-terminal-animation-duration = 0
 
+background-opacity = 0.97
+background-blur = true
+
 macos-option-as-alt = left
+macos-titlebar-style = tabs
+
 keybind = global:cmd+enter=toggle_quick_terminal
+keybind = cmd+n=goto_split:left
+keybind = cmd+e=goto_split:down
+keybind = cmd+i=goto_split:up
+keybind = cmd+o=goto_split:right
+
 keybind = ctrl+m=text:\r
 
 font-feature = -calt
