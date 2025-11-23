@@ -1,9 +1,4 @@
 export-env {
-  $env.FZF_ALT_C_COMMAND = "fd --type directory --hidden"
-  $env.FZF_ALT_C_OPTS = "--preview 'tree -C {} | head -n 200'"
-  $env.FZF_CTRL_T_COMMAND = "fd --type file --hidden"
-  $env.FZF_CTRL_T_OPTS = "--preview 'bat --color=always --style=full --line-range=:500 {}' "
-  $env.FZF_DEFAULT_COMMAND = "fd --type file --hidden"
 }
 
 # Directories
@@ -67,7 +62,13 @@ const ctrl_t =  {
 
 # Update the $env.config
 export-env {
-  if not ($env.__keybindings_loaded? | default false) {
+  $env.FZF_ALT_C_COMMAND = "fd --type directory --hidden"
+  $env.FZF_ALT_C_OPTS = "--preview 'tree -C {} | head -n 200'"
+  $env.FZF_CTRL_T_COMMAND = "fd --type file --hidden"
+  $env.FZF_CTRL_T_OPTS = "--preview 'bat --color=always --style=full --line-range=:500 {}' "
+  $env.FZF_DEFAULT_COMMAND = "fd --type file --hidden"
+
+  if $env.__keybindings_loaded? == null {
     $env.__keybindings_loaded = true
     $env.config.keybindings = $env.config.keybindings | append [
       $alt_c

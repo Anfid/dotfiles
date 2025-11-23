@@ -7,7 +7,7 @@ $env.WORDCHARS = r#'~*-_.!?#$%^&()[]{}<>'"`'#
 $env.BAT_THEME = "base16"
 
 use std/util "path add"
-use fzf.nu *
+use fzf.nu
 
 let extra_path = [
   "~/.local/bin"
@@ -25,6 +25,14 @@ if (which rustc | is-not-empty) {
   let rust_src_path_components = [(rustc --print sysroot) lib rustlib src rust library]
   $env.RUST_SRC_PATH = $rust_src_path_components | path join
 }
+
+# ------------------------
+# Completions
+# ------------------------
+
+# See if https://github.com/microsoft/inshellisense is helpful on Windows
+
+source ~/.cache/carapace/init.nu
 
 # ------------------------
 # History-related settings
@@ -109,8 +117,8 @@ alias q = exit
 def git-main-branch [] {
   if ((^git rev-parse --git-dir o+e>| complete | get exit_code) != 0) { return }
   "refs/{heads,remotes/{origin,upstream}}/{main,trunk,mainline,default,stable,master}" | str expand
-    | filter {|ref| (^git show-ref -q --verify $ref | complete | get exit_code) == 0 }
-    | first
+    | where {|ref| (^git show-ref -q --verify $ref | complete | get exit_code) == 0 }
+    | get --optional 0
     | path basename
     | default "master"
 }
@@ -118,8 +126,8 @@ def git-main-branch [] {
 def git-develop-branch [] {
   if ((^git rev-parse --git-dir o+e>| complete | get exit_code) != 0) { return null }
   [dev devel develop development]
-    | filter {|branch| (^git show-ref -q --verify $"refs/heads/($branch)" | complete | get exit_code) == 0}
-    | first
+    | where {|branch| (^git show-ref -q --verify $"refs/heads/($branch)" | complete | get exit_code) == 0}
+    | get --optional 0
     | default "develop"
 }
 
