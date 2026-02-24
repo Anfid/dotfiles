@@ -14,9 +14,9 @@ if test -d "$HOME/.ghcup/bin"
 end
 
 if type -q hx
-    set --global EDITOR hx
+    set --global --export EDITOR hx
 else if type -q helix
-    set --global EDITOR helix
+    set --global --export EDITOR helix
 end
 set --global WORDCHARS '~*-_.!?#$%^&\()[]{}<>"`'"'"
 
