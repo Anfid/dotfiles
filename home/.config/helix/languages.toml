@@ -1,9 +1,9 @@
 [[language]]
 name = "python"
-roots = [".git"]
+roots = ["pyrightconfig.json", "pyproject.toml"]
 language-servers = ["pyright"]
 auto-format = true
-formatter = {command = "black", args = ["--quiet", "-"]}
+formatter = { command = "black", args = ["--quiet", "-"] }
 
 [[language]]
 name = "html"

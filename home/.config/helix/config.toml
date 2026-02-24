@@ -169,3 +169,7 @@ f = "goto_file_vsplit"
 F = "goto_file_hsplit"
 q = "wclose"
 x = "wonly"
+
+[keys.normal.space]
+w = ":write-all"
+l = ":reload-all"
